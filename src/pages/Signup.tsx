@@ -48,7 +48,7 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
           <NeumorphicInput
             type="text"
             name="name"
-            placeholder="Full Name"
+            placeholder="Enter your full name"
             value={formData.name}
             onChange={handleChange}
             required
@@ -59,7 +59,7 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
           <NeumorphicInput
             type="email"
             name="email"
-            placeholder="Email Address"
+            placeholder="Enter your email address"
             value={formData.email}
             onChange={handleChange}
             required
@@ -70,7 +70,7 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
           <NeumorphicInput
             type={showPassword ? 'text' : 'password'}
             name="password"
-            placeholder="Password"
+            placeholder="Create a strong password"
             value={formData.password}
             onChange={handleChange}
             required
@@ -90,7 +90,7 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
           <NeumorphicInput
             type={showConfirmPassword ? 'text' : 'password'}
             name="confirmPassword"
-            placeholder="Confirm Password"
+            placeholder="Confirm your password"
             value={formData.confirmPassword}
             onChange={handleChange}
             required

@@ -28,14 +28,14 @@ export const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
     <div className="neo-container min-h-screen flex items-center justify-center p-6 transition-all duration-300">
       <NeumorphicCard>
         <h1 className="text-3xl font-bold text-gray-700 mb-8 tracking-wide">
-          Aduok Login
+          Welcome Back
         </h1>
 
         <form onSubmit={handleLogin} className="w-full flex flex-col gap-6">
           <div className="relative">
             <NeumorphicInput
               type="text"
-              placeholder="Email / Username"
+              placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -47,7 +47,7 @@ export const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
           <div className="relative">
             <NeumorphicInput
               type={showPassword ? 'text' : 'password'}
-              placeholder="Password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
