@@ -13,7 +13,7 @@ export const NeumorphicInput: React.FC<NeumorphicInputProps> = ({ icon, classNam
         {...props}
       />
       {icon && (
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">
+        <div className="absolute inset-y-0 right-5 flex items-center justify-center text-gray-500">
           {icon}
         </div>
       )}

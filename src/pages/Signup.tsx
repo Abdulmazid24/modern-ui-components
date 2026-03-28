@@ -59,7 +59,7 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
           <NeumorphicInput
             type="email"
             name="email"
-            placeholder="admin@roofingservicesperth.com.au"
+            placeholder="admin@gmail.com"
             value={formData.email}
             onChange={handleChange}
             required
