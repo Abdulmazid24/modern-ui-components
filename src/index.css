@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neo-bg: #dde2e8;
+  --color-neo-text: #4c5563;
+  --color-neo-highlight: #ffffff;
+  --color-neo-shadow: #a4afc2;
+}
+
+@layer utilities {
+  .neo-container {
+    background-color: var(--color-neo-bg);
+  }
+  
+  .neo-card {
+    background-color: var(--color-neo-bg);
+    border-radius: 22px;
+    box-shadow: 12px 12px 24px var(--color-neo-shadow), -12px -12px 24px var(--color-neo-highlight);
+  }
+  
+  .neo-input {
+    background-color: var(--color-neo-bg);
+    border-radius: 22px;
+    box-shadow: inset 9px 9px 18px var(--color-neo-shadow), inset -9px -9px 18px var(--color-neo-highlight);
+    color: var(--color-neo-text);
+  }
+  
+  .neo-btn {
+    background-color: var(--color-neo-bg);
+    border-radius: 22px;
+    box-shadow: 9px 9px 18px var(--color-neo-shadow), -9px -9px 18px var(--color-neo-highlight);
+    color: var(--color-neo-text);
+    transition: all 0.2s ease;
+  }
+  
+  .neo-btn:active {
+    box-shadow: inset 7px 7px 14px var(--color-neo-shadow), inset -7px -7px 14px var(--color-neo-highlight);
+  }
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
