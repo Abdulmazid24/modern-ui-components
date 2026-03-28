@@ -35,7 +35,7 @@ export const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
           <div className="relative">
             <NeumorphicInput
               type="text"
-              placeholder="Enter your email address"
+              placeholder="admin@roofingservicesperth.com.au"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
