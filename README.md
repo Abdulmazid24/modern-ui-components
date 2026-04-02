@@ -1,52 +1,161 @@
 # Modern UI Components Vault 🚀
 
-A highly scalable, readable, and modern UI Component Library built with **React (Vite, TypeScript)** and **Tailwind CSS v4**. This repository serves as a master vault for stunning, enterprise-grade, custom UI templates—starting with a beautifully crafted *3D Neumorphic Design System*.
-
-## 📌 Project Overview
-As a modern web developer, you often need to build highly interactive and visually appealing components like 3D cards, login forms, or custom dashboards. This repository is specifically designed to centralize those "WOW" pieces of UI. Any time you come across a new trending design, you can easily implement it here, preview it, and copy-paste it into your client or enterprise projects seamlessly.
-
-### Core Technologies:
-- **Framework:** React + Vite (TypeScript)
-- **Styling:** Tailwind CSS (v4)
-- **Icons:** `lucide-react`
-- **Design Pattern:** Component-Driven Architecture
+A highly scalable, enterprise-grade **UI Component Library** built with **React (Vite, TypeScript)** and **Tailwind CSS v4**. This repository serves as a curated vault for stunning, production-ready UI templates — ready to drag-and-drop into any Next.js, MERN stack, or modern web project.
 
 ---
 
-## 🛠️ Folder Structure & Scalability 
+## 📌 Project Overview
 
-This project is deeply organized to guarantee scale, readability, and immediate reuse in real-world scenarios:
+As a modern web developer, you frequently need pixel-perfect, interactive UI pieces — animated navbars, login forms, loading spinners, social share menus, and more. This repository centralizes all those "WOW" components. Discover a trending design? Implement it here, preview it live, and seamlessly copy-paste it into your client or enterprise projects.
+
+### Core Technologies
+
+| Technology | Version |
+|---|---|
+| **React** | 19.x |
+| **Vite** | 8.x |
+| **TypeScript** | 5.9 |
+| **Tailwind CSS** | v4.2 (`@tailwindcss/vite`) |
+| **Icons** | `lucide-react` + custom SVGs |
+
+---
+
+## 🎯 Component Catalog
+
+### 1. 🔐 3D Neumorphic Auth System
+Beautifully crafted Login & Signup forms with soft 3D neumorphic shadows, smooth interactions, and custom CSS variables.
+
+| Component | File | Description |
+|---|---|---|
+| `NeumorphicButton` | `components/NeumorphicButton.tsx` | Pressable 3D button with inset-shadow active state |
+| `NeumorphicCard` | `components/NeumorphicCard.tsx` | Floating card container with depth shadows |
+| `NeumorphicInput` | `components/NeumorphicInput.tsx` | Inset input field with optional icon slot |
+| Login Page | `pages/Login.tsx` | Complete login form with email, password, show/hide toggle |
+| Signup Page | `pages/Signup.tsx` | Full signup form with name, email, password confirmation |
+
+---
+
+### 2. ✨ Magic Navigation Menu
+A smooth, animated bottom navigation bar with a **magic curved indicator** that follows the active icon — featuring a bouncy cubic-bezier animation and CSS box-shadow curve technique.
+
+| Component | File | Description |
+|---|---|---|
+| `MagicNavbar` | `components/MagicNavbar.tsx` | Reusable nav with controlled/uncontrolled mode, full ARIA keyboard navigation |
+| Demo Page | `pages/MagicNavbarDemo.tsx` | Phone-mockup showcase with dynamic tab content |
+
+**Key Features:**
+- 🎯 Controlled & Uncontrolled toggle mode
+- ♿ Full accessibility — `role="tablist"`, `aria-selected`, Arrow/Home/End keys
+- 🎨 CSS custom properties — instant theme switching via `--magic-nav-*` variables
+- 🏃 Bouncy `cubic-bezier(0.68, -0.55, 0.27, 1.55)` animation
+
+---
+
+### 3. 🔄 CSS Loader Animations
+Five enterprise-grade loading spinners — fully configurable size, color, speed, and accessibility labels.
+
+| Component | File | Description |
+|---|---|---|
+| `DotsLoader` | `components/loaders/DotsLoader.tsx` | 3 bouncing dots with staggered delay |
+| `BarsLoader` | `components/loaders/BarsLoader.tsx` | Vertical bars with wave stretch animation |
+| `DoubleSpinner` | `components/loaders/DoubleSpinner.tsx` | Two-color spinning ring (pink + green) |
+| `PulseLoader` | `components/loaders/PulseLoader.tsx` | Pulsing circle with scale + opacity |
+| `Spinner` | `components/loaders/Spinner.tsx` | Classic single-arc spinner on dark track |
+| Demo Page | `pages/LoadersDemo.tsx` | Showcase grid with all loader variants |
+
+**Usage Example:**
+```tsx
+import { DotsLoader, Spinner } from './components/loaders';
+
+<DotsLoader size={16} color="#38bdf8" speed={0.6} />
+<Spinner size={72} color="rgb(56,189,248)" trackColor="rgb(30,41,59)" />
+```
+
+---
+
+### 4. 🔗 Magic Social Share Menu
+A circular expanding share menu — click the center toggle to fan out social media icons with a **stunning staggered animation**.
+
+| Component | File | Description |
+|---|---|---|
+| `ShareMenu` | `components/share-menu/ShareMenu.tsx` | Configurable circular menu with trigonometric positioning |
+| Demo Page | `pages/ShareMenuDemo.tsx` | 8 social icons (X, WhatsApp, Reddit, Facebook, LinkedIn, YouTube, Instagram, GitHub) |
+
+**Key Features:**
+- 📐 Dynamic circular layout using `Math.cos/sin` — works with any number of items
+- 🎨 Custom `radius`, `itemSize`, `toggleSize`, `startAngle` props
+- 🔗 Supports both `href` (links) and `onClick` (handlers)
+- 🎭 Staggered fan-out animation with `cubic-bezier` spring effect
+- 🖼️ Zero icon dependency — portable inline SVGs for all brand icons
+
+**Usage Example:**
+```tsx
+import { ShareMenu } from './components/share-menu';
+
+const items = [
+  { id: 'twitter', icon: <XIcon />, label: 'Twitter', color: '#000', href: 'https://...' },
+  { id: 'github', icon: <GithubIcon />, label: 'GitHub', color: '#333', onClick: () => {} },
+];
+
+<ShareMenu items={items} radius={110} itemSize={50} />
+```
+
+---
+
+## 🛠️ Folder Structure & Scalability
+
+Organized by **category** — each new template type gets its own folder for unlimited growth:
 
 ```text
 src/
-├── components/          # Reusable shared components
-│   ├── NeumorphicButton.tsx
-│   ├── NeumorphicCard.tsx
-│   └── NeumorphicInput.tsx
-├── pages/               # Full page templates constructed from components
-│   ├── Login.tsx
-│   └── Signup.tsx
-├── App.tsx              # Main preview playground
-├── main.tsx             # Entry point
-└── index.css            # Global CSS, Tailwind v4 imports, and Custom CSS Variables
+├── components/                    # Reusable components (by category)
+│   ├── NeumorphicButton.tsx       # 3D Neumorphic button
+│   ├── NeumorphicCard.tsx         # 3D Neumorphic card wrapper
+│   ├── NeumorphicInput.tsx        # 3D Neumorphic input with icon
+│   ├── MagicNavbar.tsx            # Magic curved navigation bar
+│   ├── loaders/                   # 🔄 Loading spinners category
+│   │   ├── DotsLoader.tsx
+│   │   ├── BarsLoader.tsx
+│   │   ├── DoubleSpinner.tsx
+│   │   ├── PulseLoader.tsx
+│   │   ├── Spinner.tsx
+│   │   └── index.ts              # Barrel export
+│   └── share-menu/                # 🔗 Share menu category
+│       ├── ShareMenu.tsx
+│       └── index.ts              # Barrel export
+├── pages/                         # Full demo pages
+│   ├── Login.tsx                  # Neumorphic Login
+│   ├── Signup.tsx                 # Neumorphic Signup
+│   ├── MagicNavbarDemo.tsx        # Magic Nav showcase
+│   ├── LoadersDemo.tsx            # Loaders grid showcase
+│   └── ShareMenuDemo.tsx          # Share Menu showcase
+├── App.tsx                        # Template switcher playground
+├── main.tsx                       # Entry point
+├── index.css                      # Tailwind v4 + custom utilities & keyframes
+└── App.css                        # Legacy Vite styles
 ```
 
-## 🎨 How to Customize & Add New Templates
+---
 
-Adding a new component template is incredibly straightforward:
+## 🎨 How to Add New Templates
 
-1. **Tokens (CSS Variables):** If your new design requires heavy customizations (like the 3D Neumorphic shadows), add them to `src/index.css` inside the `@theme` and `@layer utilities` sections. We already set it up so you avoid repetitive lengthy utility classes!
-2. **Build the Element:** Create your smart UI elements (buttons, inputs) inside `src/components/`. 
-3. **Assemble Pages:** Combine these elements to visually compose full layouts in `src/pages/`.
-4. **Playground:** Render the page in `src/App.tsx` to preview your changes in real-time.
+1. **Create a category folder** (if new): `src/components/your-category/`
+2. **Build components** with TypeScript interfaces, configurable props, and ARIA accessibility
+3. **Add an `index.ts`** barrel export for clean imports
+4. **Create a demo page**: `src/pages/YourCategoryDemo.tsx`
+5. **Register in `App.tsx`**: Add to the `PageType` union and template switcher
+6. **Add CSS**: Custom keyframes or utilities go in `src/index.css`
 
-Because every component is built with proper standard React principles, strict TypeScript checks, and generic `HTMLAttributes`, you can securely drag and drop these exact component files directly into your Next.js or MERN stack projects.
+Every component follows these principles:
+- ✅ TypeScript strict mode with exported interfaces
+- ✅ Controlled & uncontrolled patterns
+- ✅ ARIA roles, labels, and keyboard navigation
+- ✅ CSS custom properties for easy theming
+- ✅ Zero external dependencies (portable SVGs over icon libraries)
 
 ---
 
 ## 🚀 Getting Started
-
-To run the project locally and view the components:
 
 ```bash
 # 1. Clone the repository
@@ -62,20 +171,22 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:5173` in your browser.
+Visit `http://localhost:5173` in your browser. Use the **floating template switcher** at the top to navigate between all component demos.
 
 ---
 
-## ✨ Features
+## ✨ Enterprise Features
 
-- **Enterprise Grade Components:** Built with accessibility (`aria-labels`), interactive states, semantic HTML, and responsive layouts.
-- **3D Neumorphic Aesthetics:** Smooth insets and drop-shadows optimized with variables to run perfectly on all devices.
-- **Zero Configuration:** By using standard React files without weird proprietary wrappers, everything is universally applicable. 
-- **Developer Experience First:** Clean generic abstractions, proper TypeScript typings, and ready for Next.js.
+- **Production-Ready Components** — Built with accessibility, interactive states, semantic HTML, and responsive layouts
+- **3D Neumorphic Design System** — Smooth insets and drop-shadows via CSS custom properties
+- **Zero Configuration** — Standard React files; drag-and-drop into any Next.js or MERN project
+- **Developer Experience First** — Clean abstractions, strict TypeScript, barrel exports
+- **Live Preview Playground** — Floating template switcher to browse all components in real-time
+- **Scalable Architecture** — Category-based folder structure supporting hundreds of components
 
 ---
 
-## 🙋‍♂️ About the Author / Maintainer
+## 🙋‍♂️ About the Author
 
 This vault is curated and maintained by **Abdul Mazid**, a passionate MERN + Next.js Developer dedicated to crafting world-class digital experiences.
 
@@ -85,4 +196,4 @@ This vault is curated and maintained by **Abdul Mazid**, a passionate MERN + Nex
 - **GitHub:** [Abdulmazid24](https://github.com/Abdulmazid24)
 - **Portfolio:** [Visit My Portfolio](https://abdulmazid-portfolio.vercel.app/)
 
-Feel free to reach out for collaborations, new opportunities, or just to chat about modern UI implementations! Or simply fork the project to start your own template collection.
+Feel free to reach out for collaborations, new opportunities, or just to chat about modern UI implementations! Or simply fork the project to start your own template collection. ⭐
