@@ -222,3 +222,1421 @@ html, body, #root {
   50%  { transform: scale(1.3); opacity: 0.4; }
   100% { transform: scale(1); opacity: 1; }
 }
+
+/* ==============================================
+   3D TEAM CAROUSEL STYLES
+   ============================================== */
+
+@layer utilities {
+  .team-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0 20px;
+    outline: none;
+  }
+
+  .team-carousel-bg-heading {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .team-carousel-scene {
+    width: 100%;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .team-carousel-track {
+    position: relative;
+    width: 240px;
+    height: 320px;
+  }
+
+  .team-carousel-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    backface-visibility: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    transition: filter 0.6s ease, box-shadow 0.6s ease;
+    filter: brightness(0.45) saturate(0.6);
+  }
+
+  .team-carousel-card.active {
+    filter: brightness(1) saturate(1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 255, 255, 0.05);
+  }
+
+  .team-carousel-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+  }
+
+  .team-carousel-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.7) 100%);
+    pointer-events: none;
+  }
+
+  /* Info Section */
+  .team-carousel-info {
+    text-align: center;
+    margin-top: 28px;
+    position: relative;
+    z-index: 3;
+    animation: fadeSlideUp 0.5s ease-out;
+  }
+
+  .team-carousel-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    margin: 0 auto 16px;
+  }
+
+  .team-carousel-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    margin: 0 0 6px;
+  }
+
+  .team-carousel-role {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+
+  .team-carousel-socials {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .team-carousel-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .team-carousel-socials a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  /* Navigation Arrows */
+  .team-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+  }
+
+  .team-carousel-arrow:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .team-carousel-arrow-left { left: 0; }
+  .team-carousel-arrow-right { right: 0; }
+
+  /* Dots */
+  .team-carousel-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    z-index: 5;
+  }
+
+  .team-carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+
+  .team-carousel-dot.active {
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(1.3);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+
+  .team-carousel-dot:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.35);
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .team-carousel-scene { height: 300px; }
+  .team-carousel-arrow-left { left: 8px; }
+  .team-carousel-arrow-right { right: 8px; }
+}
+
+/* ==============================================
+   3D ANIMATED (CONTINUOUS) CAROUSEL
+   ============================================== */
+
+@keyframes carouselSpin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes cardShine {
+  0%   { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(200%) rotate(25deg); }
+}
+
+@layer utilities {
+  .anim-carousel-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 0 30px;
+  }
+
+  .anim-carousel-title {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-align: center;
+    margin-bottom: 40px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientShift 4s linear infinite;
+    text-shadow: none;
+  }
+
+  .anim-carousel-scene {
+    width: 100%;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .anim-carousel-track {
+    position: relative;
+    transform-style: preserve-3d;
+    animation: carouselSpin linear infinite;
+  }
+
+  .anim-carousel-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    backface-visibility: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 15px 50px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition: box-shadow 0.4s ease;
+  }
+
+  .anim-carousel-card:hover {
+    box-shadow:
+      0 20px 60px rgba(139, 92, 246, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .anim-carousel-card-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 24px;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .anim-carousel-emoji {
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.4));
+  }
+
+  .anim-carousel-card-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.01em;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .anim-carousel-card-subtitle {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(168, 85, 247, 0.7);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .anim-carousel-card-desc {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.6;
+    margin: 4px 0 0;
+    max-width: 220px;
+  }
+
+  .anim-carousel-card-shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.04),
+      transparent
+    );
+    transform: translateX(-100%) rotate(25deg);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .anim-carousel-card:hover .anim-carousel-card-shine {
+    animation: cardShine 0.8s ease forwards;
+  }
+
+  .anim-carousel-hint {
+    margin-top: 32px;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.15);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 640px) {
+  .anim-carousel-scene { height: 320px; }
+}
+
+/* ==============================================
+   ANIMATED UPLOAD BUTTON
+   ============================================== */
+
+@keyframes uploadBadgePop {
+  0%   { transform: translateX(-50%) scale(0); opacity: 0; }
+  60%  { transform: translateX(-50%) scale(1.15); }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+@keyframes uploadComplete {
+  0%   { transform: scale(0.95); }
+  50%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+@layer utilities {
+  .upload-btn {
+    position: relative;
+    width: var(--upload-width);
+    height: var(--upload-height);
+    border-radius: var(--upload-radius);
+    background-color: var(--upload-bg);
+    color: var(--upload-color);
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0.7em 1.2em rgba(25, 25, 25, 0.5);
+    outline: none;
+  }
+
+  .upload-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 0.9em 1.8em rgba(25, 25, 25, 0.5);
+  }
+
+  .upload-btn:active:not(:disabled) {
+    transform: translateY(0) scale(0.97);
+  }
+
+  .upload-btn:disabled {
+    cursor: default;
+  }
+
+  /* Idle content (icon + text) */
+  .upload-btn-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .upload-btn-content.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+  }
+
+  .upload-btn-content.complete-visible {
+    opacity: 1;
+    transform: scale(1);
+    animation: uploadComplete 0.4s ease;
+  }
+
+  /* Progress Track */
+  .upload-btn-progress-track {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: calc(var(--upload-height) - 12px);
+    border-radius: calc(var(--upload-radius) - 4px);
+    background: rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .upload-btn-progress-track.visible {
+    opacity: 1;
+  }
+
+  .upload-btn-progress-fill {
+    height: 100%;
+    width: var(--upload-progress);
+    border-radius: inherit;
+    background: linear-gradient(90deg,
+      rgba(255,255,255,0.2),
+      rgba(255,255,255,0.35)
+    );
+    transition: width 0.08s linear;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+  }
+
+  /* Percentage Badge */
+  .upload-btn-badge {
+    position: absolute;
+    top: -10px;
+    left: var(--upload-progress);
+    transform: translateX(-50%) scale(0);
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    white-space: nowrap;
+    box-shadow: 0 3px 10px rgba(239, 68, 68, 0.4);
+    transition: left 0.08s linear;
+  }
+
+  .upload-btn-badge.visible {
+    animation: uploadBadgePop 0.35s ease forwards;
+  }
+
+  .upload-btn-badge::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #ef4444;
+  }
+
+  /* Complete state — green bg */
+  .upload-btn.complete {
+    background-color: #22c55e;
+    animation: uploadComplete 0.35s ease;
+  }
+}
+
+/* ==============================================
+   MAGNETIC BUTTON
+   ============================================== */
+
+@layer utilities {
+  .magnetic-wrapper {
+    cursor: pointer;
+  }
+
+  .magnetic-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    will-change: transform;
+    text-decoration: none;
+  }
+
+  .magnetic-btn-inner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  /* Stylised button content */
+  .magnetic-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 36px;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .magnetic-cta-primary {
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+  }
+  
+  .magnetic-wrapper:hover .magnetic-cta-primary {
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
+  }
+
+  .magnetic-cta-gradient {
+    background: linear-gradient(135deg, #c026d3, #db2777);
+  }
+
+  .magnetic-wrapper:hover .magnetic-cta-gradient {
+    box-shadow: 0 8px 30px rgba(219, 39, 119, 0.5);
+  }
+
+  .magnetic-cta-outline {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .magnetic-wrapper:hover .magnetic-cta-outline {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .magnetic-cta-neon {
+    background: #000;
+    border: 2px solid #38bdf8;
+    color: #38bdf8;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4), inset 0 0 10px rgba(56, 189, 248, 0.2);
+  }
+
+  .magnetic-wrapper:hover .magnetic-cta-neon {
+    background: #38bdf8;
+    color: #000;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.8);
+  }
+
+  /* Circular icons */
+  .magnetic-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    color: white;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .magnetic-wrapper:hover .magnetic-icon {
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* ==============================================
+   LIQUID GLASS PRICING CARD
+   ============================================== */
+
+@layer utilities {
+  .glass-pricing-card {
+    position: relative;
+    width: 100%;
+    border-radius: 24px;
+    background: rgba(20, 20, 25, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    /* Custom props fallback */
+    --accent: #8b5cf6;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+  }
+
+  /* Spotlight Follows Mouse */
+  .glass-pricing-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      800px circle at var(--mouse-x) var(--mouse-y),
+      var(--accent),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+    pointer-events: none;
+    mix-blend-mode: color-dodge;
+  }
+
+  .glass-pricing-card:hover::before {
+    opacity: 0.15;
+  }
+
+  /* Animated Subtle Border */
+  .glass-pricing-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1px; /* Border width */
+    background: linear-gradient(
+      var(--mouse-x),
+      rgba(255, 255, 255, 0.1),
+      var(--accent),
+      rgba(255, 255, 255, 0.05)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+  .glass-pricing-card:hover .glass-pricing-border {
+    opacity: 1;
+    background: radial-gradient(
+      800px circle at var(--mouse-x) var(--mouse-y),
+      var(--accent),
+      rgba(255, 255, 255, 0.1) 40%
+    );
+  }
+
+  /* Inner Card Background to hide border gradient */
+  .glass-pricing-content {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(145deg, rgba(30, 30, 40, 0.7) 0%, rgba(15, 15, 20, 0.8) 100%);
+    border-radius: 23px; /* 1px less than outer */
+    padding: 40px 32px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  }
+
+  /* Popular specific styling */
+  .glass-pricing-card.popular {
+    transform: scale(1.05); /* slightly bigger */
+    z-index: 10;
+  }
+  
+  .glass-pricing-card.popular .glass-pricing-content {
+    background: linear-gradient(145deg, rgba(40, 35, 55, 0.75) 0%, rgba(20, 15, 30, 0.85) 100%);
+    box-shadow: 
+      inset 0 1px 1px rgba(255, 255, 255, 0.1),
+      0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .glass-popular-badge {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(90deg, var(--accent), #d946ef);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 6px 16px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Typography */
+  .glass-pricing-header {
+    text-align: left;
+    margin-bottom: 24px;
+    transform: translateZ(30px); /* 3D pop effect */
+  }
+
+  .glass-pricing-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 8px 0;
+  }
+
+  .glass-pricing-desc {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .glass-pricing-price-container {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 32px;
+    transform: translateZ(40px); /* slightly more 3D pop */
+  }
+
+  .glass-pricing-currency {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    margin-right: 2px;
+  }
+
+  .glass-pricing-amount {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: white;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .glass-pricing-period {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+    margin-left: 4px;
+  }
+
+  /* List */
+  .glass-pricing-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transform: translateZ(20px);
+  }
+
+  .glass-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .glass-feature-item.disabled {
+    color: rgba(255, 255, 255, 0.3);
+    text-decoration: line-through;
+    text-decoration-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: var(--accent);
+  }
+  
+  .glass-feature-item:not(.disabled) .glass-feature-icon {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Button */
+  .glass-pricing-btn {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    transform: translateZ(30px);
+  }
+
+  .popular .glass-pricing-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .popular .glass-pricing-btn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+  }
+
+  .glass-pricing-btn:hover:not(.popular .glass-pricing-btn) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* ==============================================
+   SPOTLIGHT HERO EFFECT
+   ============================================== */
+
+@layer utilities {
+  .spotlight-hero-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Variables fallbacks */
+    --mouse-x: -1000px;
+    --mouse-y: -1000px;
+    --spotlight-color: rgba(255, 255, 255, 0.15);
+    --spotlight-size: 400px;
+  }
+
+  .spotlight-content {
+    text-align: center;
+    padding: 0 20px;
+    max-width: 800px;
+  }
+
+  .spotlight-title {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 24px;
+    font-family: inherit;
+  }
+
+  .spotlight-subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Background layer (dark) */
+  .spotlight-hero-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.1); /* Ghost text */
+    z-index: 1;
+  }
+
+  /* Foreground layer (illuminated) */
+  .spotlight-hero-fg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    
+    /* Using WebKit mask to carve out the spotlight circle */
+    -webkit-mask-image: radial-gradient(
+      calc(var(--spotlight-size) / 2) circle at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      calc(var(--spotlight-size) / 2) circle at var(--mouse-x) var(--mouse-y),
+      black 0%,
+      transparent 100%
+    );
+  }
+
+  .spotlight-hero-fg.active {
+    opacity: 1;
+  }
+
+  /* Add glowing text effect in foreground */
+  .spotlight-hero-fg .glow {
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+  }
+
+  .spotlight-title.glow {
+    background: linear-gradient(135deg, #fff 0%, #a855f7 50%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Optional aesthetic grid underneath */
+  .spotlight-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    pointer-events: none;
+  }
+}
+
+/* ==============================================
+   ANIMATED STATS COUNTER
+   ============================================== */
+
+@layer utilities {
+  .stat-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+      0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 10px 15px -3px rgba(0, 0, 0, 0.08), 
+      0 20px 25px -5px rgba(0, 0, 0, 0.05);
+  }
+
+  .stat-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .animated-counter-container {
+    text-align: center;
+  }
+
+  .counter-value-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 8px;
+    color: #1e293b;
+  }
+
+  .counter-prefix,
+  .counter-suffix {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .counter-prefix { margin-right: 2px; }
+  .counter-suffix { margin-left: 2px; }
+
+  .counter-number {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .counter-label {
+    font-size: 1rem;
+    font-weight: 600;
+    font-weight: 600;
+    color: #64748b;
+  }
+}
+
+/* ==============================================
+   MACOS STYLE DOCK
+   ============================================== */
+
+@layer utilities {
+  .dock-wrapper {
+    position: relative;
+    padding-bottom: 12px;
+  }
+
+  .dock-panel {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.1),
+      inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    height: 76px;
+  }
+
+  .dock-item-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+  }
+
+  .dock-icon-btn {
+    width: 52px;
+    height: 52px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transform-origin: bottom center;
+    will-change: transform;
+    /* transition is handled inline when mouse leaves */
+  }
+
+  .dock-icon-inner {
+    box-shadow: 
+      0 4px 10px rgba(0, 0, 0, 0.2),
+      inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    transition: filter 0.2s ease;
+  }
+
+  .dock-icon-btn:hover .dock-icon-inner {
+    filter: brightness(1.1);
+  }
+
+  .dock-icon-btn:active .dock-icon-inner {
+    filter: brightness(0.9);
+  }
+
+  .dock-tooltip {
+    position: absolute;
+    top: -45px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    pointer-events: none;
+    white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform-origin: bottom center;
+    z-index: 10;
+  }
+
+  /* Triangle for tooltip */
+  .dock-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px 4px 0;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.6) transparent transparent transparent;
+  }
+}
+
+/* ==============================================
+   TOAST NOTIFICATIONS
+   ============================================== */
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@layer utilities {
+  .animate-slide-in-right {
+    animation: slideInRight 0.4s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  }
+  
+  .animate-toast-progress {
+    /* Uses inline style duration variable from JS */
+    animation-name: toastProgress;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+}
+
+/* ==============================================
+   GRADIENT BORDER CARDS
+   ============================================== */
+
+@keyframes gradientSpin {
+  0%   { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@layer utilities {
+  .gradient-border-wrapper {
+    position: relative;
+    border-radius: 20px;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--gradient-angle),
+      var(--color-1),
+      var(--color-2),
+      var(--color-3),
+      var(--color-2),
+      var(--color-1)
+    );
+    animation: gradientSpin 3s linear infinite;
+    --color-1: #f43f5e;
+    --color-2: #a855f7;
+    --color-3: #3b82f6;
+  }
+
+  .gradient-border-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 22px;
+    background: conic-gradient(
+      from var(--gradient-angle),
+      var(--color-1),
+      var(--color-2),
+      var(--color-3),
+      var(--color-2),
+      var(--color-1)
+    );
+    filter: blur(15px);
+    opacity: 0.5;
+    z-index: -1;
+    animation: gradientSpin 3s linear infinite;
+  }
+
+  .gradient-border-card {
+    background: #0f0f13;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .gradient-border-content {
+    padding: 32px;
+  }
+
+  .gradient-border-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 8px 0;
+  }
+
+  .gradient-border-desc {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+/* ==============================================
+   MORPHING TOGGLE SWITCH
+   ============================================== */
+
+@layer utilities {
+  .morph-toggle-track {
+    position: relative;
+    width: 64px;
+    height: 34px;
+    border-radius: 17px;
+    cursor: pointer;
+    border: none;
+    padding: 3px;
+    transition: background 0.4s ease;
+    outline: none;
+  }
+
+  .morph-toggle-track.off {
+    background: #334155;
+  }
+
+  .morph-toggle-track.on {
+    background: #8b5cf6;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  }
+
+  .morph-toggle-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), 
+                border-radius 0.4s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .morph-toggle-track.on .morph-toggle-thumb {
+    transform: translateX(30px);
+    border-radius: 8px;
+  }
+
+  /* Size variants */
+  .morph-toggle-track.sm {
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    padding: 2px;
+  }
+
+  .morph-toggle-track.sm .morph-toggle-thumb {
+    width: 20px;
+    height: 20px;
+  }
+
+  .morph-toggle-track.sm.on .morph-toggle-thumb {
+    transform: translateX(20px);
+    border-radius: 6px;
+  }
+
+  .morph-toggle-track.lg {
+    width: 80px;
+    height: 42px;
+    border-radius: 21px;
+    padding: 4px;
+  }
+
+  .morph-toggle-track.lg .morph-toggle-thumb {
+    width: 34px;
+    height: 34px;
+  }
+
+  .morph-toggle-track.lg.on .morph-toggle-thumb {
+    transform: translateX(38px);
+    border-radius: 10px;
+  }
+}
+
+/* ==============================================
+   ANIMATED TABS
+   ============================================== */
+
+@layer utilities {
+  .animated-tabs-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 14px;
+  }
+
+  /* ── Pill variant ── */
+  .animated-tabs-pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .animated-tabs-indicator {
+    position: absolute;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 10px;
+  }
+
+  .animated-tabs-indicator-pill {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ── Underline variant ── */
+  .animated-tabs-underline {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    padding: 0;
+    gap: 0;
+  }
+
+  .animated-tabs-indicator-underline {
+    bottom: 0;
+    height: 2px !important;
+    top: auto !important;
+    border-radius: 2px;
+    background: #a855f7;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+  }
+
+  /* ── Glow variant ── */
+  .animated-tabs-glow {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .animated-tabs-indicator-glow {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3));
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+  }
+
+  /* ── Tab buttons ── */
+  .animated-tab-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+    border-radius: 10px;
+  }
+
+  .animated-tab-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .animated-tab-btn.active {
+    color: #fff;
+  }
+
+  .animated-tab-icon {
+    display: flex;
+    align-items: center;
+  }
+}
