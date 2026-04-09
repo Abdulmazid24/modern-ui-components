@@ -1640,3 +1640,528 @@ html, body, #root {
     align-items: center;
   }
 }
+
+/* ==============================================
+   LIQUID MORPHING ACCORDION
+   ============================================== */
+
+@property --liquid-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes liquidFlow {
+  0%   { --liquid-angle: 0deg; }
+  100% { --liquid-angle: 360deg; }
+}
+
+@keyframes liquidPulse {
+  0%, 100% { opacity: 0.4; filter: blur(8px); }
+  50%      { opacity: 0.7; filter: blur(12px); }
+}
+
+@layer utilities {
+  .liquid-accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .liquid-accordion-panel {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(15, 15, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .liquid-accordion-panel.open {
+    border-color: transparent;
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.08);
+  }
+
+  /* Liquid Mercury Border — only visible when open */
+  .liquid-border-layer {
+    position: absolute;
+    inset: -1px;
+    border-radius: 17px;
+    background: conic-gradient(
+      from var(--liquid-angle),
+      #8b5cf6,
+      #ec4899,
+      #22d3ee,
+      #a855f7,
+      #8b5cf6
+    );
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 0.5s ease;
+    animation: liquidFlow 4s linear infinite;
+  }
+
+  .liquid-accordion-panel.open .liquid-border-layer {
+    opacity: 1;
+  }
+
+  /* Outer glow (blur layer) */
+  .liquid-accordion-panel.open::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 19px;
+    background: conic-gradient(
+      from var(--liquid-angle),
+      #8b5cf6,
+      #ec4899,
+      #22d3ee,
+      #a855f7,
+      #8b5cf6
+    );
+    animation: liquidFlow 4s linear infinite, liquidPulse 3s ease-in-out infinite;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .liquid-accordion-header {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border: none;
+    background: rgba(15, 15, 20, 0.95);
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    transition: background 0.3s ease;
+    border-radius: 16px;
+  }
+
+  .liquid-accordion-panel.open .liquid-accordion-header {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .liquid-accordion-header:hover {
+    background: rgba(20, 20, 30, 0.95);
+  }
+
+  .liquid-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .liquid-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+  }
+
+  .liquid-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .liquid-chevron {
+    color: rgba(255, 255, 255, 0.4);
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), color 0.3s;
+  }
+
+  .liquid-chevron.rotated {
+    transform: rotate(180deg);
+    color: #a78bfa;
+  }
+
+  .liquid-accordion-body {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    background: rgba(15, 15, 20, 0.95);
+    border-radius: 0 0 16px 16px;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .liquid-body-inner {
+    padding: 0 24px 24px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.55);
+  }
+}
+
+/* ==============================================
+   REALITY-DISTORTION MODAL
+   ============================================== */
+
+@keyframes modalOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modalOverlayOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes modalCardIn {
+  from {
+    transform: scale(0.85) rotateX(8deg) translateY(40px);
+    opacity: 0;
+    filter: blur(6px);
+  }
+  to {
+    transform: scale(1) rotateX(0deg) translateY(0);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@keyframes modalCardOut {
+  from {
+    transform: scale(1) rotateX(0deg) translateY(0);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  to {
+    transform: scale(0.9) rotateX(-5deg) translateY(20px);
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(calc(var(--particle-x) - 50%), calc(var(--particle-y) - 50%)) scale(1.5);
+    opacity: 0.8;
+  }
+}
+
+@keyframes modalBorderGlow {
+  0%   { --modal-border-angle: 0deg; }
+  100% { --modal-border-angle: 360deg; }
+}
+
+@property --modal-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@layer utilities {
+  .glass-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    perspective: 1000px;
+  }
+
+  .glass-modal-overlay.opening {
+    animation: modalOverlayIn 0.4s ease forwards;
+  }
+
+  .glass-modal-overlay.closing {
+    animation: modalOverlayOut 0.5s ease forwards;
+  }
+
+  .glass-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px) saturate(0.5);
+    -webkit-backdrop-filter: blur(12px) saturate(0.5);
+  }
+
+  /* Floating particles */
+  .glass-modal-particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .glass-particle {
+    position: absolute;
+    left: var(--particle-x);
+    top: var(--particle-y);
+    width: var(--particle-size);
+    height: var(--particle-size);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.8), rgba(236, 72, 153, 0.5));
+    animation: particleFloat var(--particle-duration) ease-in-out var(--particle-delay) infinite;
+    filter: blur(1px);
+  }
+
+  /* Modal Card */
+  .glass-modal-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .glass-modal-card.enter {
+    animation: modalCardIn 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  }
+
+  .glass-modal-card.exit {
+    animation: modalCardOut 0.5s ease forwards;
+  }
+
+  /* Animated border glow */
+  .glass-modal-border-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--modal-border-angle),
+      rgba(139, 92, 246, 0.5),
+      rgba(236, 72, 153, 0.3),
+      rgba(34, 211, 238, 0.5),
+      rgba(139, 92, 246, 0.5)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: modalBorderGlow 5s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .glass-modal-inner {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(160deg, rgba(20, 18, 30, 0.95), rgba(10, 10, 15, 0.98));
+    border-radius: 23px;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px 0;
+  }
+
+  .glass-modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+  }
+
+  .glass-modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .glass-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .glass-modal-body {
+    padding: 24px 28px 28px;
+  }
+}
+
+/* ==============================================
+   AURORA INPUT FIELDS
+   ============================================== */
+
+@property --aurora-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes auroraShift {
+  0%   { --aurora-angle: 0deg; }
+  100% { --aurora-angle: 360deg; }
+}
+
+@keyframes auroraPulse {
+  0%, 100% { opacity: 0; }
+  50%      { opacity: 0.5; }
+}
+
+@layer utilities {
+  .aurora-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .aurora-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .aurora-input-wrapper {
+    position: relative;
+    border-radius: 14px;
+    padding: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.4s ease;
+  }
+
+  /* Aurora gradient border — appears on hover, intensifies on focus */
+  .aurora-border-layer {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--aurora-angle) at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      #22d3ee,
+      #8b5cf6,
+      #ec4899,
+      #a855f7,
+      #22d3ee
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: auroraShift 6s linear infinite;
+    z-index: 0;
+  }
+
+  .aurora-input-wrapper:hover .aurora-border-layer {
+    opacity: 0.5;
+  }
+
+  .aurora-input-wrapper.focused .aurora-border-layer {
+    opacity: 1;
+  }
+
+  /* Outer glow on focus */
+  .aurora-input-wrapper.focused {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 40px rgba(34, 211, 238, 0.08);
+  }
+
+  /* Error state */
+  .aurora-input-wrapper.error .aurora-border-layer {
+    background: conic-gradient(
+      from var(--aurora-angle) at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      #f43f5e,
+      #ef4444,
+      #f97316,
+      #ef4444,
+      #f43f5e
+    );
+    opacity: 0.8;
+  }
+
+  .aurora-input-wrapper.error {
+    box-shadow: 0 0 20px rgba(244, 63, 94, 0.15);
+  }
+
+  /* Inner dark background hides gradient except at edges */
+  .aurora-input-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(10, 10, 18, 0.95);
+    border-radius: 13px;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.03);
+  }
+
+  .aurora-input-sm { padding: 10px 14px; }
+  .aurora-input-md { padding: 14px 18px; }
+  .aurora-input-lg { padding: 18px 20px; }
+
+  .aurora-input-icon {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.3);
+    transition: color 0.3s ease;
+  }
+
+  .aurora-input-wrapper.focused .aurora-input-icon {
+    color: #a78bfa;
+  }
+
+  .aurora-input-wrapper.error .aurora-input-icon {
+    color: #f87171;
+  }
+
+  .aurora-input-field {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    caret-color: #a78bfa;
+  }
+
+  .aurora-input-field::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  .aurora-textarea-inner {
+    padding: 14px 18px;
+  }
+
+  .aurora-textarea-field {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    resize: vertical;
+    min-height: 80px;
+    caret-color: #a78bfa;
+    font-family: inherit;
+  }
+
+  .aurora-textarea-field::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  .aurora-helper {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.35);
+    padding-left: 4px;
+    margin: 0;
+  }
+
+  .aurora-error-text {
+    color: #f87171;
+  }
+}
