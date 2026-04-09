@@ -3307,3 +3307,681 @@ html, body, #root {
     box-shadow: 0 0 6px rgba(167, 139, 250, 0.5);
   }
 }
+
+/* ==============================================
+   RESPONSIVE — ALL NAVBARS
+   Mobile-first: 320px → 768px → 1024px+
+   ============================================== */
+
+/* ── Small Mobile (≤480px) ── */
+@media (max-width: 480px) {
+  /* Morph Blob — icon-only, compact */
+  .morph-blob-nav {
+    gap: 2px;
+    padding: 4px;
+    border-radius: 16px;
+  }
+  .morph-blob-item {
+    padding: 10px 14px;
+    gap: 0;
+  }
+  .morph-blob-label {
+    display: none;
+  }
+  .morph-blob-inner {
+    border-radius: 12px;
+  }
+
+  /* Glow Particle — icon-only */
+  .glow-particle-nav {
+    gap: 0;
+    padding: 6px 8px;
+    border-radius: 16px;
+  }
+  .glow-nav-item {
+    padding: 10px 14px;
+    gap: 0;
+  }
+  .glow-nav-label {
+    display: none;
+  }
+
+  /* Orbital — smaller radius */
+  .orbital-ring {
+    width: 180px;
+    height: 180px;
+  }
+  .orbital-ring-glow {
+    width: 184px;
+    height: 184px;
+    -webkit-mask: radial-gradient(circle, transparent 85px, white 86px, white 93px, transparent 94px);
+    mask: radial-gradient(circle, transparent 85px, white 86px, white 93px, transparent 94px);
+  }
+  .orbital-center {
+    width: 44px;
+    height: 44px;
+  }
+  .orbital-item {
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    margin-left: -20px;
+  }
+
+  /* Fluid Arc — compact */
+  .fluid-arc-nav {
+    height: 70px;
+  }
+  .fluid-arc-item {
+    padding: 6px 8px;
+  }
+  .fluid-arc-label {
+    font-size: 0.55rem;
+  }
+  .fluid-arc-icon-wrap {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Spectrum — icon-only */
+  .spectrum-nav {
+    padding: 6px 8px;
+    border-radius: 14px;
+  }
+  .spectrum-item {
+    padding: 8px 12px;
+    gap: 0;
+  }
+  .spectrum-label {
+    display: none;
+  }
+
+  /* Dynamic Island — compact */
+  .island-pill {
+    height: 36px;
+    padding: 0 12px;
+  }
+  .island-pill.expanded {
+    width: 140px;
+  }
+  .island-pill-label {
+    font-size: 0.7rem;
+  }
+  .island-nav {
+    padding: 4px 6px;
+    border-radius: 16px;
+  }
+  .island-nav-item {
+    padding: 8px 12px;
+    gap: 2px;
+    font-size: 0.65rem;
+  }
+  .island-nav-label {
+    display: none;
+  }
+
+  /* Magic Phone — fit small screens */
+  .magic-demo-phone {
+    width: 100%;
+    max-width: 300px;
+    min-height: 400px;
+  }
+}
+
+/* ── Standard Mobile (481px – 768px) ── */
+@media (min-width: 481px) and (max-width: 768px) {
+  /* Morph Blob — show labels but smaller */
+  .morph-blob-item {
+    padding: 10px 14px;
+    font-size: 0.78rem;
+    gap: 6px;
+  }
+
+  /* Glow Particle — smaller labels */
+  .glow-nav-item {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    gap: 6px;
+  }
+
+  /* Orbital — medium radius */
+  .orbital-ring {
+    width: 220px;
+    height: 220px;
+  }
+  .orbital-ring-glow {
+    width: 224px;
+    height: 224px;
+    -webkit-mask: radial-gradient(circle, transparent 105px, white 106px, white 113px, transparent 114px);
+    mask: radial-gradient(circle, transparent 105px, white 106px, white 113px, transparent 114px);
+  }
+
+  /* Spectrum — compact labels */
+  .spectrum-item {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    gap: 6px;
+  }
+
+  /* Island — medium */
+  .island-nav-item {
+    padding: 8px 14px;
+    font-size: 0.7rem;
+  }
+
+  /* Magic Phone */
+  .magic-demo-phone {
+    width: 100%;
+    max-width: 340px;
+  }
+}
+
+/* ==============================================
+   NEBULA PORTAL NAVIGATION
+   ============================================== */
+
+@keyframes nebulaFloat {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+@keyframes supernovaBurst {
+  0%   { transform: scale(0.5); opacity: 0; filter: blur(2px); }
+  50%  { transform: scale(1.5); opacity: 0.8; filter: blur(8px); }
+  100% { transform: scale(2.5); opacity: 0; filter: blur(15px); }
+}
+
+@layer utilities {
+  .nebula-nav {
+    position: relative;
+    display: inline-flex;
+    padding: 8px;
+    background: rgba(10, 10, 18, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+  }
+
+  .nebula-layers {
+    position: absolute;
+    inset: -20%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .nebula-layer {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.2s ease-out;
+  }
+
+  .nebula-bg {
+    background: radial-gradient(circle at center, #1e1b4b 0%, #030014 100%);
+  }
+
+  .nebula-stars {
+    background-image: radial-gradient(white, rgba(255,255,255,0.2) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.4;
+  }
+
+  .nebula-clouds {
+    background: linear-gradient(45deg, rgba(76, 29, 149, 0.2), rgba(192, 38, 211, 0.2), rgba(15, 23, 42, 0.2));
+    background-size: 400% 400%;
+    animation: nebulaFloat 15s ease infinite;
+    mix-blend-mode: color-dodge;
+  }
+
+  .nebula-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 8px;
+  }
+
+  .nebula-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .nebula-icon-orb {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .nebula-item.active .nebula-icon-orb {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+
+  .nebula-supernova {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.6), transparent 70%);
+    animation: supernovaBurst 2s infinite;
+  }
+
+  .nebula-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.3);
+    transition: color 0.3s;
+  }
+
+  .nebula-item.active .nebula-label {
+    color: white;
+  }
+}
+
+/* ==============================================
+   NEURAL SYNAPSE NAVIGATION
+   ============================================== */
+
+@keyframes filamentPulse {
+  0%, 100% { opacity: 0.2; filter: blur(1px); }
+  50%      { opacity: 0.5; filter: blur(0px); stroke-width: 1.5; }
+}
+
+@layer utilities {
+  .neural-nav {
+    position: relative;
+    display: inline-flex;
+    padding: 24px 40px;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .neural-grid {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .neural-filament {
+    stroke: #8b5cf6;
+    stroke-width: 1;
+    opacity: 0.2;
+    stroke-dasharray: 4 4;
+    animation: filamentPulse 3s ease-in-out infinite;
+  }
+
+  .neural-items {
+    position: relative;
+    width: 100%;
+    height: 60px;
+  }
+
+  .neural-node {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+
+  .neural-node-core {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #030014;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.3);
+    transition: all 0.4s ease;
+  }
+
+  .neural-node.active .neural-node-core {
+    background: #8b5cf6;
+    border-color: #a78bfa;
+    color: white;
+    scale: 1.2;
+    box-shadow: 0 0 15px #8b5cf6;
+  }
+
+  .neural-glow {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.4), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .neural-node.active .neural-glow {
+    opacity: 1;
+  }
+
+  .neural-label {
+    position: absolute;
+    top: 48px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.3);
+    white-space: nowrap;
+    transition: color 0.3s;
+  }
+
+  .neural-node.active .neural-label {
+    color: #a78bfa;
+  }
+}
+
+/* ==============================================
+   CRYSTALLINE PRISM NAVIGATION
+   ============================================== */
+
+@layer utilities {
+  .prism-nav {
+    display: inline-flex;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+  }
+
+  .prism-container {
+    display: flex;
+    gap: 8px;
+  }
+
+  .prism-segment {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .prism-refraction {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent 50%, rgba(255,255,255,0.05));
+    transform: skewX(-20deg) translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .prism-segment:hover .prism-refraction {
+    transform: skewX(-20deg) translateX(100%);
+  }
+
+  .prism-shimmer {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .prism-segment:hover .prism-shimmer {
+    opacity: 1;
+  }
+
+  .prism-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    transition: color 0.3s;
+  }
+
+  .prism-segment.active .prism-content {
+    color: white;
+  }
+
+  .prism-spectrum-line {
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+    filter: blur(1px);
+    border-radius: 2px;
+  }
+}
+
+/* ==============================================
+   RIPPLE TIDE NAVIGATION
+   ============================================== */
+
+@keyframes rippleSplash {
+  0%   { transform: scale(0.8); opacity: 0; }
+  50%  { transform: scale(1.2); opacity: 0.5; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@layer utilities {
+  .ripple-nav {
+    position: relative;
+    display: inline-flex;
+    padding: 12px 20px;
+    background: rgba(13, 22, 35, 0.8);
+    border-radius: 24px;
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    overflow: hidden;
+  }
+
+  .ripple-surface {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 12px;
+  }
+
+  .ripple-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(var(--ripple-scale, 1));
+  }
+
+  .ripple-icon-wrapper {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s;
+  }
+
+  .ripple-item.active .ripple-icon-wrapper {
+    background: rgba(34, 211, 238, 0.2);
+    color: #22d3ee;
+    box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+  }
+
+  .ripple-splash {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 2px solid #22d3ee;
+    animation: rippleSplash 0.8s ease-out forwards;
+  }
+
+  .ripple-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.3);
+    transition: color 0.3s;
+  }
+
+  .ripple-item.active .ripple-label {
+    color: white;
+  }
+
+  .ripple-water {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(34, 211, 238, 0.05) 100%);
+    pointer-events: none;
+  }
+}
+
+/* ==============================================
+   COSMIC HORIZON NAVIGATION
+   ============================================== */
+
+@layer utilities {
+  .cosmic-nav {
+    position: relative;
+    padding: 20px 40px 60px;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .cosmic-horizon-arc {
+    position: relative;
+    width: 100%;
+    height: 40px;
+  }
+
+  .cosmic-svg-arc {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .cosmic-items {
+    position: absolute;
+    inset: 0;
+  }
+
+  .cosmic-item {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cosmic-sunrise {
+    position: absolute;
+    bottom: 20px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.4), transparent 70%);
+    filter: blur(8px);
+    z-index: 0;
+    animation: stepGlow 3s ease-in-out infinite;
+  }
+
+  .cosmic-item-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .cosmic-icon {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s;
+  }
+
+  .cosmic-item.active .cosmic-icon {
+    color: #f59e0b;
+    transform: translateY(-8px) scale(1.3);
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+  }
+
+  .cosmic-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.2);
+    transition: color 0.3s;
+  }
+
+  .cosmic-item.active .cosmic-label {
+    color: white;
+    transform: translateY(-4px);
+  }
+}
+
+/* ==============================================
+   RESPONSIVE — 5 NEW NAVBARS
+   ============================================== */
+
+@media (max-width: 480px) {
+  /* Nebula — icon only */
+  .nebula-item { padding: 10px 14px; }
+  .nebula-label { display: none; }
+  .nebula-icon-orb { width: 38px; height: 38px; }
+
+  /* Neural — smaller icons */
+  .neural-node-core { width: 34px; height: 34px; }
+  .neural-label { display: none; }
+
+  /* Prism — icon only */
+  .prism-segment { padding: 10px 18px; }
+  .prism-label { display: none; }
+
+  /* Ripple — icon only */
+  .ripple-item { padding: 8px 14px; }
+  .ripple-label { display: none; }
+  .ripple-icon-wrapper { width: 42px; height: 42px; }
+
+  /* Cosmic — scale down */
+  .cosmic-nav { padding-bottom: 40px; }
+  .cosmic-label { display: none; }
+}

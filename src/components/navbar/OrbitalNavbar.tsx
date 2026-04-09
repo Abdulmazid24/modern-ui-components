@@ -23,13 +23,23 @@ export const OrbitalNavbar: React.FC<OrbitalNavbarProps> = ({
   const [activeId, setActiveId] = useState(defaultActive || items[0]?.id);
   const [isExpanded, setIsExpanded] = useState(true);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [radius, setRadius] = useState(130);
+
+  // Responsive radius
+  useEffect(() => {
+    const updateRadius = () => {
+      const w = window.innerWidth;
+      setRadius(w <= 480 ? 80 : w <= 768 ? 110 : 130);
+    };
+    updateRadius();
+    window.addEventListener('resize', updateRadius);
+    return () => window.removeEventListener('resize', updateRadius);
+  }, []);
 
   const handleClick = (id: string) => {
     setActiveId(id);
     onChange?.(id);
   };
-
-  const radius = 130; // Orbital radius
 
   return (
     <div className="orbital-nav-container">
