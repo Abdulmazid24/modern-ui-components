@@ -23,11 +23,12 @@ import { AuroraInputDemo } from './pages/AuroraInputDemo';
 import { CommandPaletteDemo } from './pages/CommandPaletteDemo';
 import { HoloCardDemo } from './pages/HoloCardDemo';
 import { StepperDemo } from './pages/StepperDemo';
+import { NavbarShowcase } from './pages/NavbarShowcase';
 
-type PageType = 'login' | 'signup' | 'magic-navbar' | 'loaders' | 'share-menu' | 'team-carousel' | '3d-carousel' | 'buttons' | 'magnetic' | 'pricing' | 'spotlight' | 'stats' | 'dock' | 'scramble' | 'swipe' | 'toast' | 'cards' | 'tabs' | 'accordion' | 'modal' | 'aurora' | 'cmd' | 'holo' | 'stepper';
+type PageType = 'login' | 'signup' | 'magic-navbar' | 'loaders' | 'share-menu' | 'team-carousel' | '3d-carousel' | 'buttons' | 'magnetic' | 'pricing' | 'spotlight' | 'stats' | 'dock' | 'scramble' | 'swipe' | 'toast' | 'cards' | 'tabs' | 'accordion' | 'modal' | 'aurora' | 'cmd' | 'holo' | 'stepper' | 'navbars';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<PageType>('cmd');
+  const [currentPage, setCurrentPage] = useState<PageType>('navbars');
 
   return (
     <>
@@ -57,6 +58,7 @@ function App() {
           { key: 'cmd' as PageType, label: '⌘K' },
           { key: 'holo' as PageType, label: 'Holo' },
           { key: 'stepper' as PageType, label: 'Steps' },
+          { key: 'navbars' as PageType, label: '🧭 Nav+' },
         ].map(({ key, label }) => (
           <button
             key={key}
@@ -97,6 +99,7 @@ function App() {
       {currentPage === 'cmd' && <CommandPaletteDemo />}
       {currentPage === 'holo' && <HoloCardDemo />}
       {currentPage === 'stepper' && <StepperDemo />}
+      {currentPage === 'navbars' && <NavbarShowcase />}
     </>
   );
 }
