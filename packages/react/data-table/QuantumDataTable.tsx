@@ -1,0 +1,37 @@
+"use client";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react";
+
+const sampleData = [
+  { id: 1, name: "Quantum Engine", status: "Active", usage: 92 },
+  { id: 2, name: "Neural API", status: "Paused", usage: 45 },
+  { id: 3, name: "Crypto Vault", status: "Active", usage: 78 },
+  { id: 4, name: "Edge Workers", status: "Error", usage: 12 },
+  { id: 5, name: "Data Stream", status: "Active", usage: 88 },
+];
+
+const statusColors: Record<string, string> = { Active: "#10b981", Paused: "#f59e0b", Error: "#ef4444" };
+
+export const QuantumDataTable: React.FC = () => {
+  const [sortKey, setSortKey] = useState<string>("name");
+  const [sortDir, setSortDir] = useState<1 | -1>(1);
+  const sorted = [...sampleData].sort((a, b) => { const av = (a as any)[sortKey]; const bv = (b as any)[sortKey]; return (av < bv ? -1 : 1) * sortDir; });
+  const toggleSort = (key: string) => { if (sortKey === key) setSortDir((d) => (d === 1 ? -1 : 1) as 1 | -1); else { setSortKey(key); setSortDir(1); } };
+  return (
+    <div className="w-full max-w-2xl rounded-2xl border border-white/8 overflow-hidden bg-zinc-900/60 backdrop-blur-xl">
+      <table className="w-full text-sm"><thead><tr className="border-b border-white/5">
+        {["name", "status", "usage"].map((col) => (<th key={col} onClick={() => toggleSort(col)} className="px-5 py-3.5 text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider cursor-pointer hover:text-white transition-colors"><div className="flex items-center gap-1.5">{col}<ArrowUpDown size={12} className={sortKey === col ? "text-violet-400" : "text-zinc-700"} /></div></th>))}
+      </tr></thead><tbody>
+        {sorted.map((row, i) => (
+          <motion.tr key={row.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="border-b border-white/3 hover:bg-white/3 transition-colors">
+            <td className="px-5 py-3.5 text-white font-medium">{row.name}</td>
+            <td className="px-5 py-3.5"><span className="inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: statusColors[row.status] }}><span className="w-1.5 h-1.5 rounded-full" style={{ background: statusColors[row.status] }} />{row.status}</span></td>
+            <td className="px-5 py-3.5"><div className="flex items-center gap-2"><div className="w-20 h-1.5 bg-zinc-800 rounded-full overflow-hidden"><motion.div className="h-full rounded-full" style={{ background: `linear-gradient(90deg,#7c3aed,#06b6d4)`, width: `${row.usage}%` }} /></div><span className="text-xs text-zinc-500">{row.usage}%</span></div></td>
+          </motion.tr>
+        ))}
+      </tbody></table>
+      <div className="flex items-center justify-between px-5 py-3 border-t border-white/5"><span className="text-xs text-zinc-600">Showing 5 of 5</span><div className="flex gap-1"><button className="p-1.5 rounded-lg hover:bg-white/5 text-zinc-500"><ChevronLeft size={14} /></button><button className="p-1.5 rounded-lg hover:bg-white/5 text-zinc-500"><ChevronRight size={14} /></button></div></div>
+    </div>
+  );
+};
