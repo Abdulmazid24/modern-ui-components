@@ -1,0 +1,34 @@
+{
+  "name": "velocitymarquee",
+  "title": "Velocity Marquee",
+  "category": "marquee",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "VelocityMarquee.tsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nconst defaultItems = [\"React\", \"Next.js\", \"Tailwind\", \"Framer Motion\", \"TypeScript\", \"Supabase\", \"Vercel\", \"Modern UI Vault\"];\nexport const VelocityMarquee: React.FC<{ items?: string[]; speed?: number; direction?: \"left\" | \"right\" }> = ({ items = defaultItems, speed = 30, direction = \"left\" }) => {\n  const content = [...items, ...items, ...items];\n  return (\n    <div className=\"w-full overflow-hidden py-4\">\n      <motion.div className=\"flex gap-8 whitespace-nowrap\" animate={{ x: direction === \"left\" ? [\"0%\", \"-33.33%\"] : [\"-33.33%\", \"0%\"] }} transition={{ duration: speed, repeat: Infinity, ease: \"linear\" }}>\n        {content.map((item, i) => (\n          <span key={i} className=\"text-lg font-bold text-zinc-600 hover:text-white transition-colors cursor-default flex items-center gap-3\">\n            <span className=\"w-2 h-2 rounded-full bg-violet-500/50\" />{item}\n          </span>\n        ))}\n      </motion.div>\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "VelocityMarquee.jsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nconst defaultItems = [\"React\", \"Next.js\", \"Tailwind\", \"Framer Motion\", \"TypeScript\", \"Supabase\", \"Vercel\", \"Modern UI Vault\"];\nexport const VelocityMarquee.FC<{ items?: string[]; speed?: number; direction?: \"left\" | \"right\" }> = ({ items = defaultItems, speed = 30, direction = \"left\" }) => {\n  const content = [...items, ...items, ...items];\n  return (\n    <div className=\"w-full overflow-hidden py-4\">\n      <motion.div className=\"flex gap-8 whitespace-nowrap\" animate={{ x: direction === \"left\" ? [\"0%\", \"-33.33%\"] : [\"-33.33%\", \"0%\"] }} transition={{ duration: speed, repeat, ease: \"linear\" }}>\n        {content.map((item, i) => (\n          <span key={i} className=\"text-lg font-bold text-zinc-600 hover:text-white transition-colors cursor-default flex items-center gap-3\">\n            <span className=\"w-2 h-2 rounded-full bg-violet-500/50\" />{item}\n          </span>\n        ))}\n      </motion.div>\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

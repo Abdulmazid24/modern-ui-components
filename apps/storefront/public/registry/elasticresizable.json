@@ -1,0 +1,34 @@
+{
+  "name": "elasticresizable",
+  "title": "Elastic Resizable",
+  "category": "resizable",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "ElasticResizable.tsx",
+          "content": "\"use client\";\nimport React, { useState } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { GripVertical } from \"lucide-react\";\nexport const ElasticResizable: React.FC = () => {\n  const [width, setWidth] = useState(50);\n  return (\n    <div className=\"w-full max-w-2xl flex h-64 rounded-2xl overflow-hidden border border-white/10\">\n      <div className=\"bg-zinc-900/80 p-4 overflow-hidden\" style={{ width: `${width}%` }}><p className=\"text-sm text-zinc-400\">Panel A — {Math.round(width)}%</p></div>\n      <motion.div className=\"w-2 bg-zinc-800 hover:bg-violet-500/30 cursor-col-resize flex items-center justify-center transition-colors flex-shrink-0\" whileHover={{ backgroundColor: \"rgba(124,58,237,0.3)\" }}\n        drag=\"x\" dragConstraints={{ left: 0, right: 0 }} dragElastic={0} dragMomentum={false}\n        onDrag={(_, info) => { setWidth((w) => Math.min(80, Math.max(20, w + info.delta.x * 0.15))); }}>\n        <GripVertical size={12} className=\"text-zinc-600\" />\n      </motion.div>\n      <div className=\"bg-zinc-900/60 p-4 flex-1 overflow-hidden\"><p className=\"text-sm text-zinc-400\">Panel B — {Math.round(100 - width)}%</p></div>\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "ElasticResizable.jsx",
+          "content": "\"use client\";\nimport React, { useState } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { GripVertical } from \"lucide-react\";\nexport const ElasticResizable.FC = () => {\n  const [width, setWidth] = useState(50);\n  return (\n    <div className=\"w-full max-w-2xl flex h-64 rounded-2xl overflow-hidden border border-white/10\">\n      <div className=\"bg-zinc-900/80 p-4 overflow-hidden\" style={{ width: `${width}%` }}><p className=\"text-sm text-zinc-400\">Panel A — {Math.round(width)}%</p></div>\n      <motion.div className=\"w-2 bg-zinc-800 hover:bg-violet-500/30 cursor-col-resize flex items-center justify-center transition-colors flex-shrink-0\" whileHover={{ backgroundColor: \"rgba(124,58,237,0.3)\" }}\n        drag=\"x\" dragConstraints={{ left: 0, right: 0 }} dragElastic={0} dragMomentum={false}\n        onDrag={(_, info) => { setWidth((w) => Math.min(80, Math.max(20, w + info.delta.x * 0.15))); }}>\n        <GripVertical size={12} className=\"text-zinc-600\" />\n      </motion.div>\n      <div className=\"bg-zinc-900/60 p-4 flex-1 overflow-hidden\"><p className=\"text-sm text-zinc-400\">Panel B — {Math.round(100 - width)}%</p></div>\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

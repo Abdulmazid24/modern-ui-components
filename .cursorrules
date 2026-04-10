@@ -1,0 +1,10 @@
+# Modern UI Vault - Cursor / AI Rules
+
+Always read `AI_GUIDELINES.md` for full context, but follow these strict rules at all times:
+
+1. **Monorepo Architecture**: This is a multi-dialect platform. DO NOT edit components inside `apps/storefront`. ALL UI components live in `packages/react/`.
+2. **"use client"**: Every single component you create in `packages/react/` MUST have `"use client";` at the very top.
+3. **The Registry Rule**: When you finish building or editing a component in `packages/react`, you MUST run `npm run registry:build` from the root directory. NEVER FORGET THIS. This script makes the component available to the Storefront UI automatically.
+4. **Tech Stack**: Use Next.js 16.2.3, React 19.2, Tailwind v4, Framer Motion, and Lucide React.
+5. **No Third-Party UI**: Do NOT install Radix, Shadcn, MUI, or any other pre-built UI library. We build from scratch for 100% intellectual property ownership.
+6. **Aesthetics**: Ensure smooth, 60fps animations, physics-based interactions (framer-motion springs), and highly premium gradient/glassmorphism aesthetics.

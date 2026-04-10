@@ -1,0 +1,34 @@
+{
+  "name": "barsloader",
+  "title": "Bars Loader",
+  "category": "loaders",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "BarsLoader.tsx",
+          "content": "\"use client\";\n\nimport React from 'react';\n\nexport interface BarsLoaderProps {\n  /** Number of bars */\n  count?: number;\n  /** Bar width in pixels */\n  barWidth?: number;\n  /** Bar height in pixels */\n  barHeight?: number;\n  /** Bar color */\n  color?: string;\n  /** Animation speed in seconds */\n  speed?: number;\n  /** Accessible label */\n  label?: string;\n  className?: string;\n}\n\nexport const BarsLoader: React.FC<BarsLoaderProps> = ({\n  count = 4,\n  barWidth = 10,\n  barHeight = 60,\n  color = 'rgb(245, 158, 11)',\n  speed = 1,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center gap-[3px] ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      {Array.from({ length: count }).map((_, i) => (\n        <span\n          key={i}\n          className=\"inline-block rounded-[2px]\"\n          style={{\n            width: barWidth,\n            height: barHeight,\n            backgroundColor: color,\n            animation: `loaderStretch ${speed}s ease infinite`,\n            animationDelay: `${i * (speed / count)}s`,\n          }}\n          aria-hidden=\"true\"\n        />\n      ))}\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "BarsLoader.jsx",
+          "content": "\"use client\";\n\nimport React from 'react';\n\nexport \n\nexport const BarsLoader.FC = ({\n  count = 4,\n  barWidth = 10,\n  barHeight = 60,\n  color = 'rgb(245, 158, 11)',\n  speed = 1,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center gap-[3px] ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      {Array.from({ length: count }).map((_, i) => (\n        <span\n          key={i}\n          className=\"inline-block rounded-[2px]\"\n          style={{\n            width: barWidth,\n            height: barHeight,\n            backgroundColor: color,\n            animation: `loaderStretch ${speed}s ease infinite`,\n            animationDelay: `${i * (speed / count)}s`,\n          }}\n          aria-hidden=\"true\"\n        />\n      ))}\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

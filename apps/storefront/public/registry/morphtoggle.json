@@ -1,0 +1,34 @@
+{
+  "name": "morphtoggle",
+  "title": "Morph Toggle",
+  "category": "inputs",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "MorphToggle.tsx",
+          "content": "\"use client\";\n\nimport React, { useState } from 'react';\n\nexport interface MorphToggleProps {\n  defaultChecked?: boolean;\n  size?: 'sm' | 'md' | 'lg';\n  label?: string;\n  onChange?: (checked: boolean) => void;\n}\n\nexport const MorphToggle: React.FC<MorphToggleProps> = ({\n  defaultChecked = false,\n  size = 'md',\n  label,\n  onChange,\n}) => {\n  const [checked, setChecked] = useState(defaultChecked);\n\n  const toggle = () => {\n    const next = !checked;\n    setChecked(next);\n    onChange?.(next);\n  };\n\n  const sizeClass = size === 'md' ? '' : size;\n\n  return (\n    <div className=\"flex items-center gap-3\">\n      <button\n        role=\"switch\"\n        aria-checked={checked}\n        onClick={toggle}\n        className={`morph-toggle-track ${checked ? 'on' : 'off'} ${sizeClass}`}\n      >\n        <span className=\"morph-toggle-thumb\" />\n      </button>\n      {label && (\n        <span className=\"text-sm font-medium text-white/70\">{label}</span>\n      )}\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "MorphToggle.jsx",
+          "content": "\"use client\";\n\nimport React, { useState } from 'react';\n\nexport \n\nexport const MorphToggle.FC = ({\n  defaultChecked = false,\n  size = 'md',\n  label,\n  onChange,\n}) => {\n  const [checked, setChecked] = useState(defaultChecked);\n\n  const toggle = () => {\n    const next = !checked;\n    setChecked(next);\n    onChange?.(next);\n  };\n\n  const sizeClass = size === 'md' ? '' : size;\n\n  return (\n    <div className=\"flex items-center gap-3\">\n      <button\n        role=\"switch\"\n        aria-checked={checked}\n        onClick={toggle}\n        className={`morph-toggle-track ${checked ? 'on' : 'off'} ${sizeClass}`}\n      >\n        <span className=\"morph-toggle-thumb\" />\n      </button>\n      {label && (\n        <span className=\"text-sm font-medium text-white/70\">{label}</span>\n      )}\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

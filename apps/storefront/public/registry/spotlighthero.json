@@ -1,0 +1,34 @@
+{
+  "name": "spotlighthero",
+  "title": "Spotlight Hero",
+  "category": "effects",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "SpotlightHero.tsx",
+          "content": "\"use client\";\n\nimport React, { useRef, useState, useCallback, useEffect } from 'react';\n\nexport interface SpotlightHeroProps {\n  title: string;\n  subtitle: string;\n  spotlightColor?: string;\n  spotlightSize?: number;\n}\n\nexport const SpotlightHero: React.FC<SpotlightHeroProps> = ({\n  title,\n  subtitle,\n  spotlightColor = 'rgba(255, 255, 255, 0.15)',\n  spotlightSize = 400,\n}) => {\n  const containerRef = useRef<HTMLDivElement>(null);\n  const [mousePosition, setMousePosition] = useState({ x: -1000, y: -1000 });\n  const [isHovering, setIsHovering] = useState(false);\n\n  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {\n    if (!containerRef.current) return;\n    const rect = containerRef.current.getBoundingClientRect();\n    /* Track position relative to the container */\n    setMousePosition({\n      x: e.clientX - rect.left,\n      y: e.clientY - rect.top,\n    });\n  }, []);\n\n  const handleMouseEnter = () => setIsHovering(true);\n  const handleMouseLeave = () => setIsHovering(false);\n\n  /* Touch support for mobile */\n  useEffect(() => {\n    const handleTouchMove = (e: TouchEvent) => {\n      if (!containerRef.current || e.touches.length === 0) return;\n      const rect = containerRef.current.getBoundingClientRect();\n      const touch = e.touches[0];\n      setMousePosition({\n        x: touch.clientX - rect.left,\n        y: touch.clientY - rect.top,\n      });\n      setIsHovering(true);\n    };\n\n    const container = containerRef.current;\n    if (container) {\n      container.addEventListener('touchmove', handleTouchMove, { passive: true });\n    }\n    return () => {\n      if (container) {\n        container.removeEventListener('touchmove', handleTouchMove);\n      }\n    };\n  }, []);\n\n  return (\n    <div\n      ref={containerRef}\n      onMouseMove={handleMouseMove}\n      onMouseEnter={handleMouseEnter}\n      onMouseLeave={handleMouseLeave}\n      className=\"spotlight-hero-container\"\n      style={{\n        '--mouse-x': `${mousePosition.x}px`,\n        '--mouse-y': `${mousePosition.y}px`,\n        '--spotlight-color': spotlightColor,\n        '--spotlight-size': `${spotlightSize}px`,\n      } as React.CSSProperties}\n    >\n      {/* Background layer representing the \"unlit\" state */}\n      <div className=\"spotlight-hero-bg\">\n        <div className=\"spotlight-content\" aria-hidden=\"true\">\n          <h1 className=\"spotlight-title\">{title}</h1>\n          <p className=\"spotlight-subtitle\">{subtitle}</p>\n        </div>\n      </div>\n\n      {/* Foreground layer (illuminated) mapped via CSS mask */}\n      <div \n        className={`spotlight-hero-fg ${isHovering ? 'active' : ''}`}\n      >\n        <div className=\"spotlight-content\">\n          <h1 className=\"spotlight-title glow\">{title}</h1>\n          <p className=\"spotlight-subtitle glow\">{subtitle}</p>\n        </div>\n      </div>\n\n      {/* Grid overlay for aesthetic texture */}\n      <div className=\"spotlight-grid\" />\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "SpotlightHero.jsx",
+          "content": "\"use client\";\n\nimport React, { useRef, useState, useCallback, useEffect } from 'react';\n\nexport \n\nexport const SpotlightHero.FC = ({\n  title,\n  subtitle,\n  spotlightColor = 'rgba(255, 255, 255, 0.15)',\n  spotlightSize = 400,\n}) => {\n  const containerRef = useRef(null);\n  const [mousePosition, setMousePosition] = useState({ x: -1000, y: -1000 });\n  const [isHovering, setIsHovering] = useState(false);\n\n  const handleMouseMove = useCallback((e.MouseEvent) => {\n    if (!containerRef.current) return;\n    const rect = containerRef.current.getBoundingClientRect();\n    /* Track position relative to the container */\n    setMousePosition({\n      x: e.clientX - rect.left,\n      y: e.clientY - rect.top,\n    });\n  }, []);\n\n  const handleMouseEnter = () => setIsHovering(true);\n  const handleMouseLeave = () => setIsHovering(false);\n\n  /* Touch support for mobile */\n  useEffect(() => {\n    const handleTouchMove = (e) => {\n      if (!containerRef.current || e.touches.length === 0) return;\n      const rect = containerRef.current.getBoundingClientRect();\n      const touch = e.touches[0];\n      setMousePosition({\n        x: touch.clientX - rect.left,\n        y: touch.clientY - rect.top,\n      });\n      setIsHovering(true);\n    };\n\n    const container = containerRef.current;\n    if (container) {\n      container.addEventListener('touchmove', handleTouchMove, { passive: true });\n    }\n    return () => {\n      if (container) {\n        container.removeEventListener('touchmove', handleTouchMove);\n      }\n    };\n  }, []);\n\n  return (\n    <div\n      ref={containerRef}\n      onMouseMove={handleMouseMove}\n      onMouseEnter={handleMouseEnter}\n      onMouseLeave={handleMouseLeave}\n      className=\"spotlight-hero-container\"\n      style={{\n        '--mouse-x': `${mousePosition.x}px`,\n        '--mouse-y': `${mousePosition.y}px`,\n        '--spotlight-color': spotlightColor,\n        '--spotlight-size': `${spotlightSize}px`,\n      }.CSSProperties}\n    >\n      {/* Background layer representing the \"unlit\" state */}\n      <div className=\"spotlight-hero-bg\">\n        <div className=\"spotlight-content\" aria-hidden=\"true\">\n          <h1 className=\"spotlight-title\">{title}</h1>\n          <p className=\"spotlight-subtitle\">{subtitle}</p>\n        </div>\n      </div>\n\n      {/* Foreground layer (illuminated) mapped via CSS mask */}\n      <div \n        className={`spotlight-hero-fg ${isHovering ? 'active' : ''}`}\n      >\n        <div className=\"spotlight-content\">\n          <h1 className=\"spotlight-title glow\">{title}</h1>\n          <p className=\"spotlight-subtitle glow\">{subtitle}</p>\n        </div>\n      </div>\n\n      {/* Grid overlay for aesthetic texture */}\n      <div className=\"spotlight-grid\" />\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

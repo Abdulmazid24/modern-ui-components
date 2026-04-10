@@ -1,0 +1,34 @@
+{
+  "name": "liquidstepper",
+  "title": "Liquid Stepper",
+  "category": "stepper",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "LiquidStepper.tsx",
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { Check } from 'lucide-react';\n\nexport interface StepItem {\n  id: string;\n  label: string;\n  description?: string;\n  icon?: React.ReactNode;\n}\n\nexport interface LiquidStepperProps {\n  steps: StepItem[];\n  currentStep: number; // 0-indexed\n  onChange?: (stepIndex: number) => void;\n}\n\nexport const LiquidStepper: React.FC<LiquidStepperProps> = ({\n  steps,\n  currentStep,\n  onChange,\n}) => {\n  return (\n    <div className=\"liquid-stepper\">\n      {steps.map((step, index) => {\n        const isCompleted = index < currentStep;\n        const isActive = index === currentStep;\n        const isUpcoming = index > currentStep;\n\n        return (\n          <React.Fragment key={step.id}>\n            {/* Step Node */}\n            <button\n              className={`liquid-step-node ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''} ${isUpcoming ? 'upcoming' : ''}`}\n              onClick={() => onChange?.(index)}\n              aria-current={isActive ? 'step' : undefined}\n            >\n              {/* Glow ring for active state */}\n              {isActive && <div className=\"liquid-step-glow\" />}\n\n              {/* Circle */}\n              <div className=\"liquid-step-circle\">\n                {isCompleted ? (\n                  <Check size={18} strokeWidth={3} />\n                ) : (\n                  <span className=\"liquid-step-number\">{index + 1}</span>\n                )}\n              </div>\n\n              {/* Label & Description */}\n              <div className=\"liquid-step-text\">\n                <span className=\"liquid-step-label\">{step.label}</span>\n                {step.description && (\n                  <span className=\"liquid-step-desc\">{step.description}</span>\n                )}\n              </div>\n            </button>\n\n            {/* Connector bar between steps */}\n            {index < steps.length - 1 && (\n              <div className=\"liquid-step-connector\">\n                <div\n                  className=\"liquid-step-fill\"\n                  style={{\n                    transform: `scaleX(${index < currentStep ? 1 : 0})`,\n                  }}\n                />\n                {/* Liquid blob at the tip of the fill */}\n                {index === currentStep - 1 && (\n                  <div className=\"liquid-blob\" />\n                )}\n              </div>\n            )}\n          </React.Fragment>\n        );\n      })}\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "LiquidStepper.jsx",
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { Check } from 'lucide-react';\n\nexport \n\nexport \n\nexport const LiquidStepper.FC = ({\n  steps,\n  currentStep,\n  onChange,\n}) => {\n  return (\n    <div className=\"liquid-stepper\">\n      {steps.map((step, index) => {\n        const isCompleted = index < currentStep;\n        const isActive = index === currentStep;\n        const isUpcoming = index > currentStep;\n\n        return (\n          <React.Fragment key={step.id}>\n            {/* Step Node */}\n            <button\n              className={`liquid-step-node ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''} ${isUpcoming ? 'upcoming' : ''}`}\n              onClick={() => onChange?.(index)}\n              aria-current={isActive ? 'step' : undefined}\n            >\n              {/* Glow ring for active state */}\n              {isActive && <div className=\"liquid-step-glow\" />}\n\n              {/* Circle */}\n              <div className=\"liquid-step-circle\">\n                {isCompleted ? (\n                  <Check size={18} strokeWidth={3} />\n                ) : (\n                  <span className=\"liquid-step-number\">{index + 1}</span>\n                )}\n              </div>\n\n              {/* Label & Description */}\n              <div className=\"liquid-step-text\">\n                <span className=\"liquid-step-label\">{step.label}</span>\n                {step.description && (\n                  <span className=\"liquid-step-desc\">{step.description}</span>\n                )}\n              </div>\n            </button>\n\n            {/* Connector bar between steps */}\n            {index < steps.length - 1 && (\n              <div className=\"liquid-step-connector\">\n                <div\n                  className=\"liquid-step-fill\"\n                  style={{\n                    transform: `scaleX(${index < currentStep ? 1 : 0})`,\n                  }}\n                />\n                {/* Liquid blob at the tip of the fill */}\n                {index === currentStep - 1 && (\n                  <div className=\"liquid-blob\" />\n                )}\n              </div>\n            )}\n          </React.Fragment>\n        );\n      })}\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

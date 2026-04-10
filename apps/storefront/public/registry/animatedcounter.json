@@ -1,0 +1,34 @@
+{
+  "name": "animatedcounter",
+  "title": "Animated Counter",
+  "category": "stats",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "AnimatedCounter.tsx",
+          "content": "\"use client\";\n\nimport React, { useState, useEffect, useRef } from 'react';\n\nexport interface AnimatedCounterProps {\n  end: number;\n  duration?: number;\n  suffix?: string;\n  prefix?: string;\n  label: string;\n}\n\nexport const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ \n  end, \n  duration = 2000, \n  suffix = '', \n  prefix = '', \n  label \n}) => {\n  const [count, setCount] = useState(0);\n  const [isVisible, setIsVisible] = useState(false);\n  const ref = useRef<HTMLDivElement>(null);\n\n  useEffect(() => {\n    const observer = new IntersectionObserver(\n      ([entry]) => {\n        if (entry.isIntersecting) {\n          setIsVisible(true);\n          observer.disconnect();\n        }\n      },\n      { threshold: 0.1 }\n    );\n\n    if (ref.current) {\n      observer.observe(ref.current);\n    }\n\n    return () => observer.disconnect();\n  }, []);\n\n  useEffect(() => {\n    if (!isVisible) return;\n\n    let startTime: number | null = null;\n    let animationFrameId: number;\n\n    const animate = (timestamp: number) => {\n      if (!startTime) startTime = timestamp;\n      const progress = timestamp - startTime;\n\n      // easeOutExpo function for smooth ending\n      const easeOutExpo = (x: number): number => {\n        return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);\n      };\n\n      const percentage = Math.min(progress / duration, 1);\n      const currentCount = Math.floor(end * easeOutExpo(percentage));\n\n      setCount(currentCount);\n\n      if (progress < duration) {\n        animationFrameId = requestAnimationFrame(animate);\n      } else {\n        setCount(end); // Ensure we end exactly at the target number\n      }\n    };\n\n    animationFrameId = requestAnimationFrame(animate);\n\n    return () => cancelAnimationFrame(animationFrameId);\n  }, [isVisible, end, duration]);\n\n  // Format number with commas\n  const formattedCount = new Intl.NumberFormat('en-US').format(count);\n\n  return (\n    <div ref={ref} className=\"animated-counter-container\">\n      <div className=\"counter-value-wrapper\">\n        <span className=\"counter-prefix\">{prefix}</span>\n        <span className=\"counter-number\">{formattedCount}</span>\n        <span className=\"counter-suffix\">{suffix}</span>\n      </div>\n      <div className=\"counter-label\">{label}</div>\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "AnimatedCounter.jsx",
+          "content": "\"use client\";\n\nimport React, { useState, useEffect, useRef } from 'react';\n\nexport \n\nexport const AnimatedCounter.FC = ({ \n  end, \n  duration = 2000, \n  suffix = '', \n  prefix = '', \n  label \n}) => {\n  const [count, setCount] = useState(0);\n  const [isVisible, setIsVisible] = useState(false);\n  const ref = useRef(null);\n\n  useEffect(() => {\n    const observer = new IntersectionObserver(\n      ([entry]) => {\n        if (entry.isIntersecting) {\n          setIsVisible(true);\n          observer.disconnect();\n        }\n      },\n      { threshold: 0.1 }\n    );\n\n    if (ref.current) {\n      observer.observe(ref.current);\n    }\n\n    return () => observer.disconnect();\n  }, []);\n\n  useEffect(() => {\n    if (!isVisible) return;\n\n    let startTime: number | null = null;\n    let animationFrameId: number;\n\n    const animate = (timestamp: number) => {\n      if (!startTime) startTime = timestamp;\n      const progress = timestamp - startTime;\n\n      // easeOutExpo function for smooth ending\n      const easeOutExpo = (x: number): number => {\n        return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);\n      };\n\n      const percentage = Math.min(progress / duration, 1);\n      const currentCount = Math.floor(end * easeOutExpo(percentage));\n\n      setCount(currentCount);\n\n      if (progress < duration) {\n        animationFrameId = requestAnimationFrame(animate);\n      } else {\n        setCount(end); // Ensure we end exactly at the target number\n      }\n    };\n\n    animationFrameId = requestAnimationFrame(animate);\n\n    return () => cancelAnimationFrame(animationFrameId);\n  }, [isVisible, end, duration]);\n\n  // Format number with commas\n  const formattedCount = new Intl.NumberFormat('en-US').format(count);\n\n  return (\n    <div ref={ref} className=\"animated-counter-container\">\n      <div className=\"counter-value-wrapper\">\n        <span className=\"counter-prefix\">{prefix}</span>\n        <span className=\"counter-number\">{formattedCount}</span>\n        <span className=\"counter-suffix\">{suffix}</span>\n      </div>\n      <div className=\"counter-label\">{label}</div>\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

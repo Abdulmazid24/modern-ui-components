@@ -1,0 +1,34 @@
+{
+  "name": "scrambletext",
+  "title": "Scramble Text",
+  "category": "effects",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "ScrambleText.tsx",
+          "content": "\"use client\";\n\nimport React, { useState, useEffect, useRef, useCallback } from 'react';\n\nexport interface ScrambleTextProps {\n  text: string;\n  characters?: string;\n  speed?: number;\n  delay?: number;\n  className?: string;\n}\n\nexport const ScrambleText: React.FC<ScrambleTextProps> = ({\n  text,\n  characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+',\n  speed = 40,\n  delay = 500,\n  className = '',\n}) => {\n  const [displayText, setDisplayText] = useState('');\n  const [isIntersecting, setIsIntersecting] = useState(false);\n  const [hasAnimated, setHasAnimated] = useState(false);\n  const ref = useRef<HTMLSpanElement>(null);\n  \n  // Set up intersection observer\n  useEffect(() => {\n    const observer = new IntersectionObserver(\n      ([entry]) => {\n        if (entry.isIntersecting && !hasAnimated) {\n          setIsIntersecting(true);\n        }\n      },\n      { threshold: 0.1 }\n    );\n\n    if (ref.current) {\n      observer.observe(ref.current);\n    }\n\n    return () => observer.disconnect();\n  }, [hasAnimated]);\n\n  const animate = useCallback(() => {\n    let frame = 0;\n    const length = text.length;\n    // Map of which characters have resolved to their final state\n    let resolvedChars: boolean[] = new Array(length).fill(false);\n\n    const interval = setInterval(() => {\n      let output = '';\n      let allResolved = true;\n\n      for (let i = 0; i < length; i++) {\n        // Spaces resolve instantly\n        if (text[i] === ' ') {\n          output += ' ';\n          resolvedChars[i] = true;\n          continue;\n        }\n\n        // The math ensures letters resolve from left to right gradually over time\n        // The further right a character is, the more frames it takes to resolve\n        if (frame >= i * 2) {\n          output += text[i];\n          resolvedChars[i] = true;\n        } else {\n          output += characters[Math.floor(Math.random() * characters.length)];\n          allResolved = false;\n        }\n      }\n\n      setDisplayText(output);\n      frame++;\n\n      if (allResolved) {\n        clearInterval(interval);\n        setHasAnimated(true);\n      }\n    }, speed);\n\n    return () => clearInterval(interval);\n  }, [text, characters, speed]);\n\n  useEffect(() => {\n    if (isIntersecting) {\n      const timeoutId = setTimeout(() => {\n        animate();\n      }, delay);\n      return () => clearTimeout(timeoutId);\n    }\n  }, [isIntersecting, animate, delay]);\n\n  const handleMouseEnter = () => {\n    if (hasAnimated) {\n      setHasAnimated(false);\n      animate();\n    }\n  };\n\n  return (\n    <span \n      ref={ref} \n      className={`font-mono inline-block ${className}`}\n      onMouseEnter={handleMouseEnter}\n      style={{ minHeight: '1.2em' }} // Prevent layout shift\n      title=\"Hover to replay\"\n    >\n      {/* Before animation starts, show nothing or just spaces */}\n      {!isIntersecting && !hasAnimated ? text.replace(/./g, '\\xa0') : displayText}\n    </span>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "ScrambleText.jsx",
+          "content": "\"use client\";\n\nimport React, { useState, useEffect, useRef, useCallback } from 'react';\n\nexport \n\nexport const ScrambleText.FC = ({\n  text,\n  characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+',\n  speed = 40,\n  delay = 500,\n  className = '',\n}) => {\n  const [displayText, setDisplayText] = useState('');\n  const [isIntersecting, setIsIntersecting] = useState(false);\n  const [hasAnimated, setHasAnimated] = useState(false);\n  const ref = useRef(null);\n  \n  // Set up intersection observer\n  useEffect(() => {\n    const observer = new IntersectionObserver(\n      ([entry]) => {\n        if (entry.isIntersecting && !hasAnimated) {\n          setIsIntersecting(true);\n        }\n      },\n      { threshold: 0.1 }\n    );\n\n    if (ref.current) {\n      observer.observe(ref.current);\n    }\n\n    return () => observer.disconnect();\n  }, [hasAnimated]);\n\n  const animate = useCallback(() => {\n    let frame = 0;\n    const length = text.length;\n    // Map of which characters have resolved to their final state\n    let resolvedChars: boolean[] = new Array(length).fill(false);\n\n    const interval = setInterval(() => {\n      let output = '';\n      let allResolved = true;\n\n      for (let i = 0; i < length; i++) {\n        // Spaces resolve instantly\n        if (text[i] === ' ') {\n          output += ' ';\n          resolvedChars[i] = true;\n          continue;\n        }\n\n        // The math ensures letters resolve from left to right gradually over time\n        // The further right a character is, the more frames it takes to resolve\n        if (frame >= i * 2) {\n          output += text[i];\n          resolvedChars[i] = true;\n        } else {\n          output += characters[Math.floor(Math.random() * characters.length)];\n          allResolved = false;\n        }\n      }\n\n      setDisplayText(output);\n      frame++;\n\n      if (allResolved) {\n        clearInterval(interval);\n        setHasAnimated(true);\n      }\n    }, speed);\n\n    return () => clearInterval(interval);\n  }, [text, characters, speed]);\n\n  useEffect(() => {\n    if (isIntersecting) {\n      const timeoutId = setTimeout(() => {\n        animate();\n      }, delay);\n      return () => clearTimeout(timeoutId);\n    }\n  }, [isIntersecting, animate, delay]);\n\n  const handleMouseEnter = () => {\n    if (hasAnimated) {\n      setHasAnimated(false);\n      animate();\n    }\n  };\n\n  return (\n    <span \n      ref={ref} \n      className={`font-mono inline-block ${className}`}\n      onMouseEnter={handleMouseEnter}\n      style={{ minHeight: '1.2em' }} // Prevent layout shift\n      title=\"Hover to replay\"\n    >\n      {/* Before animation starts, show nothing or just spaces */}\n      {!isIntersecting && !hasAnimated ? text.replace(/./g, '\\xa0') : displayText}\n    </span>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

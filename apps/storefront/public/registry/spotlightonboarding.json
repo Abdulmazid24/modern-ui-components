@@ -1,0 +1,34 @@
+{
+  "name": "spotlightonboarding",
+  "title": "Spotlight Onboarding",
+  "category": "onboarding",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "SpotlightOnboarding.tsx",
+          "content": "\"use client\";\nimport React, { useState } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { ChevronRight, X } from \"lucide-react\";\nconst steps = [\n  { title: \"Welcome!\", desc: \"Let's get you started with Modern UI Vault.\", target: \"top-left\" },\n  { title: \"Browse Components\", desc: \"Explore 150+ components across 130 categories.\", target: \"center\" },\n  { title: \"Install via CLI\", desc: \"Run npx modern-ui-vault add [component] instantly.\", target: \"bottom-right\" },\n];\nexport const SpotlightOnboarding: React.FC = () => {\n  const [step, setStep] = useState(0); const [active, setActive] = useState(true);\n  if (!active) return <button onClick={() => { setActive(true); setStep(0); }} className=\"px-4 py-2 rounded-xl bg-violet-600 text-white text-sm font-medium cursor-pointer\">Start Tour</button>;\n  const s = steps[step]; const pos = s.target === \"top-left\" ? \"top-8 left-8\" : s.target === \"center\" ? \"top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2\" : \"bottom-8 right-8\";\n  return (\n    <div className=\"relative w-full max-w-2xl h-64 rounded-2xl bg-zinc-950 border border-white/8 overflow-hidden\">\n      <div className=\"absolute inset-0 bg-black/60 z-10\" />\n      <AnimatePresence mode=\"wait\">\n        <motion.div key={step} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className={`absolute ${pos} z-20 w-72 p-5 rounded-2xl bg-zinc-900 border border-white/10`} style={{ boxShadow: \"0 0 40px rgba(124,58,237,0.2)\" }}>\n          <button onClick={() => setActive(false)} className=\"absolute top-3 right-3 text-zinc-500 hover:text-white cursor-pointer\"><X size={14}/></button>\n          <div className=\"flex items-center gap-2 mb-2\">{steps.map((_, i) => <div key={i} className={`w-6 h-1 rounded-full ${i <= step ? \"bg-violet-500\" : \"bg-zinc-800\"}`} />)}</div>\n          <h3 className=\"text-white font-bold text-sm\">{s.title}</h3>\n          <p className=\"text-zinc-400 text-xs mt-1 mb-4\">{s.desc}</p>\n          <button onClick={() => step < steps.length - 1 ? setStep(step + 1) : setActive(false)} className=\"flex items-center gap-1 text-xs font-semibold text-violet-400 cursor-pointer\">{step < steps.length - 1 ? <>Next <ChevronRight size={12}/></> : \"Finish\"}</button>\n        </motion.div>\n      </AnimatePresence>\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "SpotlightOnboarding.jsx",
+          "content": "\"use client\";\nimport React, { useState } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { ChevronRight, X } from \"lucide-react\";\nconst steps = [\n  { title: \"Welcome!\", desc: \"Let's get you started with Modern UI Vault.\", target: \"top-left\" },\n  { title: \"Browse Components\", desc: \"Explore 150+ components across 130 categories.\", target: \"center\" },\n  { title: \"Install via CLI\", desc: \"Run npx modern-ui-vault add [component] instantly.\", target: \"bottom-right\" },\n];\nexport const SpotlightOnboarding.FC = () => {\n  const [step, setStep] = useState(0); const [active, setActive] = useState(true);\n  if (!active) return <button onClick={() => { setActive(true); setStep(0); }} className=\"px-4 py-2 rounded-xl bg-violet-600 text-white text-sm font-medium cursor-pointer\">Start Tour</button>;\n  const s = steps[step]; const pos = s.target === \"top-left\" ? \"top-8 left-8\" : s.target === \"center\" ? \"top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2\" : \"bottom-8 right-8\";\n  return (\n    <div className=\"relative w-full max-w-2xl h-64 rounded-2xl bg-zinc-950 border border-white/8 overflow-hidden\">\n      <div className=\"absolute inset-0 bg-black/60 z-10\" />\n      <AnimatePresence mode=\"wait\">\n        <motion.div key={step} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className={`absolute ${pos} z-20 w-72 p-5 rounded-2xl bg-zinc-900 border border-white/10`} style={{ boxShadow: \"0 0 40px rgba(124,58,237,0.2)\" }}>\n          <button onClick={() => setActive(false)} className=\"absolute top-3 right-3 text-zinc-500 hover:text-white cursor-pointer\"><X size={14}/></button>\n          <div className=\"flex items-center gap-2 mb-2\">{steps.map((_, i) => <div key={i} className={`w-6 h-1 rounded-full ${i <= step ? \"bg-violet-500\" : \"bg-zinc-800\"}`} />)}</div>\n          <h3 className=\"text-white font-bold text-sm\">{s.title}</h3>\n          <p className=\"text-zinc-400 text-xs mt-1 mb-4\">{s.desc}</p>\n          <button onClick={() => step < steps.length - 1 ? setStep(step + 1) : setActive(false)} className=\"flex items-center gap-1 text-xs font-semibold text-violet-400 cursor-pointer\">{step < steps.length - 1 ? <>Next <ChevronRight size={12}/></> : \"Finish\"}</button>\n        </motion.div>\n      </AnimatePresence>\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

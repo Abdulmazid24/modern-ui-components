@@ -1,0 +1,34 @@
+{
+  "name": "starfieldparticles",
+  "title": "Starfield Particles",
+  "category": "particle-bg",
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "StarfieldParticles.tsx",
+          "content": "\"use client\";\nimport React, { useRef, useEffect } from \"react\";\nexport const StarfieldParticles: React.FC<{ count?: number }> = ({ count = 120 }) => {\n  const canvasRef = useRef<HTMLCanvasElement>(null);\n  useEffect(() => {\n    const canvas = canvasRef.current; if (!canvas) return;\n    const ctx = canvas.getContext(\"2d\"); if (!ctx) return;\n    const resize = () => { canvas.width = canvas.offsetWidth * 2; canvas.height = canvas.offsetHeight * 2; ctx.scale(2, 2); };\n    resize(); window.addEventListener(\"resize\", resize);\n    const stars = Array.from({ length: count }, () => ({ x: Math.random() * canvas.offsetWidth, y: Math.random() * canvas.offsetHeight, r: Math.random() * 1.5 + 0.5, speed: Math.random() * 0.5 + 0.1, opacity: Math.random() }));\n    let raf: number;\n    const draw = () => {\n      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);\n      stars.forEach((s) => {\n        s.y -= s.speed; s.opacity += (Math.random() - 0.5) * 0.05; s.opacity = Math.max(0.1, Math.min(1, s.opacity));\n        if (s.y < 0) { s.y = canvas.offsetHeight; s.x = Math.random() * canvas.offsetWidth; }\n        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);\n        ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`; ctx.fill();\n      });\n      raf = requestAnimationFrame(draw);\n    };\n    draw();\n    return () => { cancelAnimationFrame(raf); window.removeEventListener(\"resize\", resize); };\n  }, [count]);\n  return <canvas ref={canvasRef} className=\"w-full h-64 rounded-2xl bg-zinc-950 border border-white/5\" />;\n};\n"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "StarfieldParticles.jsx",
+          "content": "\"use client\";\nimport React, { useRef, useEffect } from \"react\";\nexport const StarfieldParticles.FC<{ count?: number }> = ({ count = 120 }) => {\n  const canvasRef = useRef(null);\n  useEffect(() => {\n    const canvas = canvasRef.current; if (!canvas) return;\n    const ctx = canvas.getContext(\"2d\"); if (!ctx) return;\n    const resize = () => { canvas.width = canvas.offsetWidth * 2; canvas.height = canvas.offsetHeight * 2; ctx.scale(2, 2); };\n    resize(); window.addEventListener(\"resize\", resize);\n    const stars = Array.from({ length: count }, () => ({ x.random() * canvas.offsetWidth, y.random() * canvas.offsetHeight, r.random() * 1.5 + 0.5, speed.random() * 0.5 + 0.1, opacity.random() }));\n    let raf: number;\n    const draw = () => {\n      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);\n      stars.forEach((s) => {\n        s.y -= s.speed; s.opacity += (Math.random() - 0.5) * 0.05; s.opacity = Math.max(0.1, Math.min(1, s.opacity));\n        if (s.y < 0) { s.y = canvas.offsetHeight; s.x = Math.random() * canvas.offsetWidth; }\n        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);\n        ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`; ctx.fill();\n      });\n      raf = requestAnimationFrame(draw);\n    };\n    draw();\n    return () => { cancelAnimationFrame(raf); window.removeEventListener(\"resize\", resize); };\n  }, [count]);\n  return <canvas ref={canvasRef} className=\"w-full h-64 rounded-2xl bg-zinc-950 border border-white/5\" />;\n};"
+        }
+      ],
+      "dependencies": [
+        "lucide-react",
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}
