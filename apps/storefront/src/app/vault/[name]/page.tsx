@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, Code2, Globe, Copy, Check, Terminal, Lock } from "lucide-react";
+import { ChevronLeft, Code2, Globe, Copy, Check, Terminal, Lock, Smartphone, Tablet, Monitor } from "lucide-react";
 import dynamic from 'next/dynamic';
 
 // Registry is fetched from public/registry
@@ -11,6 +11,7 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
   const [registryData, setRegistryData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<'preview' | 'code' | 'install'>('preview');
   const [activeDialect, setActiveDialect] = useState('tsx');
+  const [responsiveView, setResponsiveView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -132,12 +133,50 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
         <div className="w-full">
            
            {activeTab === 'preview' && (
-             <div className="relative group w-full min-h-[500px] flex items-center justify-center bg-zinc-950 rounded-[2.5rem] border border-zinc-900 overflow-hidden p-8 md:p-12 shadow-2xl">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.05),transparent_70%)] pointer-events-none" />
-                {/* @ts-expect-error - Dynamic preview receives arbitrary mock props depending on the component's category */}
-                <DynamicPreview {...getMockProps()} />
-             </div>
-           )}
+              <div>
+                {/* Responsive Preview Toolbar */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1 p-1 bg-zinc-900 border border-zinc-800 rounded-xl">
+                    {[
+                      { id: 'desktop' as const, icon: <Monitor size={16} />, label: 'Desktop', width: '100%' },
+                      { id: 'tablet' as const, icon: <Tablet size={16} />, label: 'Tablet', width: '768px' },
+                      { id: 'mobile' as const, icon: <Smartphone size={16} />, label: 'Mobile', width: '375px' },
+                    ].map((device) => (
+                      <button
+                        key={device.id}
+                        onClick={() => setResponsiveView(device.id)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          responsiveView === device.id
+                            ? 'bg-white text-black shadow-[0_0_10px_rgba(255,255,255,0.2)]'
+                            : 'text-zinc-500 hover:text-white hover:bg-zinc-800'
+                        }`}
+                      >
+                        {device.icon}
+                        <span className="hidden sm:inline">{device.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <span className="text-xs text-zinc-600 font-mono hidden md:block">
+                    {responsiveView === 'desktop' ? '100%' : responsiveView === 'tablet' ? '768px' : '375px'}
+                  </span>
+                </div>
+
+                {/* Preview Container with responsive width */}
+                <div className="flex justify-center w-full transition-all duration-500">
+                  <div
+                    className="relative group min-h-[500px] flex items-center justify-center bg-zinc-950 rounded-[2.5rem] border border-zinc-900 overflow-hidden p-6 md:p-12 shadow-2xl transition-all duration-500 ease-out"
+                    style={{
+                      width: responsiveView === 'desktop' ? '100%' : responsiveView === 'tablet' ? '768px' : '375px',
+                      maxWidth: '100%',
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.05),transparent_70%)] pointer-events-none" />
+                    {/* @ts-expect-error - Dynamic preview receives arbitrary mock props depending on the component's category */}
+                    <DynamicPreview {...getMockProps()} />
+                  </div>
+                </div>
+              </div>
+            )}
 
            {activeTab === 'code' && (
              <div className="bg-zinc-950 border border-zinc-900 rounded-[2.5rem] overflow-hidden flex flex-col h-[700px] relative">
