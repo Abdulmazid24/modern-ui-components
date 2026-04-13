@@ -23,5 +23,11 @@
     "tsx": "^4.19.2",
     "typescript": "~5.9.3",
     "vitest": "^4.1.4"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.8.0",
+    "tailwind-merge": "^3.5.0"
   }
 }

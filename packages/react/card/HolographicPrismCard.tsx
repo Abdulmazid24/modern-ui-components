@@ -2,8 +2,9 @@
 
 import React, { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { cn } from "../utils/cn";
 
-export interface HolographicPrismCardProps {
+export interface HolographicPrismCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   subtitle?: string;
 }
@@ -11,6 +12,8 @@ export interface HolographicPrismCardProps {
 export const HolographicPrismCard: React.FC<HolographicPrismCardProps> = ({
   title = "HOLOGRAPHIC",
   subtitle = "PRISM ENTITY",
+  className,
+  ...props
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -47,7 +50,7 @@ export const HolographicPrismCard: React.FC<HolographicPrismCardProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-center p-12 bg-black min-h-[500px]" style={{ perspective: 1500 }}>
+    <div className={cn("flex items-center justify-center p-12 bg-black min-h-[500px]", className)} style={{ perspective: 1500 }} {...props}>
       <motion.div
         ref={cardRef}
         onMouseMove={handleMouseMove}

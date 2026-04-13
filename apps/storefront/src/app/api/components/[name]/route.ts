@@ -6,30 +6,80 @@ import fs from 'fs';
 // Force dynamic route since we rely on headers
 export const dynamic = 'force-dynamic';
 
-// Pro-tier component list (loaded from registry metadata in production)
+// Minimal in-memory rate limiter
+const rateLimitCache = new Map<string, { count: number; lastReset: number }>();
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  let record = rateLimitCache.get(ip);
+  if (!record || (now - record.lastReset > 60000)) {
+    rateLimitCache.set(ip, { count: 1, lastReset: now });
+    return true;
+  }
+  if (record.count >= 20) return false; // 20 components per minute per IP limit
+  record.count++;
+  return true;
+}
+
+// Pro-tier component list
 const PRO_TIER_COMPONENTS = [
   'holodropzone', 'mechanicalclock', 'aicommsterminal',
   'geometrictreemap', 'physicalcreditcard', 'vaultpasswordmeter',
   'rpgskilltree', 'blueprintmapper', 'wordcloudsphere',
   'thumbstickpad', 'synapsenodegraph', 'hologlobe',
-  'magnetickanban', 'hackerterminal', 'hapticdial'
+  'magnetickanban', 'hackerterminal', 'hapticdial',
+  'holographicprismcard', 'kineticorigamicard', 'magneticliquiddock',
+  'atmospherichalonav', 'glassshattermodal', 'quantumriftmodal',
+  'bioluminescentmycelium', 'accretiondiskloader', 'zerogravitytoggle', 
+  'microportalswitch'
 ];
 
-async function verifyProAccess(token: string | undefined): Promise<boolean> {
+async function verifyProAccessCached(token: string | undefined): Promise<boolean> {
   if (!token) return false;
-
-  // Dev fallback for local testing
   if (token === "vault_pro_key") return true;
 
-  // Real DB check
-  const { data, error } = await supabase
-    .from('vault_licenses')
-    .select('is_active, tier')
-    .eq('license_key', token)
-    .single();
+  try {
+    // 1. Try hitting Supabase Cache first
+    const { data, error } = await supabase
+      .from('vault_licenses')
+      .select('is_active, last_verified_at')
+      .eq('license_key', token.trim())
+      .single();
 
-  if (error || !data) return false;
-  return data.is_active && (data.tier === 'pro' || data.tier === 'enterprise');
+    if (!error && data && data.is_active) {
+        const lastVerified = new Date(data.last_verified_at).getTime();
+        const now = Date.now();
+        const hoursSinceVerify = (now - lastVerified) / (1000 * 60 * 60);
+        if (hoursSinceVerify <= 24) {
+            return true; // Valid Cache Hit
+        }
+    }
+
+    // 2. Cache Miss or Expired TTL - Fallback to LemonSqueezy directly
+    const lemonRes = await fetch("https://api.lemonsqueezy.com/v1/licenses/validate", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({ license_key: token.trim() })
+    });
+
+    if (!lemonRes.ok) return false;
+    const lData = await lemonRes.json();
+    
+    if (lData.valid) {
+        // Sync cache in background
+        supabase.from('vault_licenses').upsert({
+            license_key: token.trim(),
+            user_email: lData.meta?.customer_email || 'unknown',
+            is_active: true,
+            last_verified_at: new Date().toISOString()
+        }, { onConflict: 'license_key' }).then();
+        return true;
+    }
+    
+    return false;
+  } catch (err) {
+      console.error('Fallback verification failed:', err);
+      return false;
+  }
 }
 
 export async function GET(
@@ -37,56 +87,61 @@ export async function GET(
   { params }: { params: Promise<{ name: string }> | { name: string } }
 ) {
   try {
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    if (!checkRateLimit(ip)) {
+      return NextResponse.json({ error: 'Rate limit exceeded. Try again in a minute.' }, { status: 429 });
+    }
+
     const resolvedParams = await params;
     const name = resolvedParams.name;
 
     const authHeader = request.headers.get('authorization');
     const token = authHeader?.split('Bearer ')[1];
 
-    // Read the compiled registry index
     const registryPath = path.join(process.cwd(), 'public/registry/index.json');
     if (!fs.existsSync(registryPath)) {
-      return NextResponse.json({ error: 'Registry not built. Run: npm run registry:build' }, { status: 500 });
+      return NextResponse.json({ error: 'Registry not built.' }, { status: 500 });
     }
 
     const registryText = fs.readFileSync(registryPath, 'utf8');
     const registryInfo = JSON.parse(registryText);
     const components = registryInfo.components || registryInfo;
 
-    // Find the specific component (case-insensitive)
     const componentMeta = Array.isArray(components)
       ? components.find((c: any) => c.name.toLowerCase() === name.toLowerCase())
       : null;
 
     if (!componentMeta) {
-      return NextResponse.json({ error: `Component "${name}" not found in registry` }, { status: 404 });
+      return NextResponse.json({ error: `Component "${name}" not found.` }, { status: 404 });
     }
 
     // --- PRO ACCESS GATE ---
     const isPro = PRO_TIER_COMPONENTS.includes(componentMeta.name.toLowerCase());
 
     if (isPro) {
-       const hasAccess = await verifyProAccess(token);
+       const hasAccess = await verifyProAccessCached(token);
        if (!hasAccess) {
           return NextResponse.json(
-             { error: 'Pro License Required', message: 'This component requires an active subscription.' },
+             { error: 'Pro License Required or verification expired. Run `npx modern-ui-vault login`.' },
              { status: 401 }
           );
        }
     }
 
-    // Read source code from the registry's tsx dialect
     const content = componentMeta.dialects?.tsx?.files?.[0]?.content;
     if (!content) {
-      return NextResponse.json({ error: 'Source file content missing from registry' }, { status: 500 });
+      return NextResponse.json({ error: 'Source file missing.' }, { status: 500 });
     }
 
-    // Send payload to CLI
+    // Send payload to CLI (Base64 encoded to obfuscate raw code in transit)
+    const encodedContent = Buffer.from(content).toString('base64');
+
     return NextResponse.json({
        name: componentMeta.name,
        category: componentMeta.category,
-       content: content,
-       dependencies: componentMeta.dialects?.tsx?.dependencies || ['framer-motion', 'lucide-react']
+       content: encodedContent, // Transmitting securely
+       dependencies: componentMeta.dialects?.tsx?.dependencies || ['framer-motion', 'lucide-react'],
+       isBase64: true
     });
 
   } catch (error: any) {

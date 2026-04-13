@@ -105,13 +105,26 @@ program
               return;
           }
 
+          if (res.status === 429) {
+              console.log(chalk.red.bold('\n✖ [Rate Limit Exceeded]'));
+              console.log(chalk.gray('You are adding too many components too fast. Please wait a minute.\n'));
+              return;
+          }
+
           if (!res.ok) {
               console.log(chalk.red(`\n✖ Failed to fetch component: ${res.statusText} (${res.status})`));
+              // Log the specific backend error if available
+              const errData = await res.json().catch(() => null);
+              if (errData?.error) console.log(chalk.gray(`Message: ${errData.error}\n`));
               return;
           }
 
           const data = await res.json() as any;
-          const { name, content, dependencies } = data;
+          let { name, content, dependencies, isBase64 } = data;
+
+          if (isBase64) {
+              content = Buffer.from(content, 'base64').toString('utf-8');
+          }
 
           if (dependencies && dependencies.length > 0) {
              const pm = getPackageManager();
@@ -134,15 +147,56 @@ program
              }
           }
 
-          // Create local component file
-          const targetDir = path.join(process.cwd(), 'src', 'components', 'ui');
-          if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
+          // Smart Path Resolution
+          const cwd = process.cwd();
+          let targetDir = path.join(cwd, 'components', 'ui');
+          let utilsDir = path.join(cwd, 'lib');
           
+          if (fs.existsSync(path.join(cwd, 'src'))) {
+              targetDir = path.join(cwd, 'src', 'components', 'ui');
+              utilsDir = path.join(cwd, 'src', 'lib');
+          }
+
+          if (fs.existsSync(path.join(cwd, 'components.json'))) {
+              try {
+                 const compConfig = JSON.parse(fs.readFileSync(path.join(cwd, 'components.json'), 'utf-8'));
+                 if (compConfig.aliases && compConfig.aliases.components) {
+                    targetDir = path.join(cwd, compConfig.aliases.components.replace('@/', 'src/'), 'ui');
+                 }
+                 if (compConfig.aliases && compConfig.aliases.utils) {
+                    utilsDir = path.join(cwd, compConfig.aliases.utils.replace('@/', 'src/').replace('/utils', ''));
+                 }
+              } catch(e) {}
+          }
+
+          if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
+          if (!fs.existsSync(utilsDir)) fs.mkdirSync(utilsDir, { recursive: true });
+          
+          // Auto-inject cn utility if missing
+          const utilsFile = path.join(utilsDir, 'utils.ts');
+          if (!fs.existsSync(utilsFile)) {
+             console.log(chalk.yellow(`\nInstalling cn() utility to ${utilsFile}...`));
+             const cnContent = `import { clsx, type ClassValue } from "clsx";\nimport { twMerge } from "tailwind-merge";\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}\n`;
+             fs.writeFileSync(utilsFile, cnContent);
+             // Ensure dependencies for cn are installed
+             const pm = getPackageManager();
+             let utilsDeps = ['clsx', 'tailwind-merge'];
+             if (fs.existsSync(path.join(cwd, 'package.json'))) {
+                  const pkg = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf-8'));
+                  const existingDeps = { ...pkg.dependencies, ...pkg.devDependencies };
+                  utilsDeps = utilsDeps.filter(d => !existingDeps[d]);
+             }
+             if(utilsDeps.length > 0) {
+                 execSync(`${pm.installCmd} ${utilsDeps.join(' ')}`, { stdio: 'inherit' });
+             }
+          }
+
           const filePath = path.join(targetDir, `${name}.tsx`);
           fs.writeFileSync(filePath, content);
 
           console.log(chalk.green.bold(`\n✔ Successfully installed ${name}.tsx!`));
-          console.log(chalk.gray(`Path: ${filePath}\n`));
+          console.log(chalk.gray(`Component Path: ${filePath}`));
+          console.log(chalk.gray(`Utils Path: ${utilsFile}\n`));
           
       } catch (error: any) {
           console.log(chalk.red(`\n✖ An error occurred: ${error.message}`));
