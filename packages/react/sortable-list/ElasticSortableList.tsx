@@ -3,43 +3,44 @@
 import React, { useState } from "react";
 import { Reorder, useDragControls } from "framer-motion";
 import { GripVertical } from "lucide-react";
+import { cn } from "@/utils";
 
 export interface SortableItem {
   id: string;
   content: string;
+    className?: string;
 }
 
 export interface ElasticSortableListProps {
   initialItems?: SortableItem[];
+    className?: string;
 }
 
-export const ElasticSortableList: React.FC<ElasticSortableListProps> = ({
-  initialItems = [
-    { id: "1", content: "Optimize Webpack bundle" },
-    { id: "2", content: "Fix memory leak in V8" },
-    { id: "3", content: "Deploy to edge network" },
-    { id: "4", content: "Write integration tests" }
-  ]
-}) => {
-  const [items, setItems] = useState(initialItems);
+export const ElasticSortableList = React.forwardRef<any, ElasticSortableListProps>(({ className, initialItems = [
+            { id: "1", content: "Optimize Webpack bundle" },
+            { id: "2", content: "Fix memory leak in V8" },
+            { id: "3", content: "Deploy to edge network" },
+            { id: "4", content: "Write integration tests" }
+          ], ...props }, ref) => {
+        const [items, setItems] = useState(initialItems);
 
-  return (
-    <div className="w-full max-w-md p-6 bg-zinc-950 border border-zinc-900 rounded-3xl shadow-xl">
-      <h3 className="text-zinc-400 font-medium mb-4 text-sm tracking-widest uppercase mb-6">Task Priority Queue</h3>
-      
-      <Reorder.Group 
-        axis="y" 
-        values={items} 
-        onReorder={setItems} 
-        className="flex flex-col gap-3"
-      >
-        {items.map((item) => (
-          <SortableListItem key={item.id} item={item} />
-        ))}
-      </Reorder.Group>
-    </div>
-  );
-};
+        return (
+        <div ref={ref} {...props} className={cn("w-full max-w-md p-6 bg-zinc-950 border border-zinc-900 rounded-3xl shadow-xl", className)}>
+          <h3 className="text-zinc-400 font-medium mb-4 text-sm tracking-widest uppercase mb-6">Task Priority Queue</h3>
+          
+          <Reorder.Group 
+            axis="y" 
+            values={items} 
+            onReorder={setItems} 
+            className="flex flex-col gap-3"
+          >
+            {items.map((item) => (
+              <SortableListItem key={item.id} item={item} />
+            ))}
+          </Reorder.Group>
+        </div>
+        );
+        });
 
 const SortableListItem = ({ item }: { item: SortableItem }) => {
   const dragControls = useDragControls();

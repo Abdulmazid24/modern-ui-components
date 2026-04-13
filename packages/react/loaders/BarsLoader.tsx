@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { cn } from "@/utils";
 
 export interface BarsLoaderProps {
   /** Number of bars */
@@ -18,36 +19,28 @@ export interface BarsLoaderProps {
   className?: string;
 }
 
-export const BarsLoader: React.FC<BarsLoaderProps> = ({
-  count = 4,
-  barWidth = 10,
-  barHeight = 60,
-  color = 'rgb(245, 158, 11)',
-  speed = 1,
-  label = 'Loading',
-  className = '',
-}) => {
-  return (
-    <div
-      className={`inline-flex items-center gap-[3px] ${className}`}
-      role="status"
-      aria-label={label}
-    >
-      {Array.from({ length: count }).map((_, i) => (
-        <span
-          key={i}
-          className="inline-block rounded-[2px]"
-          style={{
-            width: barWidth,
-            height: barHeight,
-            backgroundColor: color,
-            animation: `loaderStretch ${speed}s ease infinite`,
-            animationDelay: `${i * (speed / count)}s`,
-          }}
-          aria-hidden="true"
-        />
-      ))}
-      <span className="sr-only">{label}</span>
-    </div>
-  );
-};
+export const BarsLoader = React.forwardRef<any, BarsLoaderProps>(({ count = 4, barWidth = 10, barHeight = 60, color = 'rgb(245, 158, 11)', speed = 1, label = 'Loading', className = '', ...props }, ref) => {
+        return (
+        <div ref={ref} {...props} className={cn(className)} 
+          className={`inline-flex items-center gap-[3px] ${className}`}
+          role="status"
+          aria-label={label}
+        >
+          {Array.from({ length: count }).map((_, i) => (
+            <span
+              key={i}
+              className="inline-block rounded-[2px]"
+              style={{
+                width: barWidth,
+                height: barHeight,
+                backgroundColor: color,
+                animation: `loaderStretch ${speed}s ease infinite`,
+                animationDelay: `${i * (speed / count)}s`,
+              }}
+              aria-hidden="true"
+            />
+          ))}
+          <span className="sr-only">{label}</span>
+        </div>
+        );
+        });

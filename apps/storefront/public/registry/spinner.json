@@ -1,33 +1,29 @@
 {
   "name": "spinner",
   "title": "Spinner",
-  "category": "loaders",
+  "category": "loader",
+  "description": "A premium, animated Spinner component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "Spinner.tsx",
-          "content": "\"use client\";\n\nimport React from 'react';\n\nexport interface SpinnerProps {\n  /** Spinner diameter in pixels */\n  size?: number;\n  /** Border thickness in pixels */\n  borderWidth?: number;\n  /** Active arc color */\n  color?: string;\n  /** Track (inactive) color */\n  trackColor?: string;\n  /** Animation speed in seconds */\n  speed?: number;\n  /** Accessible label */\n  label?: string;\n  className?: string;\n}\n\nexport const Spinner: React.FC<SpinnerProps> = ({\n  size = 80,\n  borderWidth = 8,\n  color = 'rgb(56, 189, 248)',\n  trackColor = 'rgb(30, 41, 59)',\n  speed = 1,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center justify-center ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      <div\n        className=\"rounded-full\"\n        style={{\n          width: size,\n          height: size,\n          borderWidth: borderWidth,\n          borderStyle: 'solid',\n          borderColor: `${color} ${trackColor} ${trackColor} ${trackColor}`,\n          animation: `loaderSpin ${speed}s linear infinite`,\n        }}\n        aria-hidden=\"true\"\n      />\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};\n"
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { cn } from \"@/utils\";\n\nexport interface SpinnerProps {\n  /** Spinner diameter in pixels */\n  size?: number;\n  /** Border thickness in pixels */\n  borderWidth?: number;\n  /** Active arc color */\n  color?: string;\n  /** Track (inactive) color */\n  trackColor?: string;\n  /** Animation speed in seconds */\n  speed?: number;\n  /** Accessible label */\n  label?: string;\n  className?: string;\n}\n\nexport const Spinner = React.forwardRef<any, SpinnerProps>(({ size = 80, borderWidth = 8, color = 'rgb(56, 189, 248)', trackColor = 'rgb(30, 41, 59)', speed = 1, label = 'Loading', className = '', ...props }, ref) => {\n        return (\n        <div ref={ref} {...props} className={cn(className)} \n          className={`inline-flex items-center justify-center ${className}`}\n          role=\"status\"\n          aria-label={label}\n        >\n          <div\n            className=\"rounded-full\"\n            style={{\n              width: size,\n              height: size,\n              borderWidth: borderWidth,\n              borderStyle: 'solid',\n              borderColor: `${color} ${trackColor} ${trackColor} ${trackColor}`,\n              animation: `loaderSpin ${speed}s linear infinite`,\n            }}\n            aria-hidden=\"true\"\n          />\n          <span className=\"sr-only\">{label}</span>\n        </div>\n        );\n        });\n"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     },
     "jsx": {
       "language": "jsx",
       "files": [
         {
           "name": "Spinner.jsx",
-          "content": "\"use client\";\n\nimport React from 'react';\n\nexport \n\nexport const Spinner.FC = ({\n  size = 80,\n  borderWidth = 8,\n  color = 'rgb(56, 189, 248)',\n  trackColor = 'rgb(30, 41, 59)',\n  speed = 1,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center justify-center ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      <div\n        className=\"rounded-full\"\n        style={{\n          width: size,\n          height: size,\n          borderWidth: borderWidth,\n          borderStyle: 'solid',\n          borderColor: `${color} ${trackColor} ${trackColor} ${trackColor}`,\n          animation: `loaderSpin ${speed}s linear infinite`,\n        }}\n        aria-hidden=\"true\"\n      />\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};"
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { cn } from \"@/utils\";\n\n  /** Border thickness in pixels */\n  borderWidth?;\n  /** Active arc color */\n  color?;\n  /** Track (inactive) color */\n  trackColor?;\n  /** Animation speed in seconds */\n  speed?;\n  /** Accessible label */\n  label?;\n  className?;\n}\n\nexport const Spinner = React.forwardRef<any, SpinnerProps>(({ size = 80, borderWidth = 8, color = 'rgb(56, 189, 248)', trackColor = 'rgb(30, 41, 59)', speed = 1, label = 'Loading', className = '', ...props }, ref) => {\n        return (\n        <div ref={ref} {...props} className={cn(className)} \n          className={`inline-flex items-center justify-center ${className}`}\n          role=\"status\"\n          aria-label={label}\n        >\n          <div\n            className=\"rounded-full\"\n            style={{\n              width: size,\n              height: size,\n              borderWidth: borderWidth,\n              borderStyle: 'solid',\n              borderColor: `${color} ${trackColor} ${trackColor} ${trackColor}`,\n              animation: `loaderSpin ${speed}s linear infinite`,\n            }}\n            aria-hidden=\"true\"\n          />\n          <span className=\"sr-only\">{label}</span>\n        </div>\n        );\n        });"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     }
   },
   "preview": {}

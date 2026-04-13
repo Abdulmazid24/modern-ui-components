@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { cn } from "@/utils";
 
 /* ──────────────────────────────────────────────
    Types
@@ -12,11 +13,13 @@ export interface AccordionItem {
   title: string;
   content: string;
   icon?: React.ReactNode;
+    className?: string;
 }
 
 export interface LiquidAccordionProps {
   items: AccordionItem[];
   allowMultiple?: boolean;
+    className?: string;
 }
 
 /* ──────────────────────────────────────────────
@@ -83,35 +86,32 @@ const AccordionPanel: React.FC<{
    Main Accordion
    ────────────────────────────────────────────── */
 
-export const LiquidAccordion: React.FC<LiquidAccordionProps> = ({
-  items,
-  allowMultiple = false,
-}) => {
-  const [openIds, setOpenIds] = useState<Set<string>>(new Set());
+export const LiquidAccordion = React.forwardRef<any, LiquidAccordionProps>(({ className, items, allowMultiple = false, ...props }, ref) => {
+        const [openIds, setOpenIds] = useState<Set<string>>(new Set());
 
-  const toggle = (id: string) => {
-    setOpenIds((prev) => {
-      const next = new Set(allowMultiple ? prev : []);
-      if (prev.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
-  };
+        const toggle = (id: string) => {
+        setOpenIds((prev) => {
+          const next = new Set(allowMultiple ? prev : []);
+          if (prev.has(id)) {
+            next.delete(id);
+          } else {
+            next.add(id);
+          }
+          return next;
+        });
+        };
 
-  return (
-    <div className="liquid-accordion-container">
-      {items.map((item, i) => (
-        <AccordionPanel
-          key={item.id}
-          item={item}
-          isOpen={openIds.has(item.id)}
-          onClick={() => toggle(item.id)}
-          index={i}
-        />
-      ))}
-    </div>
-  );
-};
+        return (
+        <div ref={ref} {...props} className={cn("liquid-accordion-container", className)}>
+          {items.map((item, i) => (
+            <AccordionPanel
+              key={item.id}
+              item={item}
+              isOpen={openIds.has(item.id)}
+              onClick={() => toggle(item.id)}
+              index={i}
+            />
+          ))}
+        </div>
+        );
+        });

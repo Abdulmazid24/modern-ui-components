@@ -2,18 +2,20 @@
   "name": "rocketscrolltop",
   "title": "Rocket Scroll Top",
   "category": "scroll-to-top",
+  "description": "A premium, animated Rocket Scroll Top component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "RocketScrollTop.tsx",
-          "content": "\"use client\";\nimport React, { useState, useEffect } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { ArrowUp } from \"lucide-react\";\nexport const RocketScrollTop: React.FC = () => {\n  const [visible, setVisible] = useState(false);\n  useEffect(() => { const h = () => setVisible(window.scrollY > 300); window.addEventListener(\"scroll\", h); return () => window.removeEventListener(\"scroll\", h); }, []);\n  return (\n    <AnimatePresence>\n      {visible && (\n        <motion.button initial={{ opacity: 0, y: 20, scale: 0.8 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: 0.8 }} whileHover={{ scale: 1.1, boxShadow: \"0 0 30px rgba(124,58,237,0.5)\" }} whileTap={{ scale: 0.9 }} onClick={() => window.scrollTo({ top: 0, behavior: \"smooth\" })} className=\"fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-violet-600 to-purple-700 text-white flex items-center justify-center cursor-pointer z-50\" style={{ boxShadow: \"0 0 20px rgba(124,58,237,0.3)\" }}>\n          <ArrowUp size={20} />\n        </motion.button>\n      )}\n    </AnimatePresence>\n  );\n};\n"
+          "content": "\"use client\";\nimport React, { useState, useEffect } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { ArrowUp } from \"lucide-react\";\nimport { cn } from \"@/utils\";\n\nexport const RocketScrollTop = React.forwardRef<any, any>(({ className, ...props }, ref) => {\n        const [visible, setVisible] = useState(false);\n        useEffect(() => { const h = () => setVisible(window.scrollY > 300); window.addEventListener(\"scroll\", h); return () => window.removeEventListener(\"scroll\", h); }, []);\n        return (\n        <AnimatePresence>\n          {visible && (\n            <motion.button initial={{ opacity: 0, y: 20, scale: 0.8 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: 0.8 }} whileHover={{ scale: 1.1, boxShadow: \"0 0 30px rgba(124,58,237,0.5)\" }} whileTap={{ scale: 0.9 }} onClick={() => window.scrollTo({ top: 0, behavior: \"smooth\" })} className=\"fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-violet-600 to-purple-700 text-white flex items-center justify-center cursor-pointer z-50\" style={{ boxShadow: \"0 0 20px rgba(124,58,237,0.3)\" }}>\n              <ArrowUp size={20} />\n            </motion.button>\n          )}\n        </AnimatePresence>\n        );\n        });\n"
         }
       ],
       "dependencies": [
-        "lucide-react",
-        "framer-motion"
+        "framer-motion",
+        "lucide-react"
       ]
     },
     "jsx": {
@@ -21,12 +23,12 @@
       "files": [
         {
           "name": "RocketScrollTop.jsx",
-          "content": "\"use client\";\nimport React, { useState, useEffect } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { ArrowUp } from \"lucide-react\";\nexport const RocketScrollTop.FC = () => {\n  const [visible, setVisible] = useState(false);\n  useEffect(() => { const h = () => setVisible(window.scrollY > 300); window.addEventListener(\"scroll\", h); return () => window.removeEventListener(\"scroll\", h); }, []);\n  return (\n    \n      {visible && (\n        <motion.button initial={{ opacity: 0, y: 20, scale: 0.8 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: 0.8 }} whileHover={{ scale: 1.1, boxShadow: \"0 0 30px rgba(124,58,237,0.5)\" }} whileTap={{ scale: 0.9 }} onClick={() => window.scrollTo({ top: 0, behavior: \"smooth\" })} className=\"fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-violet-600 to-purple-700 text-white flex items-center justify-center cursor-pointer z-50\" style={{ boxShadow: \"0 0 20px rgba(124,58,237,0.3)\" }}>\n          <ArrowUp size={20} />\n        </motion.button>\n      )}\n    </AnimatePresence>\n  );\n};"
+          "content": "\"use client\";\nimport React, { useState, useEffect } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { ArrowUp } from \"lucide-react\";\nimport { cn } from \"@/utils\";\n\nexport const RocketScrollTop = React.forwardRef<any, any>(({ className, ...props }, ref) => {\n        const [visible, setVisible] = useState(false);\n        useEffect(() => { const h = () => setVisible(window.scrollY > 300); window.addEventListener(\"scroll\", h); return () => window.removeEventListener(\"scroll\", h); }, []);\n        return (\n        \n          {visible && (\n            <motion.button initial={{ opacity: 0, y: 20, scale: 0.8 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: 0.8 }} whileHover={{ scale: 1.1, boxShadow: \"0 0 30px rgba(124,58,237,0.5)\" }} whileTap={{ scale: 0.9 }} onClick={() => window.scrollTo({ top: 0, behavior: \"smooth\" })} className=\"fixed bottom-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-violet-600 to-purple-700 text-white flex items-center justify-center cursor-pointer z-50\" style={{ boxShadow: \"0 0 20px rgba(124,58,237,0.3)\" }}>\n              <ArrowUp size={20} />\n            </motion.button>\n          )}\n        </AnimatePresence>\n        );\n        });"
         }
       ],
       "dependencies": [
-        "lucide-react",
-        "framer-motion"
+        "framer-motion",
+        "lucide-react"
       ]
     }
   },

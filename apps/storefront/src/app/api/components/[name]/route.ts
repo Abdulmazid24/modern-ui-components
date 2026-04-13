@@ -20,18 +20,8 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-// Pro-tier component list
-const PRO_TIER_COMPONENTS = [
-  'holodropzone', 'mechanicalclock', 'aicommsterminal',
-  'geometrictreemap', 'physicalcreditcard', 'vaultpasswordmeter',
-  'rpgskilltree', 'blueprintmapper', 'wordcloudsphere',
-  'thumbstickpad', 'synapsenodegraph', 'hologlobe',
-  'magnetickanban', 'hackerterminal', 'hapticdial',
-  'holographicprismcard', 'kineticorigamicard', 'magneticliquiddock',
-  'atmospherichalonav', 'glassshattermodal', 'quantumriftmodal',
-  'bioluminescentmycelium', 'accretiondiskloader', 'zerogravitytoggle', 
-  'microportalswitch'
-];
+// Pro-tier check is now embedded in registry data (set by build-registry.ts from shared config)
+// No more hardcoded list here — single source of truth in packages/registry/shared-config.ts
 
 async function verifyProAccessCached(token: string | undefined): Promise<boolean> {
   if (!token) return false;
@@ -116,7 +106,7 @@ export async function GET(
     }
 
     // --- PRO ACCESS GATE ---
-    const isPro = PRO_TIER_COMPONENTS.includes(componentMeta.name.toLowerCase());
+    const isPro = componentMeta.isPro || false;
 
     if (isPro) {
        const hasAccess = await verifyProAccessCached(token);

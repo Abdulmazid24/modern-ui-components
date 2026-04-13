@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { cn } from "@/utils";
 
 export interface SocialIcon {
   id: string;
@@ -9,6 +10,7 @@ export interface SocialIcon {
   color1: string;
   color2: string;
   svg: React.ReactNode;
+    className?: string;
 }
 
 const defaultIcons: SocialIcon[] = [
@@ -60,126 +62,125 @@ const defaultIcons: SocialIcon[] = [
 
 export interface IsometricSocialIconsProps {
   icons?: SocialIcon[];
+    className?: string;
 }
 
-export const IsometricSocialIcons: React.FC<IsometricSocialIconsProps> = ({
-  icons = defaultIcons,
-}) => {
-  return (
-    <div className="flex items-center justify-center gap-10 p-12">
-      {icons.map((icon) => (
-        <motion.div
-          key={icon.id}
-          className="relative cursor-pointer group"
-          whileHover="hovered"
-          initial="rest"
-          style={{ perspective: "800px" }}
-        >
-          {/* Shadow on ground */}
-          <motion.div
-            className="absolute -bottom-4 left-1/2 -translate-x-1/2 rounded-full blur-lg pointer-events-none"
-            variants={{
-              rest: {
-                width: 50,
-                height: 8,
-                opacity: 0.15,
-                background: "#000",
-              },
-              hovered: {
-                width: 60,
-                height: 14,
-                opacity: 0.5,
-                background: icon.color1,
-              },
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          />
-
-          {/* 3D Isometric Cube Container */}
-          <motion.div
-            className="relative w-[72px] h-[72px]"
-            style={{ transformStyle: "preserve-3d" }}
-            variants={{
-              rest: {
-                rotateX: 0,
-                rotateY: 0,
-                y: 0,
-              },
-              hovered: {
-                rotateX: -15,
-                rotateY: 15,
-                y: -12,
-              },
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 18 }}
-          >
-            {/* Top Face */}
-            <div
-              className="absolute inset-0 rounded-xl flex items-center justify-center border border-white/20"
-              style={{
-                background: "linear-gradient(135deg, #f5f5f5, #e8e8e8)",
-                transformStyle: "preserve-3d",
-                transform: "translateZ(8px)",
-                boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-              }}
+export const IsometricSocialIcons = React.forwardRef<any, IsometricSocialIconsProps>(({ className, icons = defaultIcons, ...props }, ref) => {
+        return (
+        <div ref={ref} {...props} className={cn("flex items-center justify-center gap-10 p-12", className)}>
+          {icons.map((icon) => (
+            <motion.div
+              key={icon.id}
+              className="relative cursor-pointer group"
+              whileHover="hovered"
+              initial="rest"
+              style={{ perspective: "800px" }}
             >
-              {/* Icon */}
+              {/* Shadow on ground */}
               <motion.div
-                className="text-zinc-700 transition-colors duration-300"
+                className="absolute -bottom-4 left-1/2 -translate-x-1/2 rounded-full blur-lg pointer-events-none"
                 variants={{
-                  rest: { color: "#3f3f46" },
-                  hovered: { color: icon.color1 },
+                  rest: {
+                    width: 50,
+                    height: 8,
+                    opacity: 0.15,
+                    background: "#000",
+                  },
+                  hovered: {
+                    width: 60,
+                    height: 14,
+                    opacity: 0.5,
+                    background: icon.color1,
+                  },
                 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              />
+
+              {/* 3D Isometric Cube Container */}
+              <motion.div
+                className="relative w-[72px] h-[72px]"
+                style={{ transformStyle: "preserve-3d" }}
+                variants={{
+                  rest: {
+                    rotateX: 0,
+                    rotateY: 0,
+                    y: 0,
+                  },
+                  hovered: {
+                    rotateX: -15,
+                    rotateY: 15,
+                    y: -12,
+                  },
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 18 }}
               >
-                {icon.svg}
+                {/* Top Face */}
+                <div
+                  className="absolute inset-0 rounded-xl flex items-center justify-center border border-white/20"
+                  style={{
+                    background: "linear-gradient(135deg, #f5f5f5, #e8e8e8)",
+                    transformStyle: "preserve-3d",
+                    transform: "translateZ(8px)",
+                    boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
+                  }}
+                >
+                  {/* Icon */}
+                  <motion.div
+                    className="text-zinc-700 transition-colors duration-300"
+                    variants={{
+                      rest: { color: "#3f3f46" },
+                      hovered: { color: icon.color1 },
+                    }}
+                  >
+                    {icon.svg}
+                  </motion.div>
+                </div>
+
+                {/* Right Face (3D side) */}
+                <div
+                  className="absolute top-0 right-0 w-[16px] h-full origin-right"
+                  style={{
+                    background: "linear-gradient(180deg, #d4d4d8, #a1a1aa)",
+                    transform: "rotateY(90deg) translateZ(0px)",
+                    borderRadius: "0 8px 8px 0",
+                  }}
+                />
+
+                {/* Bottom Face (3D bottom) */}
+                <div
+                  className="absolute bottom-0 left-0 w-full h-[16px] origin-bottom"
+                  style={{
+                    background: "linear-gradient(90deg, #d4d4d8, #b4b4b8)",
+                    transform: "rotateX(-90deg) translateZ(0px)",
+                    borderRadius: "0 0 8px 8px",
+                  }}
+                />
               </motion.div>
-            </div>
 
-            {/* Right Face (3D side) */}
-            <div
-              className="absolute top-0 right-0 w-[16px] h-full origin-right"
-              style={{
-                background: "linear-gradient(180deg, #d4d4d8, #a1a1aa)",
-                transform: "rotateY(90deg) translateZ(0px)",
-                borderRadius: "0 8px 8px 0",
-              }}
-            />
+              {/* Colored accent bar on hover */}
+              <motion.div
+                className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[3px] rounded-full"
+                variants={{
+                  rest: { width: 0, opacity: 0 },
+                  hovered: { width: 40, opacity: 1 },
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                style={{ background: `linear-gradient(90deg, ${icon.color1}, ${icon.color2})` }}
+              />
 
-            {/* Bottom Face (3D bottom) */}
-            <div
-              className="absolute bottom-0 left-0 w-full h-[16px] origin-bottom"
-              style={{
-                background: "linear-gradient(90deg, #d4d4d8, #b4b4b8)",
-                transform: "rotateX(-90deg) translateZ(0px)",
-                borderRadius: "0 0 8px 8px",
-              }}
-            />
-          </motion.div>
-
-          {/* Colored accent bar on hover */}
-          <motion.div
-            className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-[3px] rounded-full"
-            variants={{
-              rest: { width: 0, opacity: 0 },
-              hovered: { width: 40, opacity: 1 },
-            }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            style={{ background: `linear-gradient(90deg, ${icon.color1}, ${icon.color2})` }}
-          />
-
-          {/* Label */}
-          <motion.p
-            className="text-center text-xs font-bold tracking-wider mt-4 select-none"
-            variants={{
-              rest: { opacity: 0, y: -5, color: "#71717a" },
-              hovered: { opacity: 1, y: 0, color: icon.color1 },
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            {icon.name}
-          </motion.p>
-        </motion.div>
-      ))}
-    </div>
-  );
-};
+              {/* Label */}
+              <motion.p
+                className="text-center text-xs font-bold tracking-wider mt-4 select-none"
+                variants={{
+                  rest: { opacity: 0, y: -5, color: "#71717a" },
+                  hovered: { opacity: 1, y: 0, color: icon.color1 },
+                }}
+                transition={{ duration: 0.2 }}
+              >
+                {icon.name}
+              </motion.p>
+            </motion.div>
+          ))}
+        </div>
+        );
+        });

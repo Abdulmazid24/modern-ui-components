@@ -1,33 +1,29 @@
 {
   "name": "dotsloader",
   "title": "Dots Loader",
-  "category": "loaders",
+  "category": "loader",
+  "description": "A premium, animated Dots Loader component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "DotsLoader.tsx",
-          "content": "\"use client\";\n\nimport React from 'react';\n\nexport interface DotsLoaderProps {\n  /** Size of each dot in pixels */\n  size?: number;\n  /** Dot color — any valid CSS color */\n  color?: string;\n  /** Animation speed in seconds */\n  speed?: number;\n  /** Accessible label */\n  label?: string;\n  /** Additional CSS classes */\n  className?: string;\n}\n\nexport const DotsLoader: React.FC<DotsLoaderProps> = ({\n  size = 14,\n  color = 'rgb(56, 189, 248)',\n  speed = 0.5,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center gap-[5px] ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      {[0, 1, 2].map((i) => (\n        <span\n          key={i}\n          className=\"inline-block rounded-full\"\n          style={{\n            width: size,\n            height: size,\n            backgroundColor: color,\n            animation: `loaderBounce ${speed}s ease infinite alternate`,\n            animationDelay: `${i * (speed / 3)}s`,\n          }}\n          aria-hidden=\"true\"\n        />\n      ))}\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};\n"
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { cn } from \"@/utils\";\n\nexport interface DotsLoaderProps {\n  /** Size of each dot in pixels */\n  size?: number;\n  /** Dot color — any valid CSS color */\n  color?: string;\n  /** Animation speed in seconds */\n  speed?: number;\n  /** Accessible label */\n  label?: string;\n  /** Additional CSS classes */\n  className?: string;\n}\n\nexport const DotsLoader = React.forwardRef<any, DotsLoaderProps>(({ size = 14, color = 'rgb(56, 189, 248)', speed = 0.5, label = 'Loading', className = '', ...props }, ref) => {\n        return (\n        <div ref={ref} {...props} className={cn(className)} \n          className={`inline-flex items-center gap-[5px] ${className}`}\n          role=\"status\"\n          aria-label={label}\n        >\n          {[0, 1, 2].map((i) => (\n            <span\n              key={i}\n              className=\"inline-block rounded-full\"\n              style={{\n                width: size,\n                height: size,\n                backgroundColor: color,\n                animation: `loaderBounce ${speed}s ease infinite alternate`,\n                animationDelay: `${i * (speed / 3)}s`,\n              }}\n              aria-hidden=\"true\"\n            />\n          ))}\n          <span className=\"sr-only\">{label}</span>\n        </div>\n        );\n        });\n"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     },
     "jsx": {
       "language": "jsx",
       "files": [
         {
           "name": "DotsLoader.jsx",
-          "content": "\"use client\";\n\nimport React from 'react';\n\nexport \n\nexport const DotsLoader.FC = ({\n  size = 14,\n  color = 'rgb(56, 189, 248)',\n  speed = 0.5,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center gap-[5px] ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      {[0, 1, 2].map((i) => (\n        <span\n          key={i}\n          className=\"inline-block rounded-full\"\n          style={{\n            width: size,\n            height: size,\n            backgroundColor: color,\n            animation: `loaderBounce ${speed}s ease infinite alternate`,\n            animationDelay: `${i * (speed / 3)}s`,\n          }}\n          aria-hidden=\"true\"\n        />\n      ))}\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};"
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { cn } from \"@/utils\";\n\n  /** Dot color — any valid CSS color */\n  color?;\n  /** Animation speed in seconds */\n  speed?;\n  /** Accessible label */\n  label?;\n  /** Additional CSS classes */\n  className?;\n}\n\nexport const DotsLoader = React.forwardRef<any, DotsLoaderProps>(({ size = 14, color = 'rgb(56, 189, 248)', speed = 0.5, label = 'Loading', className = '', ...props }, ref) => {\n        return (\n        <div ref={ref} {...props} className={cn(className)} \n          className={`inline-flex items-center gap-[5px] ${className}`}\n          role=\"status\"\n          aria-label={label}\n        >\n          {[0, 1, 2].map((i) => (\n            <span\n              key={i}\n              className=\"inline-block rounded-full\"\n              style={{\n                width: size,\n                height: size,\n                backgroundColor: color,\n                animation: `loaderBounce ${speed}s ease infinite alternate`,\n                animationDelay: `${i * (speed / 3)}s`,\n              }}\n              aria-hidden=\"true\"\n            />\n          ))}\n          <span className=\"sr-only\">{label}</span>\n        </div>\n        );\n        });"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     }
   },
   "preview": {}

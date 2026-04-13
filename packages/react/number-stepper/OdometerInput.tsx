@@ -3,72 +3,69 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
+import { cn } from "@/utils";
 
 export interface OdometerInputProps {
   initialValue?: number;
   min?: number;
   max?: number;
   onChange?: (value: number) => void;
+    className?: string;
 }
 
-export const OdometerInput: React.FC<OdometerInputProps> = ({
-  initialValue = 0,
-  min = 0,
-  max = 999,
-  onChange,
-}) => {
-  const [value, setValue] = useState(initialValue);
+export const OdometerInput = React.forwardRef<any, OdometerInputProps>(({ className, initialValue = 0, min = 0, max = 999, onChange, ...props }, ref) => {
+        const [value, setValue] = useState(initialValue);
 
-  const handleIncrement = () => {
-    if (value < max) {
-      const newVal = value + 1;
-      setValue(newVal);
-      onChange?.(newVal);
-    }
-  };
+        const handleIncrement = () => {
+        if (value < max) {
+          const newVal = value + 1;
+          setValue(newVal);
+          onChange?.(newVal);
+        }
+        };
 
-  const handleDecrement = () => {
-    if (value > min) {
-      const newVal = value - 1;
-      setValue(newVal);
-      onChange?.(newVal);
-    }
-  };
+        const handleDecrement = () => {
+        if (value > min) {
+          const newVal = value - 1;
+          setValue(newVal);
+          onChange?.(newVal);
+        }
+        };
 
-  // Convert number to zero-padded string array (e.g., 5 -> ['0','0','5'])
-  const maxDigits = max.toString().length;
-  const digits = value.toString().padStart(maxDigits, "0").split("");
+        // Convert number to zero-padded string array (e.g., 5 -> ['0','0','5'])
+        const maxDigits = max.toString().length;
+        const digits = value.toString().padStart(maxDigits, "0").split("");
 
-  return (
-    <div className="flex items-center gap-4 bg-zinc-950 p-2 sm:p-4 rounded-3xl border border-zinc-900 shadow-2xl">
-      <button 
-        onClick={handleDecrement}
-        disabled={value <= min}
-        className="w-12 h-12 flex items-center justify-center bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl transition-colors border border-zinc-800"
-      >
-        <Minus size={20} />
-      </button>
+        return (
+        <div ref={ref} {...props} className={cn("flex items-center gap-4 bg-zinc-950 p-2 sm:p-4 rounded-3xl border border-zinc-900 shadow-2xl", className)}>
+          <button 
+            onClick={handleDecrement}
+            disabled={value <= min}
+            className="w-12 h-12 flex items-center justify-center bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl transition-colors border border-zinc-800"
+          >
+            <Minus size={20} />
+          </button>
 
-      {/* Odometer Display */}
-      <div className="flex gap-1 overflow-hidden bg-black p-2 rounded-2xl border-4 border-zinc-900 shadow-[inset_0_5px_15px_rgba(0,0,0,0.8)] h-[80px]">
-        {digits.map((digit, index) => (
-          <OdometerDigit 
-            key={`${index}-${value}`} // Change key to force remount/re-animate if needed, but doing it via motion y is better
-            digit={parseInt(digit, 10)} 
-          />
-        ))}
-      </div>
+          {/* Odometer Display */}
+          <div className="flex gap-1 overflow-hidden bg-black p-2 rounded-2xl border-4 border-zinc-900 shadow-[inset_0_5px_15px_rgba(0,0,0,0.8)] h-[80px]">
+            {digits.map((digit, index) => (
+              <OdometerDigit 
+                key={`${index}-${value}`} // Change key to force remount/re-animate if needed, but doing it via motion y is better
+                digit={parseInt(digit, 10)} 
+              />
+            ))}
+          </div>
 
-      <button 
-        onClick={handleIncrement}
-        disabled={value >= max}
-        className="w-12 h-12 flex items-center justify-center bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl transition-colors border border-zinc-800"
-      >
-        <Plus size={20} />
-      </button>
-    </div>
-  );
-};
+          <button 
+            onClick={handleIncrement}
+            disabled={value >= max}
+            className="w-12 h-12 flex items-center justify-center bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl transition-colors border border-zinc-800"
+          >
+            <Plus size={20} />
+          </button>
+        </div>
+        );
+        });
 
 // Extracted digit component which drives the vertical scrolling animation
 const OdometerDigit = ({ digit }: { digit: number }) => {
@@ -76,8 +73,7 @@ const OdometerDigit = ({ digit }: { digit: number }) => {
   const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
-    <div 
-      className="relative w-10 sm:w-12 h-[60px] bg-zinc-900 rounded overflow-hidden"
+    <div ref={ref} {...props} className={cn("relative w-10 sm:w-12 h-[60px] bg-zinc-900 rounded overflow-hidden", className)}
       style={{ boxShadow: "inset 0 0 10px rgba(0,0,0,1)" }} // Mechanical shadow
     >
       <motion.div

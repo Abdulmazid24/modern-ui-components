@@ -1,33 +1,29 @@
 {
   "name": "pulseloader",
   "title": "Pulse Loader",
-  "category": "loaders",
+  "category": "loader",
+  "description": "A premium, animated Pulse Loader component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "PulseLoader.tsx",
-          "content": "\"use client\";\n\nimport React from 'react';\n\nexport interface PulseLoaderProps {\n  /** Circle diameter in pixels */\n  size?: number;\n  /** Pulse color */\n  color?: string;\n  /** Animation speed in seconds */\n  speed?: number;\n  /** Accessible label */\n  label?: string;\n  className?: string;\n}\n\nexport const PulseLoader: React.FC<PulseLoaderProps> = ({\n  size = 70,\n  color = 'rgb(34, 197, 94)',\n  speed = 1,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center justify-center ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      <div\n        className=\"rounded-full\"\n        style={{\n          width: size,\n          height: size,\n          backgroundColor: color,\n          animation: `loaderPulse ${speed}s ease infinite`,\n        }}\n        aria-hidden=\"true\"\n      />\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};\n"
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { cn } from \"@/utils\";\n\nexport interface PulseLoaderProps {\n  /** Circle diameter in pixels */\n  size?: number;\n  /** Pulse color */\n  color?: string;\n  /** Animation speed in seconds */\n  speed?: number;\n  /** Accessible label */\n  label?: string;\n  className?: string;\n}\n\nexport const PulseLoader = React.forwardRef<any, PulseLoaderProps>(({ size = 70, color = 'rgb(34, 197, 94)', speed = 1, label = 'Loading', className = '', ...props }, ref) => {\n        return (\n        <div ref={ref} {...props} className={cn(className)} \n          className={`inline-flex items-center justify-center ${className}`}\n          role=\"status\"\n          aria-label={label}\n        >\n          <div\n            className=\"rounded-full\"\n            style={{\n              width: size,\n              height: size,\n              backgroundColor: color,\n              animation: `loaderPulse ${speed}s ease infinite`,\n            }}\n            aria-hidden=\"true\"\n          />\n          <span className=\"sr-only\">{label}</span>\n        </div>\n        );\n        });\n"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     },
     "jsx": {
       "language": "jsx",
       "files": [
         {
           "name": "PulseLoader.jsx",
-          "content": "\"use client\";\n\nimport React from 'react';\n\nexport \n\nexport const PulseLoader.FC = ({\n  size = 70,\n  color = 'rgb(34, 197, 94)',\n  speed = 1,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center justify-center ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      <div\n        className=\"rounded-full\"\n        style={{\n          width: size,\n          height: size,\n          backgroundColor: color,\n          animation: `loaderPulse ${speed}s ease infinite`,\n        }}\n        aria-hidden=\"true\"\n      />\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};"
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { cn } from \"@/utils\";\n\n  /** Pulse color */\n  color?;\n  /** Animation speed in seconds */\n  speed?;\n  /** Accessible label */\n  label?;\n  className?;\n}\n\nexport const PulseLoader = React.forwardRef<any, PulseLoaderProps>(({ size = 70, color = 'rgb(34, 197, 94)', speed = 1, label = 'Loading', className = '', ...props }, ref) => {\n        return (\n        <div ref={ref} {...props} className={cn(className)} \n          className={`inline-flex items-center justify-center ${className}`}\n          role=\"status\"\n          aria-label={label}\n        >\n          <div\n            className=\"rounded-full\"\n            style={{\n              width: size,\n              height: size,\n              backgroundColor: color,\n              animation: `loaderPulse ${speed}s ease infinite`,\n            }}\n            aria-hidden=\"true\"\n          />\n          <span className=\"sr-only\">{label}</span>\n        </div>\n        );\n        });"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     }
   },
   "preview": {}

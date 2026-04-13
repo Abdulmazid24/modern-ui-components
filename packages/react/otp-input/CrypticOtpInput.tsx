@@ -2,67 +2,66 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { cn } from "@/utils";
 
 export interface CrypticOtpInputProps {
   length?: number;
   onComplete?: (code: string) => void;
+    className?: string;
 }
 
-export const CrypticOtpInput: React.FC<CrypticOtpInputProps> = ({
-  length = 4,
-  onComplete
-}) => {
-  const [value, setValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
+export const CrypticOtpInput = React.forwardRef<any, CrypticOtpInputProps>(({ className, length = 4, onComplete, ...props }, ref) => {
+        const [value, setValue] = useState("");
+        const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleContainerClick = () => {
-    inputRef.current?.focus();
-  };
+        const handleContainerClick = () => {
+        inputRef.current?.focus();
+        };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value.replace(/[^0-9]/g, "").slice(0, length);
-    setValue(val);
-    if (val.length === length) {
-       onComplete?.(val);
-    }
-  };
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = e.target.value.replace(/[^0-9]/g, "").slice(0, length);
+        setValue(val);
+        if (val.length === length) {
+           onComplete?.(val);
+        }
+        };
 
-  return (
-    <div className="relative flex flex-col items-center gap-6 p-8 bg-zinc-950 border border-zinc-900 rounded-3xl cursor-text" onClick={handleContainerClick}>
-      
-      {/* Hidden native input for mobile keyboard support & focus management */}
-      <input
-        ref={inputRef}
-        type="text"
-        inputMode="numeric"
-        autoComplete="one-time-code"
-        value={value}
-        onChange={handleChange}
-        className="absolute inset-0 w-full h-full opacity-0 cursor-text pointer-events-none"
-        maxLength={length}
-      />
-
-      <div className="flex gap-4">
-        {Array.from({ length }).map((_, i) => {
-          const char = value[i] || "";
-          const isActive = value.length === i;
+        return (
+        <div ref={ref} {...props} className={cn("relative flex flex-col items-center gap-6 p-8 bg-zinc-950 border border-zinc-900 rounded-3xl cursor-text", className)} onClick={handleContainerClick}>
           
-          return (
-            <CrypticCharBox 
-              key={i} 
-              char={char} 
-              isActive={isActive} 
-            />
-          );
-        })}
-      </div>
-      
-      <p className="text-zinc-500 text-xs tracking-[0.2em] uppercase font-mono">
-        Awaiting Decryption
-      </p>
-    </div>
-  );
-};
+          {/* Hidden native input for mobile keyboard support & focus management */}
+          <input
+            ref={inputRef}
+            type="text"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            value={value}
+            onChange={handleChange}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-text pointer-events-none"
+            maxLength={length}
+          />
+
+          <div className="flex gap-4">
+            {Array.from({ length }).map((_, i) => {
+              const char = value[i] || "";
+              const isActive = value.length === i;
+              
+              return (
+                <CrypticCharBox 
+                  key={i} 
+                  char={char} 
+                  isActive={isActive} 
+                />
+              );
+            })}
+          </div>
+          
+          <p className="text-zinc-500 text-xs tracking-[0.2em] uppercase font-mono">
+            Awaiting Decryption
+          </p>
+        </div>
+        );
+        });
 
 const CrypticCharBox = ({ char, isActive }: { char: string, isActive: boolean }) => {
   const [displayChar, setDisplayChar] = useState("");

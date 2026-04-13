@@ -4,6 +4,7 @@ import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, Code2, Globe, Copy, Check, Terminal, Lock, Smartphone, Tablet, Monitor } from "lucide-react";
 import dynamic from 'next/dynamic';
+import { CodeBlock } from "@/components/CodeBlock";
 
 // Registry is fetched from public/registry
 export default function ComponentPage({ params }: { params: Promise<{ name: string }> }) {
@@ -26,14 +27,10 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const PRO_COMPONENTS = [
-    'holodropzone', 'mechanicalclock', 'aicommsterminal', 
-    'geometrictreemap', 'physicalcreditcard', 'vaultpasswordmeter'
-  ];
-
   if (!registryData) return <div className="p-20 text-center animate-pulse text-cyan-500 font-mono">Decrypting Vault Assets...</div>;
 
-  const isPro = PRO_COMPONENTS.includes(registryData.name.toLowerCase());
+  // Use isPro flag from registry data (set by build-registry.ts from shared config)
+  const isPro = registryData.isPro || false;
 
   // Dynamically import the component for preview
   const componentExportName = registryData.title.replace(/\s/g, '');
@@ -219,8 +216,13 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
                       Copy Code
                    </button>
                 </div>
-                <div className={`flex-1 p-8 overflow-auto font-mono text-sm text-zinc-300 whitespace-pre scrollbar-thin scrollbar-thumb-zinc-800 ${isPro ? 'blur-sm select-none' : ''}`}>
-                   {registryData.dialects[activeDialect]?.files[0]?.content}
+                <div className={`flex-1 overflow-auto ${isPro ? 'blur-sm select-none' : ''}`}>
+                   <CodeBlock
+                     code={registryData.dialects[activeDialect]?.files[0]?.content || ''}
+                     language={activeDialect}
+                     showLineNumbers={true}
+                     maxHeight="600px"
+                   />
                 </div>
              </div>
            )}

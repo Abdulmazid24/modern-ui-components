@@ -3,36 +3,39 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Folder, FolderOpen, FileText, ChevronRight } from "lucide-react";
+import { cn } from "@/utils";
 
 export interface TreeNode {
   id: string;
   label: string;
   isFolder?: boolean;
   children?: TreeNode[];
+    className?: string;
 }
 
 export interface FractalTreeViewProps {
   data: TreeNode[];
+    className?: string;
 }
 
-export const FractalTreeView: React.FC<FractalTreeViewProps> = ({ data }) => {
-  return (
-    <div className="p-4 bg-zinc-950 border border-zinc-900 rounded-3xl min-w-[300px]">
-      <ul className="flex flex-col gap-1 relative">
-        {data.map((node) => (
-          <TreeViewNode key={node.id} node={node} level={0} />
-        ))}
-      </ul>
-    </div>
-  );
-};
+export const FractalTreeView = React.forwardRef<any, FractalTreeViewProps>(({ className, data, ...props }, ref) => {
+        return (
+        <div ref={ref} {...props} className={cn("p-4 bg-zinc-950 border border-zinc-900 rounded-3xl min-w-[300px]", className)}>
+          <ul className="flex flex-col gap-1 relative">
+            {data.map((node) => (
+              <TreeViewNode key={node.id} node={node} level={0} />
+            ))}
+          </ul>
+        </div>
+        );
+        });
 
 const TreeViewNode = ({ node, level }: { node: TreeNode, level: number }) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = node.isFolder && node.children && node.children.length > 0;
 
   return (
-    <li className="relative">
+    <li ref={ref} {...props} className={cn("relative", className)}>
       <div 
         className={`flex items-center gap-2 py-1.5 px-2 rounded-xl cursor-pointer transition-colors ${
           isOpen ? 'text-cyan-400' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50'

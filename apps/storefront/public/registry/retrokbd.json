@@ -2,32 +2,28 @@
   "name": "retrokbd",
   "title": "Retro Kbd",
   "category": "kbd",
+  "description": "A premium, animated Retro Kbd component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "RetroKbd.tsx",
-          "content": "\"use client\";\nimport React from \"react\";\nexport const RetroKbd: React.FC<{ keys?: string[] }> = ({ keys = [\"⌘\", \"Shift\", \"P\"] }) => (\n  <div className=\"flex items-center gap-1\">\n    {keys.map((key, i) => (\n      <React.Fragment key={i}>\n        <kbd className=\"inline-flex items-center justify-center min-w-[28px] h-7 px-2 rounded-lg text-xs font-mono font-semibold text-zinc-300 bg-zinc-800 border border-zinc-700 border-b-2 border-b-zinc-600 shadow-sm select-none\">{key}</kbd>\n        {i < keys.length - 1 && <span className=\"text-zinc-600 text-xs\">+</span>}\n      </React.Fragment>\n    ))}\n  </div>\n);\n"
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"@/utils\";\n\nexport const RetroKbd = React.forwardRef<any, any>(({ className, keys = [\"⌘\", \"Shift\", \"P\"], ...props }, ref) => {\n        (\n          <div className=\"flex items-center gap-1\">\n            {keys.map((key, i) => (\n              <React.Fragment key={i}>\n                <kbd className=\"inline-flex items-center justify-center min-w-[28px] h-7 px-2 rounded-lg text-xs font-mono font-semibold text-zinc-300 bg-zinc-800 border border-zinc-700 border-b-2 border-b-zinc-600 shadow-sm select-none\">{key}</kbd>\n                {i < keys.length - 1 && <span className=\"text-zinc-600 text-xs\">+</span>}\n              </React.Fragment>\n            ))}\n          </div>\n        )\n        });\n"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     },
     "jsx": {
       "language": "jsx",
       "files": [
         {
           "name": "RetroKbd.jsx",
-          "content": "\"use client\";\nimport React from \"react\";\nexport const RetroKbd.FC<{ keys?: string[] }> = ({ keys = [\"⌘\", \"Shift\", \"P\"] }) => (\n  <div className=\"flex items-center gap-1\">\n    {keys.map((key, i) => (\n      <React.Fragment key={i}>\n        <kbd className=\"inline-flex items-center justify-center min-w-[28px] h-7 px-2 rounded-lg text-xs font-mono font-semibold text-zinc-300 bg-zinc-800 border border-zinc-700 border-b-2 border-b-zinc-600 shadow-sm select-none\">{key}</kbd>\n        {i < keys.length - 1 && <span className=\"text-zinc-600 text-xs\">+</span>}\n      </React.Fragment>\n    ))}\n  </div>\n);"
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"@/utils\";\n\nexport const RetroKbd = React.forwardRef<any, any>(({ className, keys = [\"⌘\", \"Shift\", \"P\"], ...props }, ref) => {\n        (\n          <div className=\"flex items-center gap-1\">\n            {keys.map((key, i) => (\n              <React.Fragment key={i}>\n                <kbd className=\"inline-flex items-center justify-center min-w-[28px] h-7 px-2 rounded-lg text-xs font-mono font-semibold text-zinc-300 bg-zinc-800 border border-zinc-700 border-b-2 border-b-zinc-600 shadow-sm select-none\">{key}</kbd>\n                {i < keys.length - 1 && <span className=\"text-zinc-600 text-xs\">+</span>}\n              </React.Fragment>\n            ))}\n          </div>\n        )\n        });"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     }
   },
   "preview": {}

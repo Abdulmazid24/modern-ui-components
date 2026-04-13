@@ -3,48 +3,49 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { GripHorizontal, AlertCircle, Clock, CheckCircle2 } from "lucide-react";
+import { cn } from "@/utils";
 
 export interface KanbanTask {
   id: string;
   title: string;
   status: "todo" | "doing" | "done";
   priority: "high" | "medium" | "low";
+    className?: string;
 }
 
 export interface MagneticKanbanProps {
   initialTasks?: KanbanTask[];
+    className?: string;
 }
 
-export const MagneticKanban: React.FC<MagneticKanbanProps> = ({
-  initialTasks = [
-    { id: "1", title: "Migrate database to edge", status: "todo", priority: "high" },
-    { id: "2", title: "Implement Auth flow", status: "doing", priority: "medium" },
-    { id: "3", title: "Write API documentation", status: "done", priority: "low" },
-    { id: "4", title: "Fix memory leak in V8", status: "doing", priority: "high" },
-  ]
-}) => {
-  const [tasks, setTasks] = useState(initialTasks);
-  const [activeTask, setActiveTask] = useState<string | null>(null);
+export const MagneticKanban = React.forwardRef<any, MagneticKanbanProps>(({ className, initialTasks = [
+            { id: "1", title: "Migrate database to edge", status: "todo", priority: "high" },
+            { id: "2", title: "Implement Auth flow", status: "doing", priority: "medium" },
+            { id: "3", title: "Write API documentation", status: "done", priority: "low" },
+            { id: "4", title: "Fix memory leak in V8", status: "doing", priority: "high" },
+          ], ...props }, ref) => {
+        const [tasks, setTasks] = useState(initialTasks);
+        const [activeTask, setActiveTask] = useState<string | null>(null);
 
-  // Split tasks by column
-  const cols = {
-    todo: tasks.filter(t => t.status === "todo"),
-    doing: tasks.filter(t => t.status === "doing"),
-    done: tasks.filter(t => t.status === "done"),
-  };
+        // Split tasks by column
+        const cols = {
+        todo: tasks.filter(t => t.status === "todo"),
+        doing: tasks.filter(t => t.status === "doing"),
+        done: tasks.filter(t => t.status === "done"),
+        };
 
-  return (
-    <div className="w-full max-w-5xl bg-zinc-950 border border-zinc-900 rounded-3xl p-8 shadow-2xl flex gap-6 overflow-x-auto">
-      <KanbanColumn title="To Do" status="todo" items={cols.todo} setActiveTask={setActiveTask} activeTask={activeTask} />
-      <KanbanColumn title="In Progress" status="doing" items={cols.doing} setActiveTask={setActiveTask} activeTask={activeTask} />
-      <KanbanColumn title="Completed" status="done" items={cols.done} setActiveTask={setActiveTask} activeTask={activeTask} />
-    </div>
-  );
-};
+        return (
+        <div ref={ref} {...props} className={cn("w-full max-w-5xl bg-zinc-950 border border-zinc-900 rounded-3xl p-8 shadow-2xl flex gap-6 overflow-x-auto", className)}>
+          <KanbanColumn title="To Do" status="todo" items={cols.todo} setActiveTask={setActiveTask} activeTask={activeTask} />
+          <KanbanColumn title="In Progress" status="doing" items={cols.doing} setActiveTask={setActiveTask} activeTask={activeTask} />
+          <KanbanColumn title="Completed" status="done" items={cols.done} setActiveTask={setActiveTask} activeTask={activeTask} />
+        </div>
+        );
+        });
 
 const KanbanColumn = ({ title, status, items, setActiveTask, activeTask }: { title: string, status: string, items: KanbanTask[], setActiveTask: any, activeTask: any }) => {
   return (
-    <div className="flex flex-col w-72 shrink-0 bg-zinc-900/40 rounded-2xl p-4 border border-zinc-800/50">
+    <div ref={ref} {...props} className={cn("flex flex-col w-72 shrink-0 bg-zinc-900/40 rounded-2xl p-4 border border-zinc-800/50", className)}>
       
       <div className="flex items-center justify-between mb-6 px-2">
         <h3 className="text-zinc-300 font-bold tracking-wide">{title}</h3>

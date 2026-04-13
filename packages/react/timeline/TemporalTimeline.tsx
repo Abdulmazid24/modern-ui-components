@@ -2,67 +2,70 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { cn } from "@/utils";
 
 export interface TimelineEvent {
   id: string;
   title: string;
   description: string;
   date: string;
+    className?: string;
 }
 
 export interface TemporalTimelineProps {
   events: TimelineEvent[];
+    className?: string;
 }
 
-export const TemporalTimeline: React.FC<TemporalTimelineProps> = ({ events }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Track scroll progress within the container
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"]
-  });
+export const TemporalTimeline = React.forwardRef<any, TemporalTimelineProps>(({ className, events, ...props }, ref) => {
+        const containerRef = useRef<HTMLDivElement>(null);
 
-  // Apply a spring to the scroll progress so the laser beam feels smooth and fluid
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+        // Track scroll progress within the container
+        const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start center", "end center"]
+        });
 
-  return (
-    <div ref={containerRef} className="relative w-full max-w-3xl mx-auto py-20 px-8">
-      
-      {/* Background Track */}
-      <div className="absolute top-0 bottom-0 left-[39px] md:left-1/2 w-[2px] bg-zinc-900 md:-translate-x-1/2 rounded-full" />
-      
-      {/* The Laser Beam (Fills up as you scroll) */}
-      <motion.div 
-        className="absolute top-0 left-[38px] md:left-1/2 w-[4px] bg-cyan-400 md:-translate-x-1/2 shadow-[0_0_20px_rgba(34,211,238,1)] rounded-full origin-top"
-        style={{ scaleY: smoothProgress }}
-      />
+        // Apply a spring to the scroll progress so the laser beam feels smooth and fluid
+        const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+        });
 
-      {/* Timeline Events */}
-      <div className="flex flex-col gap-24 relative z-10">
-        {events.map((event, index) => {
-          // Alternative layout for desktop
-          const isEven = index % 2 === 0;
+        return (
+        <div ref={ref} {...props} className={cn(className)}  ref={containerRef} className="relative w-full max-w-3xl mx-auto py-20 px-8">
           
-          return (
-            <TimelineNode 
-              key={event.id} 
-              event={event} 
-              isEven={isEven} 
-              progress={smoothProgress}
-              index={index}
-              total={events.length}
-            />
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+          {/* Background Track */}
+          <div className="absolute top-0 bottom-0 left-[39px] md:left-1/2 w-[2px] bg-zinc-900 md:-translate-x-1/2 rounded-full" />
+          
+          {/* The Laser Beam (Fills up as you scroll) */}
+          <motion.div 
+            className="absolute top-0 left-[38px] md:left-1/2 w-[4px] bg-cyan-400 md:-translate-x-1/2 shadow-[0_0_20px_rgba(34,211,238,1)] rounded-full origin-top"
+            style={{ scaleY: smoothProgress }}
+          />
+
+          {/* Timeline Events */}
+          <div className="flex flex-col gap-24 relative z-10">
+            {events.map((event, index) => {
+              // Alternative layout for desktop
+              const isEven = index % 2 === 0;
+              
+              return (
+                <TimelineNode ref={ref} {...props} className={cn(className)}  
+                  key={event.id} 
+                  event={event} 
+                  isEven={isEven} 
+                  progress={smoothProgress}
+                  index={index}
+                  total={events.length}
+                />
+              );
+            })}
+          </div>
+        </div>
+        );
+        });
 
 const TimelineNode = ({ 
   event, 
@@ -89,7 +92,7 @@ const TimelineNode = ({
   const dotColor = useTransform(isActive, (active) => active ? "#22d3ee" : "#27272a");
 
   return (
-    <div className={`flex flex-col md:flex-row items-center w-full gap-8 md:gap-0 ${isEven ? 'md:flex-row-reverse' : ''}`}>
+    <div ref={ref} {...props} className={cn(className)}  className={`flex flex-col md:flex-row items-center w-full gap-8 md:gap-0 ${isEven ? 'md:flex-row-reverse' : ''}`}>
       
       {/* Content Box */}
       <div className="w-full md:w-1/2 flex justify-start md:px-12">

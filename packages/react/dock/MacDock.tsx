@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useCallback } from 'react';
 import { Home, Search, Bell, Settings, User, Mail, Camera, Music, Video } from 'lucide-react';
+import { cn } from "@/utils";
 
 /* ──────────────────────────────────────────────
    Types
@@ -12,6 +13,7 @@ export interface DockItemProps {
   label: string;
   onClick?: () => void;
   mouseX: number | null;
+    className?: string;
 }
 
 /* ──────────────────────────────────────────────
@@ -40,7 +42,7 @@ const DockItem: React.FC<DockItemProps> = ({ icon, label, onClick, mouseX }) => 
   }
 
   return (
-    <div className="dock-item-container">
+    <div ref={ref} {...props} className={cn("dock-item-container", className)}>
       {/* Tooltip */}
       <div 
         className="dock-tooltip"
@@ -72,49 +74,49 @@ const DockItem: React.FC<DockItemProps> = ({ icon, label, onClick, mouseX }) => 
    Main Dock Container
    ────────────────────────────────────────────── */
 
-export const MacDock: React.FC = () => {
-  const [mouseX, setMouseX] = useState<number | null>(null);
+export const MacDock = React.forwardRef<any, DockItemProps>(({ className, ...props }, ref) => {
+        const [mouseX, setMouseX] = useState<number | null>(null);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    setMouseX(e.clientX);
-  }, []);
+        const handleMouseMove = useCallback((e: React.MouseEvent) => {
+        setMouseX(e.clientX);
+        }, []);
 
-  const handleMouseLeave = useCallback(() => {
-    setMouseX(null);
-  }, []);
+        const handleMouseLeave = useCallback(() => {
+        setMouseX(null);
+        }, []);
 
-  const icons = [
-    { id: 'finder', icon: <Home size={24} />, label: 'Home', bg: 'bg-blue-500' },
-    { id: 'search', icon: <Search size={24} />, label: 'Search', bg: 'bg-gray-700' },
-    { id: 'mail', icon: <Mail size={24} />, label: 'Mail', bg: 'bg-sky-400' },
-    { id: 'music', icon: <Music size={24} />, label: 'Music', bg: 'bg-rose-500' },
-    { id: 'camera', icon: <Camera size={24} />, label: 'Photos', bg: 'bg-emerald-500' },
-    { id: 'video', icon: <Video size={24} />, label: 'Video', bg: 'bg-purple-500' },
-    { id: 'bell', icon: <Bell size={24} />, label: 'Alerts', bg: 'bg-amber-500' },
-    { id: 'user', icon: <User size={24} />, label: 'Profile', bg: 'bg-indigo-500' },
-    { id: 'settings', icon: <Settings size={24} />, label: 'Settings', bg: 'bg-slate-600' },
-  ];
+        const icons = [
+        { id: 'finder', icon: <Home size={24} />, label: 'Home', bg: 'bg-blue-500' },
+        { id: 'search', icon: <Search size={24} />, label: 'Search', bg: 'bg-gray-700' },
+        { id: 'mail', icon: <Mail size={24} />, label: 'Mail', bg: 'bg-sky-400' },
+        { id: 'music', icon: <Music size={24} />, label: 'Music', bg: 'bg-rose-500' },
+        { id: 'camera', icon: <Camera size={24} />, label: 'Photos', bg: 'bg-emerald-500' },
+        { id: 'video', icon: <Video size={24} />, label: 'Video', bg: 'bg-purple-500' },
+        { id: 'bell', icon: <Bell size={24} />, label: 'Alerts', bg: 'bg-amber-500' },
+        { id: 'user', icon: <User size={24} />, label: 'Profile', bg: 'bg-indigo-500' },
+        { id: 'settings', icon: <Settings size={24} />, label: 'Settings', bg: 'bg-slate-600' },
+        ];
 
-  return (
-    <div className="dock-wrapper">
-      <div 
-        className="dock-panel"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-      >
-        {icons.map((item) => (
-          <DockItem
-            key={item.id}
-            mouseX={mouseX}
-            label={item.label}
-            icon={
-              <div className={`w-full h-full rounded-[22%] flex items-center justify-center text-white ${item.bg} dock-icon-inner`}>
-                {item.icon}
-              </div>
-            }
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
+        return (
+        <div ref={ref} {...props} className={cn("dock-wrapper", className)}>
+          <div 
+            className="dock-panel"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
+            {icons.map((item) => (
+              <DockItem
+                key={item.id}
+                mouseX={mouseX}
+                label={item.label}
+                icon={
+                  <div className={`w-full h-full rounded-[22%] flex items-center justify-center text-white ${item.bg} dock-icon-inner`}>
+                    {item.icon}
+                  </div>
+                }
+              />
+            ))}
+          </div>
+        </div>
+        );
+        });

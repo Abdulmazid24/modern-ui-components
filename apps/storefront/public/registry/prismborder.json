@@ -2,17 +2,18 @@
   "name": "prismborder",
   "title": "Prism Border",
   "category": "gradient-border",
+  "description": "A premium, animated Prism Border component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "PrismBorder.tsx",
-          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nexport const PrismBorder: React.FC<{ children?: React.ReactNode }> = ({ children }) => (\n  <div className=\"relative p-[2px] rounded-2xl overflow-hidden\">\n    <motion.div className=\"absolute inset-0\" animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: \"linear\" }} style={{ background: \"conic-gradient(from 0deg, #7c3aed, #06b6d4, #ec4899, #f59e0b, #10b981, #7c3aed)\", filter: \"blur(4px)\" }} />\n    <div className=\"relative rounded-[14px] bg-zinc-900 p-6\">\n      {children || <div><h3 className=\"text-white font-bold text-lg mb-1\">Gradient Border</h3><p className=\"text-zinc-400 text-sm\">A rotating conic gradient creates this animated prismatic border effect.</p></div>}\n    </div>\n  </div>\n);\n"
+          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/utils\";\n\nexport const PrismBorder = React.forwardRef<any, any>(({ className, children, ...props }, ref) => {\n        (\n          <div className=\"relative p-[2px] rounded-2xl overflow-hidden\">\n            <motion.div className=\"absolute inset-0\" animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: \"linear\" }} style={{ background: \"conic-gradient(from 0deg, #7c3aed, #06b6d4, #ec4899, #f59e0b, #10b981, #7c3aed)\", filter: \"blur(4px)\" }} />\n            <div className=\"relative rounded-[14px] bg-zinc-900 p-6\">\n              {children || <div><h3 className=\"text-white font-bold text-lg mb-1\">Gradient Border</h3><p className=\"text-zinc-400 text-sm\">A rotating conic gradient creates this animated prismatic border effect.</p></div>}\n            </div>\n          </div>\n        )\n        });\n"
         }
       ],
       "dependencies": [
-        "lucide-react",
         "framer-motion"
       ]
     },
@@ -21,11 +22,10 @@
       "files": [
         {
           "name": "PrismBorder.jsx",
-          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nexport const PrismBorder.FC<{ children?.ReactNode }> = ({ children }) => (\n  <div className=\"relative p-[2px] rounded-2xl overflow-hidden\">\n    <motion.div className=\"absolute inset-0\" animate={{ rotate: 360 }} transition={{ duration: 3, repeat, ease: \"linear\" }} style={{ background: \"conic-gradient(from 0deg, #7c3aed, #06b6d4, #ec4899, #f59e0b, #10b981, #7c3aed)\", filter: \"blur(4px)\" }} />\n    <div className=\"relative rounded-[14px] bg-zinc-900 p-6\">\n      {children || <div><h3 className=\"text-white font-bold text-lg mb-1\">Gradient Border</h3><p className=\"text-zinc-400 text-sm\">A rotating conic gradient creates this animated prismatic border effect.</p></div>}\n    </div>\n  </div>\n);"
+          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/utils\";\n\nexport const PrismBorder = React.forwardRef<any, any>(({ className, children, ...props }, ref) => {\n        (\n          <div className=\"relative p-[2px] rounded-2xl overflow-hidden\">\n            <motion.div className=\"absolute inset-0\" animate={{ rotate: 360 }} transition={{ duration: 3, repeat: Infinity, ease: \"linear\" }} style={{ background: \"conic-gradient(from 0deg, #7c3aed, #06b6d4, #ec4899, #f59e0b, #10b981, #7c3aed)\", filter: \"blur(4px)\" }} />\n            <div className=\"relative rounded-[14px] bg-zinc-900 p-6\">\n              {children || <div><h3 className=\"text-white font-bold text-lg mb-1\">Gradient Border</h3><p className=\"text-zinc-400 text-sm\">A rotating conic gradient creates this animated prismatic border effect.</p></div>}\n            </div>\n          </div>\n        )\n        });"
         }
       ],
       "dependencies": [
-        "lucide-react",
         "framer-motion"
       ]
     }

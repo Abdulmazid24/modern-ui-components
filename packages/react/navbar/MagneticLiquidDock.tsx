@@ -3,9 +3,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Home, Compass, MessageCircle, Heart, User } from "lucide-react";
+import { cn } from "@/utils";
 
 export interface MagneticLiquidDockProps {
   items?: { id: string; icon: React.ReactNode; label: string }[];
+    className?: string;
 }
 
 const defaultItems = [
@@ -16,63 +18,61 @@ const defaultItems = [
   { id: "profile", icon: <User size={24} />, label: "Profile" },
 ];
 
-export const MagneticLiquidDock: React.FC<MagneticLiquidDockProps> = ({ 
-  items = defaultItems 
-}) => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const mouseX = useMotionValue(Infinity);
-  
-  // Spring config for the entire dock stretch
-  const springConfig = { damping: 15, stiffness: 200 };
+export const MagneticLiquidDock = React.forwardRef<any, MagneticLiquidDockProps>(({ className, items = defaultItems, ...props }, ref) => {
+        const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+        const mouseX = useMotionValue(Infinity);
 
-  return (
-    <div className="flex items-center justify-center p-20 bg-zinc-950 min-h-[300px]">
-      
-      {/* SVG filter needed for the Liquid/Gooey effect */}
-      <svg width="0" height="0" className="absolute hidden">
-        <filter id="liquid-dock-goo">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-          <feColorMatrix
-            in="blur"
-            mode="matrix"
-            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10"
-            result="liquid-dock-goo"
-          />
-          <feBlend in="SourceGraphic" in2="liquid-dock-goo" />
-        </filter>
-      </svg>
+        // Spring config for the entire dock stretch
+        const springConfig = { damping: 15, stiffness: 200 };
 
-      <motion.nav 
-        className="relative flex items-end h-24 px-4 pb-4 mx-auto rounded-full"
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => {
-          mouseX.set(Infinity);
-          setHoveredIndex(null);
-        }}
-        style={{
-          // Apply gooey filter to merge the background blobs
-          filter: "url('#liquid-dock-goo')", 
-        }}
-      >
-        {/* The solid track (Black pill) */}
-        <div className="absolute inset-x-0 bottom-4 h-16 bg-zinc-900 rounded-full border border-white/5" />
+        return (
+        <div ref={ref} {...props} className={cn("flex items-center justify-center p-20 bg-zinc-950 min-h-[300px]", className)}>
+          
+          {/* SVG filter needed for the Liquid/Gooey effect */}
+          <svg width="0" height="0" className="absolute hidden">
+            <filter id="liquid-dock-goo">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+              <feColorMatrix
+                in="blur"
+                mode="matrix"
+                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10"
+                result="liquid-dock-goo"
+              />
+              <feBlend in="SourceGraphic" in2="liquid-dock-goo" />
+            </filter>
+          </svg>
 
-        {items.map((item, i) => {
-          return (
-            <DockItem 
-              key={item.id} 
-              item={item} 
-              mouseX={mouseX} 
-              index={i}
-              isHovered={hoveredIndex === i}
-              setHovered={() => setHoveredIndex(i)}
-            />
-          );
-        })}
-      </motion.nav>
-    </div>
-  );
-};
+          <motion.nav 
+            className="relative flex items-end h-24 px-4 pb-4 mx-auto rounded-full"
+            onMouseMove={(e) => mouseX.set(e.pageX)}
+            onMouseLeave={() => {
+              mouseX.set(Infinity);
+              setHoveredIndex(null);
+            }}
+            style={{
+              // Apply gooey filter to merge the background blobs
+              filter: "url('#liquid-dock-goo')", 
+            }}
+          >
+            {/* The solid track (Black pill) */}
+            <div className="absolute inset-x-0 bottom-4 h-16 bg-zinc-900 rounded-full border border-white/5" />
+
+            {items.map((item, i) => {
+              return (
+                <DockItem 
+                  key={item.id} 
+                  item={item} 
+                  mouseX={mouseX} 
+                  index={i}
+                  isHovered={hoveredIndex === i}
+                  setHovered={() => setHoveredIndex(i)}
+                />
+              );
+            })}
+          </motion.nav>
+        </div>
+        );
+        });
 
 // Extracted Dock Item for individual physics calculations
 function DockItem({ item, mouseX, index, isHovered, setHovered }: any) {

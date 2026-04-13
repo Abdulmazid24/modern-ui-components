@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
+import { cn } from "@/utils";
 
 export interface BentoItem {
   id: string;
@@ -9,10 +10,12 @@ export interface BentoItem {
   rowSpan?: 1 | 2;
   content: React.ReactNode;
   bg?: string;
+    className?: string;
 }
 
 export interface KineticBentoGridProps {
   items: BentoItem[];
+    className?: string;
 }
 
 /**
@@ -20,41 +23,41 @@ export interface KineticBentoGridProps {
  * A masonry/bento layout where cards dynamically resize, auto-arrange, 
  * and react to cursor proximity with subtle repelling physics.
  */
-export const KineticBentoGrid: React.FC<KineticBentoGridProps> = ({ items }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+export const KineticBentoGrid = React.forwardRef<any, KineticBentoGridProps>(({ className, items, ...props }, ref) => {
+        const containerRef = useRef<HTMLDivElement>(null);
+        const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
+        const handleMouseMove = (e: React.MouseEvent) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        setMousePos({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+        });
+        };
 
-  const handleMouseLeave = () => {
-    setMousePos({ x: -1000, y: -1000 });
-  };
+        const handleMouseLeave = () => {
+        setMousePos({ x: -1000, y: -1000 });
+        };
 
-  return (
-    <div 
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative grid grid-cols-3 gap-4 p-8 max-w-4xl mx-auto auto-rows-[160px]"
-    >
-      {items.map((item) => (
-        <KineticCard 
-          key={item.id} 
-          item={item} 
-          mousePos={mousePos} 
-          containerRef={containerRef}
-        />
-      ))}
-    </div>
-  );
-};
+        return (
+        <div ref={ref} {...props} className={cn(className)}  
+          ref={containerRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="relative grid grid-cols-3 gap-4 p-8 max-w-4xl mx-auto auto-rows-[160px]"
+        >
+          {items.map((item) => (
+            <KineticCard 
+              key={item.id} 
+              item={item} 
+              mousePos={mousePos} 
+              containerRef={containerRef}
+            />
+          ))}
+        </div>
+        );
+        });
 
 const KineticCard = ({ item, mousePos, containerRef }: { item: BentoItem, mousePos: { x: number, y: number }, containerRef: React.RefObject<HTMLDivElement | null> }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -100,7 +103,7 @@ const KineticCard = ({ item, mousePos, containerRef }: { item: BentoItem, mouseP
   const glowOpacity = Math.max(0, 1 - distance / 300);
 
   return (
-    <motion.div
+    <motion.div ref={ref} {...props} className={cn(className)} 
       ref={cardRef}
       style={{ x, y }}
       className={`relative rounded-3xl border border-zinc-800 overflow-hidden ${colClass} ${rowClass} ${item.bg || 'bg-zinc-900'} group`}

@@ -2,17 +2,18 @@
   "name": "parallaxreveal",
   "title": "Parallax Reveal",
   "category": "scroll-animation",
+  "description": "A premium, animated Parallax Reveal component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "ParallaxReveal.tsx",
-          "content": "\"use client\";\nimport React, { useRef } from \"react\";\nimport { motion, useScroll, useTransform } from \"framer-motion\";\nexport const ParallaxReveal: React.FC<{ children?: React.ReactNode }> = ({ children }) => {\n  const ref = useRef<HTMLDivElement>(null);\n  const { scrollYProgress } = useScroll({ target: ref, offset: [\"start end\", \"end start\"] });\n  const y = useTransform(scrollYProgress, [0, 1], [80, -80]);\n  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);\n  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.9, 1, 1, 0.9]);\n  return (\n    <div ref={ref} className=\"py-20\">\n      <motion.div style={{ y, opacity, scale }}>\n        {children || (\n          <div className=\"w-full max-w-lg mx-auto p-8 rounded-2xl bg-zinc-900/60 border border-white/8 text-center\">\n            <h2 className=\"text-2xl font-black text-white mb-2\">Scroll Reveal</h2>\n            <p className=\"text-sm text-zinc-400\">This content fades in, slides, and scales as you scroll it into view.</p>\n          </div>\n        )}\n      </motion.div>\n    </div>\n  );\n};\n"
+          "content": "\"use client\";\nimport React, { useRef } from \"react\";\nimport { motion, useScroll, useTransform } from \"framer-motion\";\nimport { cn } from \"@/utils\";\n\nexport const ParallaxReveal = React.forwardRef<any, any>(({ className, children, ...props }, ref) => {\n        const ref = useRef<HTMLDivElement>(null);\n        const { scrollYProgress } = useScroll({ target: ref, offset: [\"start end\", \"end start\"] });\n        const y = useTransform(scrollYProgress, [0, 1], [80, -80]);\n        const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);\n        const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.9, 1, 1, 0.9]);\n        return (\n        <div ref={ref} {...props} className={cn(className)}  ref={ref} className=\"py-20\">\n          <motion.div style={{ y, opacity, scale }}>\n            {children || (\n              <div className=\"w-full max-w-lg mx-auto p-8 rounded-2xl bg-zinc-900/60 border border-white/8 text-center\">\n                <h2 className=\"text-2xl font-black text-white mb-2\">Scroll Reveal</h2>\n                <p className=\"text-sm text-zinc-400\">This content fades in, slides, and scales as you scroll it into view.</p>\n              </div>\n            )}\n          </motion.div>\n        </div>\n        );\n        });\n"
         }
       ],
       "dependencies": [
-        "lucide-react",
         "framer-motion"
       ]
     },
@@ -21,11 +22,10 @@
       "files": [
         {
           "name": "ParallaxReveal.jsx",
-          "content": "\"use client\";\nimport React, { useRef } from \"react\";\nimport { motion, useScroll, useTransform } from \"framer-motion\";\nexport const ParallaxReveal.FC<{ children?.ReactNode }> = ({ children }) => {\n  const ref = useRef(null);\n  const { scrollYProgress } = useScroll({ target: ref, offset: [\"start end\", \"end start\"] });\n  const y = useTransform(scrollYProgress, [0, 1], [80, -80]);\n  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);\n  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.9, 1, 1, 0.9]);\n  return (\n    <div ref={ref} className=\"py-20\">\n      <motion.div style={{ y, opacity, scale }}>\n        {children || (\n          <div className=\"w-full max-w-lg mx-auto p-8 rounded-2xl bg-zinc-900/60 border border-white/8 text-center\">\n            <h2 className=\"text-2xl font-black text-white mb-2\">Scroll Reveal</h2>\n            <p className=\"text-sm text-zinc-400\">This content fades in, slides, and scales scroll it into view.</p>\n          </div>\n        )}\n      </motion.div>\n    </div>\n  );\n};"
+          "content": "\"use client\";\nimport React, { useRef } from \"react\";\nimport { motion, useScroll, useTransform } from \"framer-motion\";\nimport { cn } from \"@/utils\";\n\nexport const ParallaxReveal = React.forwardRef<any, any>(({ className, children, ...props }, ref) => {\n        const ref = useRef(null);\n        const { scrollYProgress } = useScroll({ target: ref, offset: [\"start end\", \"end start\"] });\n        const y = useTransform(scrollYProgress, [0, 1], [80, -80]);\n        const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);\n        const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.9, 1, 1, 0.9]);\n        return (\n        <div ref={ref} {...props} className={cn(className)}  ref={ref} className=\"py-20\">\n          <motion.div style={{ y, opacity, scale }}>\n            {children || (\n              <div className=\"w-full max-w-lg mx-auto p-8 rounded-2xl bg-zinc-900/60 border border-white/8 text-center\">\n                <h2 className=\"text-2xl font-black text-white mb-2\">Scroll Reveal</h2>\n                <p className=\"text-sm text-zinc-400\">This content fades in, slides, and scales scroll it into view.</p>\n              </div>\n            )}\n          </motion.div>\n        </div>\n        );\n        });"
         }
       ],
       "dependencies": [
-        "lucide-react",
         "framer-motion"
       ]
     }

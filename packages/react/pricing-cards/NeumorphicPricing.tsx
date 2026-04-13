@@ -3,60 +3,61 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
+import { cn } from "@/utils";
 
-export const NeumorphicPricing: React.FC = () => {
-  const [isAnnual, setIsAnnual] = useState(false);
+export const NeumorphicPricing = React.forwardRef<any, any>(({ className, ...props }, ref) => {
+        const [isAnnual, setIsAnnual] = useState(false);
 
-  return (
-    <div className="w-full max-w-6xl p-12 bg-[#12141c] rounded-[3rem] shadow-[inset_0_0_100px_rgba(0,0,0,0.5)] flex flex-col items-center gap-10">
-      
-      {/* Dynamic Toggle */}
-      <div className="relative flex items-center p-1.5 bg-[#12141c] rounded-full shadow-[inset_4px_4px_10px_rgba(0,0,0,0.5),inset_-4px_-4px_10px_rgba(255,255,255,0.02)]">
-        <div 
-          className="relative z-10 w-32 py-2 text-center cursor-pointer text-sm font-bold tracking-wide transition-colors"
-          onClick={() => setIsAnnual(false)}
-          style={{ color: !isAnnual ? '#fff' : '#64748b' }}
-        >
-          Monthly
+        return (
+        <div ref={ref} {...props} className={cn("w-full max-w-6xl p-12 bg-[#12141c] rounded-[3rem] shadow-[inset_0_0_100px_rgba(0,0,0,0.5)] flex flex-col items-center gap-10", className)}>
+          
+          {/* Dynamic Toggle */}
+          <div className="relative flex items-center p-1.5 bg-[#12141c] rounded-full shadow-[inset_4px_4px_10px_rgba(0,0,0,0.5),inset_-4px_-4px_10px_rgba(255,255,255,0.02)]">
+            <div 
+              className="relative z-10 w-32 py-2 text-center cursor-pointer text-sm font-bold tracking-wide transition-colors"
+              onClick={() => setIsAnnual(false)}
+              style={{ color: !isAnnual ? '#fff' : '#64748b' }}
+            >
+              Monthly
+            </div>
+            <div 
+              className="relative z-10 w-32 py-2 text-center cursor-pointer text-sm font-bold tracking-wide transition-colors"
+              onClick={() => setIsAnnual(true)}
+              style={{ color: isAnnual ? '#fff' : '#64748b' }}
+            >
+              Annually
+            </div>
+            
+            {/* Animated Sliding Pill */}
+            <motion.div 
+              className="absolute top-1.5 bottom-1.5 w-32 bg-cyan-600 rounded-full shadow-[4px_4px_10px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(34,211,238,0.2)]"
+              animate={{ left: isAnnual ? "calc(100% - 8rem - 0.375rem)" : "0.375rem" }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            />
+          </div>
+
+          {/* Cards */}
+          <div className="flex flex-col md:flex-row gap-8 w-full justify-center">
+             <PricingCard 
+               title="Starter" 
+               price={isAnnual ? 99 : 9} 
+               features={["3 Projects", "Basic Analytics", "24-hour Support"]}
+             />
+             <PricingCard 
+               title="Professional" 
+               price={isAnnual ? 299 : 29} 
+               features={["Unlimited Projects", "Advanced Analytics", "1-hour Support", "Custom Domain"]}
+               isPopular
+             />
+             <PricingCard 
+               title="Enterprise" 
+               price={isAnnual ? 999 : 99} 
+               features={["Everything in Pro", "Dedicated Account Manager", "SSO Authentication", "SLA Guarantee"]}
+             />
+          </div>
         </div>
-        <div 
-          className="relative z-10 w-32 py-2 text-center cursor-pointer text-sm font-bold tracking-wide transition-colors"
-          onClick={() => setIsAnnual(true)}
-          style={{ color: isAnnual ? '#fff' : '#64748b' }}
-        >
-          Annually
-        </div>
-        
-        {/* Animated Sliding Pill */}
-        <motion.div 
-          className="absolute top-1.5 bottom-1.5 w-32 bg-cyan-600 rounded-full shadow-[4px_4px_10px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(34,211,238,0.2)]"
-          animate={{ left: isAnnual ? "calc(100% - 8rem - 0.375rem)" : "0.375rem" }}
-          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-        />
-      </div>
-
-      {/* Cards */}
-      <div className="flex flex-col md:flex-row gap-8 w-full justify-center">
-         <PricingCard 
-           title="Starter" 
-           price={isAnnual ? 99 : 9} 
-           features={["3 Projects", "Basic Analytics", "24-hour Support"]}
-         />
-         <PricingCard 
-           title="Professional" 
-           price={isAnnual ? 299 : 29} 
-           features={["Unlimited Projects", "Advanced Analytics", "1-hour Support", "Custom Domain"]}
-           isPopular
-         />
-         <PricingCard 
-           title="Enterprise" 
-           price={isAnnual ? 999 : 99} 
-           features={["Everything in Pro", "Dedicated Account Manager", "SSO Authentication", "SLA Guarantee"]}
-         />
-      </div>
-    </div>
-  );
-};
+        );
+        });
 
 const PricingCard = ({ title, price, features, isPopular = false }: { title: string, price: number, features: string[], isPopular?: boolean }) => {
   return (

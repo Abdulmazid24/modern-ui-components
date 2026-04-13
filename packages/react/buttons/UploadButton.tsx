@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { cn } from "@/utils";
 
 /* ──────────────────────────────────────────────
    Types
@@ -57,104 +58,91 @@ const CheckIcon = () => (
    Component
    ────────────────────────────────────────────── */
 
-export const UploadButton: React.FC<UploadButtonProps> = ({
-  label = 'UPLOAD',
-  completeLabel = 'DONE',
-  width = 220,
-  height = 58,
-  borderRadius = 50,
-  color = '#ffffff',
-  bgColor = '#2563eb',
-  uploadDuration = 2500,
-  onUpload,
-  onComplete,
-  resetDelay = 2000,
-  className = '',
-}) => {
-  const [state, setState] = useState<UploadState>('idle');
-  const [progress, setProgress] = useState(0);
-  const animRef = useRef<number | null>(null);
-  const startRef = useRef<number>(0);
+export const UploadButton = React.forwardRef<any, UploadButtonProps>(({ label = 'UPLOAD', completeLabel = 'DONE', width = 220, height = 58, borderRadius = 50, color = '#ffffff', bgColor = '#2563eb', uploadDuration = 2500, onUpload, onComplete, resetDelay = 2000, className = '', ...props }, ref) => {
+        const [state, setState] = useState<UploadState>('idle');
+        const [progress, setProgress] = useState(0);
+        const animRef = useRef<number | null>(null);
+        const startRef = useRef<number>(0);
 
-  // Animate progress from 0 → 100
-  const animateProgress = useCallback(() => {
-    const elapsed = performance.now() - startRef.current;
-    const pct = Math.min(100, (elapsed / uploadDuration) * 100);
-    setProgress(Math.round(pct));
+        // Animate progress from 0 → 100
+        const animateProgress = useCallback(() => {
+        const elapsed = performance.now() - startRef.current;
+        const pct = Math.min(100, (elapsed / uploadDuration) * 100);
+        setProgress(Math.round(pct));
 
-    if (pct < 100) {
-      animRef.current = requestAnimationFrame(animateProgress);
-    } else {
-      setState('complete');
-      onComplete?.();
-    }
-  }, [uploadDuration, onComplete]);
+        if (pct < 100) {
+          animRef.current = requestAnimationFrame(animateProgress);
+        } else {
+          setState('complete');
+          onComplete?.();
+        }
+        }, [uploadDuration, onComplete]);
 
-  const handleClick = useCallback(() => {
-    if (state !== 'idle') return;
-    setState('uploading');
-    setProgress(0);
-    onUpload?.();
-    startRef.current = performance.now();
-    animRef.current = requestAnimationFrame(animateProgress);
-  }, [state, onUpload, animateProgress]);
-
-  // Reset after complete
-  useEffect(() => {
-    if (state === 'complete') {
-      const timer = setTimeout(() => {
-        setState('idle');
+        const handleClick = useCallback(() => {
+        if (state !== 'idle') return;
+        setState('uploading');
         setProgress(0);
-      }, resetDelay);
-      return () => clearTimeout(timer);
-    }
-  }, [state, resetDelay]);
+        onUpload?.();
+        startRef.current = performance.now();
+        animRef.current = requestAnimationFrame(animateProgress);
+        }, [state, onUpload, animateProgress]);
 
-  // Cleanup
-  useEffect(() => {
-    return () => { if (animRef.current) cancelAnimationFrame(animRef.current); };
-  }, []);
+        // Reset after complete
+        useEffect(() => {
+        if (state === 'complete') {
+          const timer = setTimeout(() => {
+            setState('idle');
+            setProgress(0);
+          }, resetDelay);
+          return () => clearTimeout(timer);
+        }
+        }, [state, resetDelay]);
 
-  const isUploading = state === 'uploading';
-  const isComplete = state === 'complete';
+        // Cleanup
+        useEffect(() => {
+        return () => { if (animRef.current) cancelAnimationFrame(animRef.current); };
+        }, []);
 
-  return (
-    <button
-      type="button"
-      className={`upload-btn ${state} ${className}`}
-      onClick={handleClick}
-      disabled={state !== 'idle'}
-      aria-label={isUploading ? `Uploading ${progress}%` : isComplete ? completeLabel : label}
-      style={{
-        '--upload-width': `${width}px`,
-        '--upload-height': `${height}px`,
-        '--upload-radius': `${borderRadius}px`,
-        '--upload-color': color,
-        '--upload-bg': bgColor,
-        '--upload-progress': `${progress}%`,
-      } as React.CSSProperties}
-    >
-      {/* Idle State — Icon + Label */}
-      <span className={`upload-btn-content ${isUploading || isComplete ? 'hidden' : ''}`}>
-        <CloudUploadIcon />
-        <span>{label}</span>
-      </span>
+        const isUploading = state === 'uploading';
+        const isComplete = state === 'complete';
 
-      {/* Upload Progress Bar */}
-      <span className={`upload-btn-progress-track ${isUploading ? 'visible' : ''}`}>
-        <span className="upload-btn-progress-fill" />
-      </span>
+        return (
+        <button ref={ref} {...props} className={cn(className)} 
+          type="button"
+          className={`upload-btn ${state} ${className}`}
+          onClick={handleClick}
+          disabled={state !== 'idle'}
+          aria-label={isUploading ? `Uploading ${progress}%` : isComplete ? completeLabel : label}
+          style={{
+            '--upload-width': `${width}px`,
+            '--upload-height': `${height}px`,
+            '--upload-radius': `${borderRadius}px`,
+            '--upload-color': color,
+            '--upload-bg': bgColor,
+            '--upload-progress': `${progress}%`,
+          } as React.CSSProperties}
+        >
+          {/* Idle State — Icon + Label */}
+          <span className={`upload-btn-content ${isUploading || isComplete ? 'hidden' : ''}`}>
+            <CloudUploadIcon />
+            <span>{label}</span>
+          </span>
 
-      {/* Percentage Badge */}
-      <span className={`upload-btn-badge ${isUploading ? 'visible' : ''}`}>
-        {progress}%
-      </span>
+          {/* Upload Progress Bar */}
+          <span className={`upload-btn-progress-track ${isUploading ? 'visible' : ''}`}>
+            <span className="upload-btn-progress-fill" />
+          </span>
 
-      {/* Complete State */}
-      <span className={`upload-btn-content ${isComplete ? 'complete-visible' : 'hidden'}`}>
-        <CheckIcon />
-        <span>{completeLabel}</span>
-      </span>
-    </button>
-  );
-};
+          {/* Percentage Badge */}
+          <span className={`upload-btn-badge ${isUploading ? 'visible' : ''}`}>
+            {progress}%
+          </span>
+
+          {/* Complete State */}
+          <span className={`upload-btn-content ${isComplete ? 'complete-visible' : 'hidden'}`}>
+            <CheckIcon />
+            <span>{completeLabel}</span>
+          </span>
+        </button>
+        );
+        });

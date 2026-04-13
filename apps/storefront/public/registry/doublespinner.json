@@ -1,33 +1,29 @@
 {
   "name": "doublespinner",
   "title": "Double Spinner",
-  "category": "loaders",
+  "category": "loader",
+  "description": "A premium, animated Double Spinner component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "DoubleSpinner.tsx",
-          "content": "\"use client\";\n\nimport React from 'react';\n\nexport interface DoubleSpinnerProps {\n  /** Spinner diameter in pixels */\n  size?: number;\n  /** Border thickness in pixels */\n  borderWidth?: number;\n  /** Primary color (top arc) */\n  primaryColor?: string;\n  /** Secondary color (bottom arc) */\n  secondaryColor?: string;\n  /** Animation speed in seconds */\n  speed?: number;\n  /** Accessible label */\n  label?: string;\n  className?: string;\n}\n\nexport const DoubleSpinner: React.FC<DoubleSpinnerProps> = ({\n  size = 80,\n  borderWidth = 8,\n  primaryColor = 'rgb(244, 63, 94)',\n  secondaryColor = 'rgb(34, 197, 94)',\n  speed = 1,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center justify-center ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      <div\n        className=\"rounded-full\"\n        style={{\n          width: size,\n          height: size,\n          borderWidth: borderWidth,\n          borderStyle: 'solid',\n          borderColor: `${primaryColor} transparent ${secondaryColor} transparent`,\n          animation: `loaderSpin ${speed}s linear infinite`,\n        }}\n        aria-hidden=\"true\"\n      />\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};\n"
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { cn } from \"@/utils\";\n\nexport interface DoubleSpinnerProps {\n  /** Spinner diameter in pixels */\n  size?: number;\n  /** Border thickness in pixels */\n  borderWidth?: number;\n  /** Primary color (top arc) */\n  primaryColor?: string;\n  /** Secondary color (bottom arc) */\n  secondaryColor?: string;\n  /** Animation speed in seconds */\n  speed?: number;\n  /** Accessible label */\n  label?: string;\n  className?: string;\n}\n\nexport const DoubleSpinner = React.forwardRef<any, DoubleSpinnerProps>(({ size = 80, borderWidth = 8, primaryColor = 'rgb(244, 63, 94)', secondaryColor = 'rgb(34, 197, 94)', speed = 1, label = 'Loading', className = '', ...props }, ref) => {\n        return (\n        <div ref={ref} {...props} className={cn(className)} \n          className={`inline-flex items-center justify-center ${className}`}\n          role=\"status\"\n          aria-label={label}\n        >\n          <div\n            className=\"rounded-full\"\n            style={{\n              width: size,\n              height: size,\n              borderWidth: borderWidth,\n              borderStyle: 'solid',\n              borderColor: `${primaryColor} transparent ${secondaryColor} transparent`,\n              animation: `loaderSpin ${speed}s linear infinite`,\n            }}\n            aria-hidden=\"true\"\n          />\n          <span className=\"sr-only\">{label}</span>\n        </div>\n        );\n        });\n"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     },
     "jsx": {
       "language": "jsx",
       "files": [
         {
           "name": "DoubleSpinner.jsx",
-          "content": "\"use client\";\n\nimport React from 'react';\n\nexport \n\nexport const DoubleSpinner.FC = ({\n  size = 80,\n  borderWidth = 8,\n  primaryColor = 'rgb(244, 63, 94)',\n  secondaryColor = 'rgb(34, 197, 94)',\n  speed = 1,\n  label = 'Loading',\n  className = '',\n}) => {\n  return (\n    <div\n      className={`inline-flex items-center justify-center ${className}`}\n      role=\"status\"\n      aria-label={label}\n    >\n      <div\n        className=\"rounded-full\"\n        style={{\n          width: size,\n          height: size,\n          borderWidth: borderWidth,\n          borderStyle: 'solid',\n          borderColor: `${primaryColor} transparent ${secondaryColor} transparent`,\n          animation: `loaderSpin ${speed}s linear infinite`,\n        }}\n        aria-hidden=\"true\"\n      />\n      <span className=\"sr-only\">{label}</span>\n    </div>\n  );\n};"
+          "content": "\"use client\";\n\nimport React from 'react';\nimport { cn } from \"@/utils\";\n\n  /** Border thickness in pixels */\n  borderWidth?;\n  /** Primary color (top arc) */\n  primaryColor?;\n  /** Secondary color (bottom arc) */\n  secondaryColor?;\n  /** Animation speed in seconds */\n  speed?;\n  /** Accessible label */\n  label?;\n  className?;\n}\n\nexport const DoubleSpinner = React.forwardRef<any, DoubleSpinnerProps>(({ size = 80, borderWidth = 8, primaryColor = 'rgb(244, 63, 94)', secondaryColor = 'rgb(34, 197, 94)', speed = 1, label = 'Loading', className = '', ...props }, ref) => {\n        return (\n        <div ref={ref} {...props} className={cn(className)} \n          className={`inline-flex items-center justify-center ${className}`}\n          role=\"status\"\n          aria-label={label}\n        >\n          <div\n            className=\"rounded-full\"\n            style={{\n              width: size,\n              height: size,\n              borderWidth: borderWidth,\n              borderStyle: 'solid',\n              borderColor: `${primaryColor} transparent ${secondaryColor} transparent`,\n              animation: `loaderSpin ${speed}s linear infinite`,\n            }}\n            aria-hidden=\"true\"\n          />\n          <span className=\"sr-only\">{label}</span>\n        </div>\n        );\n        });"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     }
   },
   "preview": {}

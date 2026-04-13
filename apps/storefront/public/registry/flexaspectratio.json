@@ -2,32 +2,28 @@
   "name": "flexaspectratio",
   "title": "Flex Aspect Ratio",
   "category": "aspect-ratio",
+  "description": "A premium, animated Flex Aspect Ratio component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "FlexAspectRatio.tsx",
-          "content": "\"use client\";\nimport React from \"react\";\n\nexport const FlexAspectRatio: React.FC<{ ratio?: number; children?: React.ReactNode }> = ({ ratio = 16 / 9, children }) => (\n  <div className=\"w-full max-w-lg rounded-2xl overflow-hidden border border-white/10\" style={{ aspectRatio: ratio }}>\n    {children || <div className=\"w-full h-full bg-gradient-to-br from-violet-500/20 to-cyan-500/20 flex items-center justify-center text-zinc-400 text-sm font-medium\">{Math.round(ratio * 100) / 100} : 1</div>}\n  </div>\n);\n"
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"@/utils\";\n\nexport const FlexAspectRatio = React.forwardRef<any, any>(({ className, ratio = 16 / 9, children, ...props }, ref) => {\n        (\n          <div className=\"w-full max-w-lg rounded-2xl overflow-hidden border border-white/10\" style={{ aspectRatio: ratio }}>\n            {children || <div className=\"w-full h-full bg-gradient-to-br from-violet-500/20 to-cyan-500/20 flex items-center justify-center text-zinc-400 text-sm font-medium\">{Math.round(ratio * 100) / 100} : 1</div>}\n          </div>\n        )\n        });\n"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     },
     "jsx": {
       "language": "jsx",
       "files": [
         {
           "name": "FlexAspectRatio.jsx",
-          "content": "\"use client\";\nimport React from \"react\";\n\nexport const FlexAspectRatio.FC<{ ratio?: number; children?.ReactNode }> = ({ ratio = 16 / 9, children }) => (\n  <div className=\"w-full max-w-lg rounded-2xl overflow-hidden border border-white/10\" style={{ aspectRatio: ratio }}>\n    {children || <div className=\"w-full h-full bg-gradient-to-br from-violet-500/20 to-cyan-500/20 flex items-center justify-center text-zinc-400 text-sm font-medium\">{Math.round(ratio * 100) / 100} : 1</div>}\n  </div>\n);"
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"@/utils\";\n\nexport const FlexAspectRatio = React.forwardRef<any, any>(({ className, ratio = 16 / 9, children, ...props }, ref) => {\n        (\n          <div className=\"w-full max-w-lg rounded-2xl overflow-hidden border border-white/10\" style={{ aspectRatio: ratio }}>\n            {children || <div className=\"w-full h-full bg-gradient-to-br from-violet-500/20 to-cyan-500/20 flex items-center justify-center text-zinc-400 text-sm font-medium\">{Math.round(ratio * 100) / 100} : 1</div>}\n          </div>\n        )\n        });"
         }
       ],
-      "dependencies": [
-        "lucide-react",
-        "framer-motion"
-      ]
+      "dependencies": []
     }
   },
   "preview": {}

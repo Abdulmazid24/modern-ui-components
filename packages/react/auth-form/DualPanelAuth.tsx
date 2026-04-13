@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/utils";
 
 /* ---------- tiny SVG social icons ---------- */
 const GoogleIcon = () => (
@@ -27,191 +28,191 @@ const socials = [
 export interface DualPanelAuthProps {
   onSignIn?: (email: string, password: string) => void;
   onSignUp?: (name: string, email: string, password: string) => void;
+    className?: string;
 }
 
-export const DualPanelAuth: React.FC<DualPanelAuthProps> = ({ onSignIn, onSignUp }) => {
-  const [isSignUp, setIsSignUp] = useState(false);
+export const DualPanelAuth = React.forwardRef<any, DualPanelAuthProps>(({ className, onSignIn, onSignUp, ...props }, ref) => {
+        const [isSignUp, setIsSignUp] = useState(false);
 
-  // Sign-In form state
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+        // Sign-In form state
+        const [loginEmail, setLoginEmail] = useState("");
+        const [loginPassword, setLoginPassword] = useState("");
 
-  // Sign-Up form state
-  const [regName, setRegName] = useState("");
-  const [regEmail, setRegEmail] = useState("");
-  const [regPassword, setRegPassword] = useState("");
+        // Sign-Up form state
+        const [regName, setRegName] = useState("");
+        const [regEmail, setRegEmail] = useState("");
+        const [regPassword, setRegPassword] = useState("");
 
-  return (
-    <div
-      className="relative w-full max-w-[820px] h-[480px] rounded-3xl overflow-hidden mx-auto"
-      style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.3)" }}
-    >
-      {/* ===== Sign In Form (left side) ===== */}
-      <div
-        className="absolute top-0 left-0 w-1/2 h-full flex flex-col items-center justify-center px-10 transition-all duration-700 ease-in-out"
-        style={{
-          background: "#fff",
-          opacity: isSignUp ? 0 : 1,
-          pointerEvents: isSignUp ? "none" : "auto",
-          transform: isSignUp ? "translateX(100%)" : "translateX(0)",
-        }}
-      >
-        <h2 className="text-2xl font-black text-zinc-900 mb-4">Sign In</h2>
-
-        {/* Social buttons */}
-        <div className="flex gap-2 mb-4">
-          {socials.map((s) => (
-            <button
-              key={s.label}
-              className="w-9 h-9 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-violet-600 hover:border-violet-300 transition-colors cursor-pointer"
-            >
-              {s.icon}
-            </button>
-          ))}
-        </div>
-
-        <p className="text-xs text-zinc-400 mb-4">or use your email password</p>
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={loginEmail}
-          onChange={(e) => setLoginEmail(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-3 transition"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={loginPassword}
-          onChange={(e) => setLoginPassword(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-3 transition"
-        />
-
-        <button className="text-xs text-zinc-400 hover:text-violet-500 mb-4 cursor-pointer transition-colors">
-          Forget Your Password?
-        </button>
-
-        <button
-          onClick={() => onSignIn?.(loginEmail, loginPassword)}
-          className="px-8 py-2.5 rounded-lg bg-violet-600 text-white text-sm font-bold hover:bg-violet-700 cursor-pointer transition-colors"
-          style={{ boxShadow: "0 4px 12px rgba(124,58,237,0.3)" }}
+        return (
+        <div ref={ref} {...props} className={cn("relative w-full max-w-[820px] h-[480px] rounded-3xl overflow-hidden mx-auto", className)}
+          style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.3)" }}
         >
-          SIGN IN
-        </button>
-      </div>
+          {/* ===== Sign In Form (left side) ===== */}
+          <div
+            className="absolute top-0 left-0 w-1/2 h-full flex flex-col items-center justify-center px-10 transition-all duration-700 ease-in-out"
+            style={{
+              background: "#fff",
+              opacity: isSignUp ? 0 : 1,
+              pointerEvents: isSignUp ? "none" : "auto",
+              transform: isSignUp ? "translateX(100%)" : "translateX(0)",
+            }}
+          >
+            <h2 className="text-2xl font-black text-zinc-900 mb-4">Sign In</h2>
 
-      {/* ===== Sign Up Form (right side) ===== */}
-      <div
-        className="absolute top-0 right-0 w-1/2 h-full flex flex-col items-center justify-center px-10 transition-all duration-700 ease-in-out"
-        style={{
-          background: "#fff",
-          opacity: isSignUp ? 1 : 0,
-          pointerEvents: isSignUp ? "auto" : "none",
-          transform: isSignUp ? "translateX(0)" : "translateX(-100%)",
-        }}
-      >
-        <h2 className="text-2xl font-black text-zinc-900 mb-4">Create Account</h2>
+            {/* Social buttons */}
+            <div className="flex gap-2 mb-4">
+              {socials.map((s) => (
+                <button
+                  key={s.label}
+                  className="w-9 h-9 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-violet-600 hover:border-violet-300 transition-colors cursor-pointer"
+                >
+                  {s.icon}
+                </button>
+              ))}
+            </div>
 
-        <div className="flex gap-2 mb-4">
-          {socials.map((s) => (
-            <button
-              key={s.label}
-              className="w-9 h-9 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-violet-600 hover:border-violet-300 transition-colors cursor-pointer"
-            >
-              {s.icon}
+            <p className="text-xs text-zinc-400 mb-4">or use your email password</p>
+
+            <input
+              type="email"
+              placeholder="Email"
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-3 transition"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-3 transition"
+            />
+
+            <button className="text-xs text-zinc-400 hover:text-violet-500 mb-4 cursor-pointer transition-colors">
+              Forget Your Password?
             </button>
-          ))}
-        </div>
 
-        <p className="text-xs text-zinc-400 mb-4">or use your email for registration</p>
+            <button
+              onClick={() => onSignIn?.(loginEmail, loginPassword)}
+              className="px-8 py-2.5 rounded-lg bg-violet-600 text-white text-sm font-bold hover:bg-violet-700 cursor-pointer transition-colors"
+              style={{ boxShadow: "0 4px 12px rgba(124,58,237,0.3)" }}
+            >
+              SIGN IN
+            </button>
+          </div>
 
-        <input
-          type="text"
-          placeholder="Name"
-          value={regName}
-          onChange={(e) => setRegName(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-3 transition"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={regEmail}
-          onChange={(e) => setRegEmail(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-3 transition"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={regPassword}
-          onChange={(e) => setRegPassword(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-4 transition"
-        />
+          {/* ===== Sign Up Form (right side) ===== */}
+          <div
+            className="absolute top-0 right-0 w-1/2 h-full flex flex-col items-center justify-center px-10 transition-all duration-700 ease-in-out"
+            style={{
+              background: "#fff",
+              opacity: isSignUp ? 1 : 0,
+              pointerEvents: isSignUp ? "auto" : "none",
+              transform: isSignUp ? "translateX(0)" : "translateX(-100%)",
+            }}
+          >
+            <h2 className="text-2xl font-black text-zinc-900 mb-4">Create Account</h2>
 
-        <button
-          onClick={() => onSignUp?.(regName, regEmail, regPassword)}
-          className="px-8 py-2.5 rounded-lg bg-violet-600 text-white text-sm font-bold hover:bg-violet-700 cursor-pointer transition-colors"
-          style={{ boxShadow: "0 4px 12px rgba(124,58,237,0.3)" }}
-        >
-          SIGN UP
-        </button>
-      </div>
-
-      {/* ===== Sliding Purple Overlay ===== */}
-      <motion.div
-        className="absolute top-0 w-1/2 h-full flex items-center justify-center z-20"
-        animate={{
-          left: isSignUp ? "0%" : "50%",
-        }}
-        transition={{ type: "spring", stiffness: 200, damping: 25 }}
-        style={{
-          background: "linear-gradient(135deg, #7c3aed 0%, #6d28d9 40%, #4c1d95 100%)",
-          borderRadius: isSignUp ? "0 140px 100px 0" : "140px 0 0 100px",
-        }}
-      >
-        <div className="text-center px-8">
-          <AnimatePresence mode="wait">
-            {isSignUp ? (
-              <motion.div
-                key="welcome"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 30 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h2 className="text-3xl font-black text-white mb-3">Welcome Back!</h2>
-                <p className="text-sm text-white/70 mb-6 leading-relaxed">
-                  Enter your personal details to use all of site features
-                </p>
+            <div className="flex gap-2 mb-4">
+              {socials.map((s) => (
                 <button
-                  onClick={() => setIsSignUp(false)}
-                  className="px-8 py-2.5 rounded-lg border-2 border-white text-white text-sm font-bold hover:bg-white hover:text-violet-700 cursor-pointer transition-all"
+                  key={s.label}
+                  className="w-9 h-9 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-violet-600 hover:border-violet-300 transition-colors cursor-pointer"
                 >
-                  SIGN IN
+                  {s.icon}
                 </button>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="hello"
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -30 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h2 className="text-3xl font-black text-white mb-3">Hello, Friend!</h2>
-                <p className="text-sm text-white/70 mb-6 leading-relaxed">
-                  Register with your personal details to use all of site features
-                </p>
-                <button
-                  onClick={() => setIsSignUp(true)}
-                  className="px-8 py-2.5 rounded-lg border-2 border-white text-white text-sm font-bold hover:bg-white hover:text-violet-700 cursor-pointer transition-all"
-                >
-                  SIGN UP
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              ))}
+            </div>
+
+            <p className="text-xs text-zinc-400 mb-4">or use your email for registration</p>
+
+            <input
+              type="text"
+              placeholder="Name"
+              value={regName}
+              onChange={(e) => setRegName(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-3 transition"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              value={regEmail}
+              onChange={(e) => setRegEmail(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-3 transition"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={regPassword}
+              onChange={(e) => setRegPassword(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg bg-zinc-100 text-sm text-zinc-800 outline-none focus:ring-2 focus:ring-violet-300 mb-4 transition"
+            />
+
+            <button
+              onClick={() => onSignUp?.(regName, regEmail, regPassword)}
+              className="px-8 py-2.5 rounded-lg bg-violet-600 text-white text-sm font-bold hover:bg-violet-700 cursor-pointer transition-colors"
+              style={{ boxShadow: "0 4px 12px rgba(124,58,237,0.3)" }}
+            >
+              SIGN UP
+            </button>
+          </div>
+
+          {/* ===== Sliding Purple Overlay ===== */}
+          <motion.div
+            className="absolute top-0 w-1/2 h-full flex items-center justify-center z-20"
+            animate={{
+              left: isSignUp ? "0%" : "50%",
+            }}
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            style={{
+              background: "linear-gradient(135deg, #7c3aed 0%, #6d28d9 40%, #4c1d95 100%)",
+              borderRadius: isSignUp ? "0 140px 100px 0" : "140px 0 0 100px",
+            }}
+          >
+            <div className="text-center px-8">
+              <AnimatePresence mode="wait">
+                {isSignUp ? (
+                  <motion.div
+                    key="welcome"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 30 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h2 className="text-3xl font-black text-white mb-3">Welcome Back!</h2>
+                    <p className="text-sm text-white/70 mb-6 leading-relaxed">
+                      Enter your personal details to use all of site features
+                    </p>
+                    <button
+                      onClick={() => setIsSignUp(false)}
+                      className="px-8 py-2.5 rounded-lg border-2 border-white text-white text-sm font-bold hover:bg-white hover:text-violet-700 cursor-pointer transition-all"
+                    >
+                      SIGN IN
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="hello"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -30 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h2 className="text-3xl font-black text-white mb-3">Hello, Friend!</h2>
+                    <p className="text-sm text-white/70 mb-6 leading-relaxed">
+                      Register with your personal details to use all of site features
+                    </p>
+                    <button
+                      onClick={() => setIsSignUp(true)}
+                      className="px-8 py-2.5 rounded-lg border-2 border-white text-white text-sm font-bold hover:bg-white hover:text-violet-700 cursor-pointer transition-all"
+                    >
+                      SIGN UP
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
-    </div>
-  );
-};
+        );
+        });
