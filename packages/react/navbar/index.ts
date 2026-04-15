@@ -20,3 +20,5 @@ export { RippleTideNav } from './RippleTideNav';
 export type { RippleTideNavProps, RippleNavItem } from './RippleTideNav';
 export { CosmicHorizonNav } from './CosmicHorizonNav';
 export type { CosmicHorizonNavProps, CosmicNavItem } from './CosmicHorizonNav';
+export { MorphingNotchNavbar } from './MorphingNotchNavbar';
+export type { MorphingNotchNavbarProps, NavItem as MorphingNavItem } from './MorphingNotchNavbar';

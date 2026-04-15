@@ -4,4 +4,8 @@ export { GradientBorderCard } from './GradientBorderCard';
 export type { GradientBorderCardProps } from './GradientBorderCard';
 export { HoloCard } from './HoloCard';
 export type { HoloCardProps } from './HoloCard';
-
+export { GlassCard } from './GlassCard';
+export { LightningCard } from './LightningCard';
+export { NeonTiltCard } from './NeonTiltCard';
+export { HolographicScannerCard } from './HolographicScannerCard';
+export type { HolographicScannerCardProps } from './HolographicScannerCard';
