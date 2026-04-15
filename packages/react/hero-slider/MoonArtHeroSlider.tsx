@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface MoonArtSlide {
   id: string;

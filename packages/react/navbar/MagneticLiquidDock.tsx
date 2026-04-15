@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Home, Compass, MessageCircle, Heart, User } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface MagneticLiquidDockProps {
   items?: { id: string; icon: React.ReactNode; label: string }[];
@@ -26,7 +26,7 @@ export const MagneticLiquidDock = React.forwardRef<any, MagneticLiquidDockProps>
         const springConfig = { damping: 15, stiffness: 200 };
 
         return (
-        <div ref={ref} {...props} className={cn("flex items-center justify-center p-20 bg-zinc-950 min-h-[300px]", className)}>
+        <div ref={handleRef} {...props} className={cn("flex items-center justify-center p-20 bg-zinc-950 min-h-[300px]", className)}>
           
           {/* SVG filter needed for the Liquid/Gooey effect */}
           <svg width="0" height="0" className="absolute hidden">
@@ -76,11 +76,20 @@ export const MagneticLiquidDock = React.forwardRef<any, MagneticLiquidDockProps>
 
 // Extracted Dock Item for individual physics calculations
 function DockItem({ item, mouseX, index, isHovered, setHovered }: any) {
-  const ref = useRef<HTMLDivElement>(null);
+  const localRef = useRef<HTMLDivElement>(null);
+        const handleRef = (node: any) => {
+          localRef.current = node;
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        };
+
 
   // Measure distance from mouse to center of this icon
   const distance = useTransform(mouseX, (val: number) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    const bounds = localRef.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
 
@@ -97,7 +106,7 @@ function DockItem({ item, mouseX, index, isHovered, setHovered }: any) {
 
   return (
     <motion.div
-      ref={ref}
+      ref={handleRef}
       style={{ width }}
       className="relative flex flex-col items-center justify-end h-full cursor-pointer z-10"
       onMouseEnter={setHovered}

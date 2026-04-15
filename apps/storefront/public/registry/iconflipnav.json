@@ -1,0 +1,36 @@
+{
+  "name": "iconflipnav",
+  "title": "Icon Flip Nav",
+  "category": "navbar",
+  "description": "A premium, animated Icon Flip Nav component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "IconFlipNav.tsx",
+          "content": "import React, { forwardRef, useState } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\nimport { Home, User, Code, FileText, Mail } from \"lucide-react\";\n\nexport interface IconFlipItem {\n  id: string;\n  label: string;\n  icon: React.ReactNode;\n}\n\nexport interface IconFlipNavProps extends React.HTMLAttributes<HTMLElement> {\n  items?: IconFlipItem[];\n}\n\nconst defaultItems: IconFlipItem[] = [\n  { id: \"home\", label: \"Home\", icon: <Home size={20} /> },\n  { id: \"about\", label: \"About\", icon: <User size={20} /> },\n  { id: \"projects\", label: \"Projects\", icon: <Code size={20} /> },\n  { id: \"blog\", label: \"Blog\", icon: <FileText size={20} /> },\n  { id: \"contact\", label: \"Contact\", icon: <Mail size={20} /> },\n];\n\nexport const IconFlipNav = forwardRef<HTMLElement, IconFlipNavProps>(\n  ({ className, items = defaultItems, ...props }, ref) => {\n    return (\n      <nav\n        ref={ref}\n        className={cn(\n          \"flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-950/50 backdrop-blur-lg border border-white/10 shadow-xl\",\n          className\n        )}\n        {...props}\n      >\n        <ul className=\"flex items-center gap-1\">\n          {items.map((item) => (\n            <FlipNavItem key={item.id} item={item} />\n          ))}\n        </ul>\n      </nav>\n    );\n  }\n);\n\nIconFlipNav.displayName = \"IconFlipNav\";\n\n// Internal Component for each item\nfunction FlipNavItem({ item }: { item: IconFlipItem }) {\n  const [isHovered, setIsHovered] = useState(false);\n\n  return (\n    <li>\n      <a\n        href={`#${item.id}`}\n        onMouseEnter={() => setIsHovered(true)}\n        onMouseLeave={() => setIsHovered(false)}\n        className=\"relative flex items-center justify-center w-24 h-12 rounded-full overflow-hidden text-zinc-300 hover:bg-white/5 transition-colors focus:outline-none\"\n      >\n        {/* The Text Label */}\n        <motion.span\n          className=\"absolute font-medium\"\n          initial={false}\n          animate={{\n            y: isHovered ? -40 : 0,\n            opacity: isHovered ? 0 : 1,\n            scale: isHovered ? 0.8 : 1,\n          }}\n          transition={{\n            type: \"spring\",\n            stiffness: 400,\n            damping: 25,\n          }}\n        >\n          {item.label}\n        </motion.span>\n\n        {/* The Icon */}\n        <motion.span\n          className=\"absolute text-cyan-400\"\n          initial={false}\n          animate={{\n            y: isHovered ? 0 : 40,\n            opacity: isHovered ? 1 : 0,\n            scale: isHovered ? 1 : 0.8,\n          }}\n          transition={{\n            type: \"spring\",\n            stiffness: 400,\n            damping: 25,\n          }}\n        >\n          {item.icon}\n        </motion.span>\n\n        {/* Hover subtle glow under the item to match Enterprise feel */}\n        {isHovered && (\n          <motion.div\n            layoutId=\"flip-nav-glow\"\n            className=\"absolute -bottom-2 w-8 h-1 blur-[4px] bg-cyan-400/50\"\n            initial={{ opacity: 0 }}\n            animate={{ opacity: 1 }}\n            exit={{ opacity: 0 }}\n          />\n        )}\n      </a>\n    </li>\n  );\n}\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "IconFlipNav.jsx",
+          "content": "import React, { forwardRef, useState } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\nimport { Home, User, Code, FileText, Mail } from \"lucide-react\";\n\n  label;\n  icon;\n}\n\n}\n\nconst defaultItems: IconFlipItem[] = [\n  { id: \"home\", label: \"Home\", icon: <Home size={20} /> },\n  { id: \"about\", label: \"About\", icon: <User size={20} /> },\n  { id: \"projects\", label: \"Projects\", icon: <Code size={20} /> },\n  { id: \"blog\", label: \"Blog\", icon: <FileText size={20} /> },\n  { id: \"contact\", label: \"Contact\", icon: <Mail size={20} /> },\n];\n\nexport const IconFlipNav = forwardRef<HTMLElement, IconFlipNavProps>(\n  ({ className, items = defaultItems, ...props }, ref) => {\n    return (\n      <nav\n        ref={ref}\n        className={cn(\n          \"flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-950/50 backdrop-blur-lg border border-white/10 shadow-xl\",\n          className\n        )}\n        {...props}\n      >\n        <ul className=\"flex items-center gap-1\">\n          {items.map((item) => (\n            <FlipNavItem key={item.id} item={item} />\n          ))}\n        </ul>\n      </nav>\n    );\n  }\n);\n\nIconFlipNav.displayName = \"IconFlipNav\";\n\n// Internal Component for each item\nfunction FlipNavItem({ item }) {\n  const [isHovered, setIsHovered] = useState(false);\n\n  return (\n    <li>\n      <a\n        href={`#${item.id}`}\n        onMouseEnter={() => setIsHovered(true)}\n        onMouseLeave={() => setIsHovered(false)}\n        className=\"relative flex items-center justify-center w-24 h-12 rounded-full overflow-hidden text-zinc-300 hover:bg-white/5 transition-colors focus:outline-none\"\n      >\n        {/* The Text Label */}\n        <motion.span\n          className=\"absolute font-medium\"\n          initial={false}\n          animate={{\n            y: isHovered ? -40 : 0,\n            opacity: isHovered ? 0 : 1,\n            scale: isHovered ? 0.8 : 1,\n          }}\n          transition={{\n            type: \"spring\",\n            stiffness: 400,\n            damping: 25,\n          }}\n        >\n          {item.label}\n        </motion.span>\n\n        {/* The Icon */}\n        <motion.span\n          className=\"absolute text-cyan-400\"\n          initial={false}\n          animate={{\n            y: isHovered ? 0 : 40,\n            opacity: isHovered ? 1 : 0,\n            scale: isHovered ? 1 : 0.8,\n          }}\n          transition={{\n            type: \"spring\",\n            stiffness: 400,\n            damping: 25,\n          }}\n        >\n          {item.icon}\n        </motion.span>\n\n        {/* Hover subtle glow under the item to match Enterprise feel */}\n        {isHovered && (\n          <motion.div\n            layoutId=\"flip-nav-glow\"\n            className=\"absolute -bottom-2 w-8 h-1 blur-[4px] bg-cyan-400/50\"\n            initial={{ opacity: 0 }}\n            animate={{ opacity: 1 }}\n            exit={{ opacity: 0 }}\n          />\n        )}\n      </a>\n    </li>\n  );\n}"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ]
+    }
+  },
+  "preview": {}
+}

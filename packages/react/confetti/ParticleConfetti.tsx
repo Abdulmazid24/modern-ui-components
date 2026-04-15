@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useCallback } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const COLORS = ["#ff3366","#ff9933","#33cc66","#3399ff","#cc33ff","#ffcc00"];
 const rand = (min: number, max: number) => Math.random() * (max - min) + min;

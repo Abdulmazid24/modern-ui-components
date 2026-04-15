@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const NeonCountdown = React.forwardRef<any, any>(({ className, target = new Date(Date.now() + 86400000), ...props }, ref) => {
         const calc = () => { const diff = Math.max(0, target.getTime() - Date.now()); return { d: Math.floor(diff/86400000), h: Math.floor(diff%86400000/3600000), m: Math.floor(diff%3600000/60000), s: Math.floor(diff%60000/1000) }; };

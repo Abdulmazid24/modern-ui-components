@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const defaultItems = ["React", "Next.js", "Tailwind", "Framer Motion", "TypeScript", "Supabase", "Vercel", "Modern UI Vault"];
 export const VelocityMarquee = React.forwardRef<any, any>(({ className, items = defaultItems, speed = 30, direction = "left", ...props }, ref) => {

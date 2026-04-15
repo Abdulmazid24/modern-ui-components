@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const cells = [
   { title: "Components", value: "150+", span: "col-span-2 row-span-2", gradient: "from-violet-500/20 to-purple-500/10" },

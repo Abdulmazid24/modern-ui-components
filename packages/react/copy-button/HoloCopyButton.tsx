@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const HoloCopyButton = React.forwardRef<any, any>(({ className, text = "npm install modern-ui-vault", label, ...props }, ref) => {
         const [copied, setCopied] = useState(false);

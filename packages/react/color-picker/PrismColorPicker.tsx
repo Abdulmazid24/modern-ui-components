@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface PrismColorPickerProps {
   color?: string;

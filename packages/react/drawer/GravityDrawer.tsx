@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Menu, Home, Settings, BarChart3, Users } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const nav = [{ icon: <Home size={18}/>, label: "Home" },{ icon: <BarChart3 size={18}/>, label: "Analytics" },{ icon: <Users size={18}/>, label: "Team" },{ icon: <Settings size={18}/>, label: "Settings" }];
 export const GravityDrawer = React.forwardRef<any, any>(({ className, ...props }, ref) => {

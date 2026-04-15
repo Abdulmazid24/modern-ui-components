@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle, X, Check } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const CrystalDialog = React.forwardRef<any, any>(({ className, open: controlledOpen, onClose, title = "Confirm Action", description = "This action cannot be undone. Are you sure?", ...props }, ref) => {
         const [internalOpen, setInternalOpen] = useState(true);

@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Lock, Unlock, ShieldAlert, ShieldCheck } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const VaultPasswordMeter = React.forwardRef<any, any>(({ className, ...props }, ref) => {
         const [password, setPassword] = useState("");

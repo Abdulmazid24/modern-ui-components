@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, CheckCircle, AlertTriangle, Info, XCircle } from 'lucide-react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 

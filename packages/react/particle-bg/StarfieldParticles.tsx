@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const StarfieldParticles = React.forwardRef<any, any>(({ className, count = 120, ...props }, ref) => {
         const canvasRef = useRef<HTMLCanvasElement>(null);

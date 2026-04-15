@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Check, Send } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const QuantumLoadingButton = React.forwardRef<any, any>(({ className, label = "Submit", onClick, ...props }, ref) => {
         const [state, setState] = useState<"idle"|"loading"|"done">("idle");

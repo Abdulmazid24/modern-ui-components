@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import { BrainCircuit, Database, Server, Cpu } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface SynapseNodeGraphProps {
   className?: string;
@@ -78,7 +78,7 @@ interface GraphNodeProps {
 
 const GraphNode: React.FC<GraphNodeProps> = ({ x, y, color, bgColor, borderColor, icon, label, containerRef }) => {
   return (
-    <motion.div ref={ref} {...props} className={cn(className)} 
+    <motion.div 
       drag
       dragConstraints={containerRef}
       dragElastic={0.1}

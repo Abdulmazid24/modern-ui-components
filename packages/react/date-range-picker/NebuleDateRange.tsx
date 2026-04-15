@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const NebuleDateRange = React.forwardRef<any, any>(({ className, ...props }, ref) => {
         const [month, setMonth] = useState(new Date().getMonth()); const [year] = useState(new Date().getFullYear());

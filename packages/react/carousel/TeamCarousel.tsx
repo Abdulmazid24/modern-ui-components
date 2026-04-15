@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 /* ──────────────────────────────────────────────
    Types
@@ -82,8 +82,7 @@ export const TeamCarousel = React.forwardRef<any, TeamCarouselProps>(({ members,
         const activeMember = members[activeIndex];
 
         return (
-        <div ref={ref} {...props} className={cn(className)} 
-          className={`team-carousel-wrapper ${className}`}
+        <div ref={ref} {...props} className={`team-carousel-wrapper ${className}`}
           onMouseEnter={pauseAuto}
           onMouseLeave={resumeAuto}
           onKeyDown={handleKeyDown}
@@ -110,7 +109,7 @@ export const TeamCarousel = React.forwardRef<any, TeamCarouselProps>(({ members,
               {members.map((member, i) => {
                 const isActive = i === activeIndex;
                 return (
-                  <div ref={ref} {...props} className={cn(className)} 
+                  <div 
                     key={member.id}
                     className={`team-carousel-card ${isActive ? 'active' : ''}`}
                     style={{

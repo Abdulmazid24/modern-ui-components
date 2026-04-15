@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useRef } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface RippleNavItem {
   id: string;
@@ -37,14 +37,14 @@ export const RippleTideNav = React.forwardRef<any, RippleTideNavProps>(({ items,
         };
 
         return (
-        <nav ref={ref} {...props} className={cn(className)}  className={`ripple-nav ${className}`} role="navigation">
+        <nav ref={ref} {...props} className={`ripple-nav ${className}`} role="navigation">
           <div className="ripple-surface">
             {items.map((item, index) => {
               const isActive = item.id === activeId;
               const distToRipple = rippleIndex !== null ? Math.abs(index - rippleIndex) : 99;
               
               return (
-                <button ref={ref} {...props} className={cn(className)} 
+                <button 
                   key={item.id}
                   className={`ripple-item ${isActive ? 'active' : ''}`}
                   onClick={() => handleClick(item.id, index)}

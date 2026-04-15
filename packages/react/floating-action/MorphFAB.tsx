@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X, MessageSquare, Phone, Mail } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const actions = [{icon:<MessageSquare size={18}/>,label:"Chat",color:"#3b82f6"},{icon:<Phone size={18}/>,label:"Call",color:"#10b981"},{icon:<Mail size={18}/>,label:"Email",color:"#f59e0b"}];
 export const MorphFAB = React.forwardRef<any, any>(({ className, ...props }, ref) => {

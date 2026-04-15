@@ -1,17 +1,13 @@
 "use client";
 
 import React from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
-export interface SpinnerProps {
-  /** Spinner diameter in pixels */
+export interface PulseLoaderProps {
+  /** Circle diameter in pixels */
   size?: number;
-  /** Border thickness in pixels */
-  borderWidth?: number;
-  /** Active arc color */
+  /** Pulse color */
   color?: string;
-  /** Track (inactive) color */
-  trackColor?: string;
   /** Animation speed in seconds */
   speed?: number;
   /** Accessible label */
@@ -19,7 +15,7 @@ export interface SpinnerProps {
   className?: string;
 }
 
-export const Spinner = React.forwardRef<any, SpinnerProps>(({ size = 80, borderWidth = 8, color = 'rgb(56, 189, 248)', trackColor = 'rgb(30, 41, 59)', speed = 1, label = 'Loading', className = '', ...props }, ref) => {
+export const PulseLoader = React.forwardRef<any, PulseLoaderProps>(({ size = 70, color = 'rgb(34, 197, 94)', speed = 1, label = 'Loading', className = '', ...props }, ref) => {
         return (
         <div ref={ref} {...props} className={cn(className)} 
           className={`inline-flex items-center justify-center ${className}`}
@@ -31,10 +27,8 @@ export const Spinner = React.forwardRef<any, SpinnerProps>(({ size = 80, borderW
             style={{
               width: size,
               height: size,
-              borderWidth: borderWidth,
-              borderStyle: 'solid',
-              borderColor: `${color} ${trackColor} ${trackColor} ${trackColor}`,
-              animation: `loaderSpin ${speed}s linear infinite`,
+              backgroundColor: color,
+              animation: `loaderPulse ${speed}s ease infinite`,
             }}
             aria-hidden="true"
           />

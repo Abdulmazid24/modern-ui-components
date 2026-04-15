@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const NeonSeparator = React.forwardRef<any, any>(({ className, label, color = "#7c3aed", ...props }, ref) => {
         (

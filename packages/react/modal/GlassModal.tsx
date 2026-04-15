@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { X } from 'lucide-react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface GlassModalProps {
   isOpen: boolean;

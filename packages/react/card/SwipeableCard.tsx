@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface SwipeableCardProps {
   id: string | number;

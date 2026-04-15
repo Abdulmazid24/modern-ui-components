@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap, BookOpen, DollarSign, Github } from "lucide-react";
+import { Menu, X, Zap, BookOpen, DollarSign, Code } from "lucide-react";
 
 const navLinks = [
   { label: "Components", href: "/", icon: <Zap size={16} /> },
@@ -65,7 +65,7 @@ export function Navbar() {
               className="p-2 rounded-xl text-zinc-500 hover:text-white hover:bg-zinc-800/50 transition-all"
               aria-label="GitHub Repository"
             >
-              <Github size={20} />
+              <Code size={20} />
             </a>
             <Link
               href="/pricing"

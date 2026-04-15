@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface OdometerInputProps {
   initialValue?: number;
@@ -73,8 +73,7 @@ const OdometerDigit = ({ digit }: { digit: number }) => {
   const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
-    <div ref={ref} {...props} className={cn("relative w-10 sm:w-12 h-[60px] bg-zinc-900 rounded overflow-hidden", className)}
-      style={{ boxShadow: "inset 0 0 10px rgba(0,0,0,1)" }} // Mechanical shadow
+    <div style={{ boxShadow: "inset 0 0 10px rgba(0,0,0,1)" }} // Mechanical shadow
     >
       <motion.div
         className="absolute top-0 left-0 w-full flex flex-col"

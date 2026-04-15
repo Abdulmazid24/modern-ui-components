@@ -14,7 +14,7 @@ import {
   FileText,
   X 
 } from 'lucide-react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface LiquidFabNavbarProps {
   className?: string;

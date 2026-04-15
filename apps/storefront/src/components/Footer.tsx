@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Zap, Github, Twitter, Heart } from "lucide-react";
+import { Zap, Code, Globe, Heart } from "lucide-react";
 
 const footerLinks = {
   Product: [
@@ -52,14 +52,14 @@ export function Footer() {
                 className="p-2.5 rounded-xl bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all"
                 aria-label="GitHub"
               >
-                <Github size={18} />
+                <Code size={18} />
               </a>
               <a
                 href="#"
                 className="p-2.5 rounded-xl bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all"
                 aria-label="Twitter"
               >
-                <Twitter size={18} />
+                <Globe size={18} />
               </a>
             </div>
           </div>

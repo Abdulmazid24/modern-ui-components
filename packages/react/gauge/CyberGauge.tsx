@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 import { Activity } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface CyberGaugeProps {
   value?: number; // 0 to 100

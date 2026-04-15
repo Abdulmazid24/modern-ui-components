@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const LaserProgressBar = React.forwardRef<any, any>(({ className, value = 65, label = "Uploading...", ...props }, ref) => {
         return (

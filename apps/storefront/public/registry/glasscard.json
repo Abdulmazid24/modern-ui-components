@@ -1,0 +1,30 @@
+{
+  "name": "glasscard",
+  "title": "Glass Card",
+  "category": "card",
+  "description": "The intensity of the background blur",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "GlassCard.tsx",
+          "content": "import React, { forwardRef } from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {\n  /**\n   * The intensity of the background blur\n   * @default \"md\"\n   */\n  blurIntensity?: \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\";\n  /**\n   * Whether to include a subtle animated diagonal shine effect\n   * @default false\n   */\n  shine?: boolean;\n}\n\nconst blurClasses = {\n  sm: \"backdrop-blur-sm\",\n  md: \"backdrop-blur-md\",\n  lg: \"backdrop-blur-lg\",\n  xl: \"backdrop-blur-xl\",\n  \"2xl\": \"backdrop-blur-2xl\",\n  \"3xl\": \"backdrop-blur-3xl\",\n};\n\nexport const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(\n  ({ className, children, blurIntensity = \"md\", shine = true, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"relative overflow-hidden rounded-[15px] p-6 text-white\",\n          // Glass background and blur\n          \"bg-white/5\",\n          blurClasses[blurIntensity],\n          // Premium subtle borders (brighter top-left, darker bottom-right for 3D depth)\n          \"border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.25)]\",\n          // Light mode fallbacks could be added here, but glassmorphism shines best in dark\n          // \"dark:bg-white/5 dark:border-white/10 dark:shadow-none bg-black/5 border-black/10\",\n          className\n        )}\n        {...props}\n      >\n        {/* Subtle Shine/Reflect overlay for premium enterprise feel */}\n        {shine && (\n          <div className=\"absolute inset-0 pointer-events-none opacity-50 bg-gradient-to-tr from-transparent via-white/5 to-white/10\" />\n        )}\n        \n        {/* Content Wrapper */}\n        <div className=\"relative z-10\">{children}</div>\n      </div>\n    );\n  }\n);\n\nGlassCard.displayName = \"GlassCard\";\n"
+        }
+      ],
+      "dependencies": []
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "GlassCard.jsx",
+          "content": "import React, { forwardRef } from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n  /**\n   * Whether to include a subtle animated diagonal shine effect\n   * @default false\n   */\n  shine?;\n}\n\nconst blurClasses = {\n  sm: \"backdrop-blur-sm\",\n  md: \"backdrop-blur-md\",\n  lg: \"backdrop-blur-lg\",\n  xl: \"backdrop-blur-xl\",\n  \"2xl\": \"backdrop-blur-2xl\",\n  \"3xl\": \"backdrop-blur-3xl\",\n};\n\nexport const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(\n  ({ className, children, blurIntensity = \"md\", shine = true, ...props }, ref) => {\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"relative overflow-hidden rounded-[15px] p-6 text-white\",\n          // Glass background and blur\n          \"bg-white/5\",\n          blurClasses[blurIntensity],\n          // Premium subtle borders (brighter top-left, darker bottom-right for 3D depth)\n          \"border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.25)]\",\n          // Light mode fallbacks could be added here, but glassmorphism shines best in dark\n          // \"dark:bg-white/5 dark:border-white/10 dark:shadow-none bg-black/5 border-black/10\",\n          className\n        )}\n        {...props}\n      >\n        {/* Subtle Shine/Reflect overlay for premium enterprise feel */}\n        {shine && (\n          <div className=\"absolute inset-0 pointer-events-none opacity-50 bg-gradient-to-tr from-transparent via-white/5 to-white/10\" />\n        )}\n        \n        {/* Content Wrapper */}\n        <div className=\"relative z-10\">{children}</div>\n      </div>\n    );\n  }\n);\n\nGlassCard.displayName = \"GlassCard\";"
+        }
+      ],
+      "dependencies": []
+    }
+  },
+  "preview": {}
+}

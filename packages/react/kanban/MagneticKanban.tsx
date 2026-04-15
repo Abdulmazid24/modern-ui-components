@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { GripHorizontal, AlertCircle, Clock, CheckCircle2 } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface KanbanTask {
   id: string;
@@ -45,7 +45,7 @@ export const MagneticKanban = React.forwardRef<any, MagneticKanbanProps>(({ clas
 
 const KanbanColumn = ({ title, status, items, setActiveTask, activeTask }: { title: string, status: string, items: KanbanTask[], setActiveTask: any, activeTask: any }) => {
   return (
-    <div ref={ref} {...props} className={cn("flex flex-col w-72 shrink-0 bg-zinc-900/40 rounded-2xl p-4 border border-zinc-800/50", className)}>
+    <div >
       
       <div className="flex items-center justify-between mb-6 px-2">
         <h3 className="text-zinc-300 font-bold tracking-wide">{title}</h3>

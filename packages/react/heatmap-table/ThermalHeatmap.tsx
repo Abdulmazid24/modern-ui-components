@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface ThermalHeatmapProps {
   data?: number[][]; // 2D array of values 0-100

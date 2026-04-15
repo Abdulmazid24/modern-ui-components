@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, X, MessageSquare, Zap, Check } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const notifs = [
   { id: 1, icon: <MessageSquare size={16}/>, title: "New comment", desc: "Sarah replied to your post", time: "2m ago", color: "#3b82f6" },

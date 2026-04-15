@@ -1,14 +1,23 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const GlassPopover = React.forwardRef<any, any>(({ className, trigger, children, ...props }, ref) => {
         const [open, setOpen] = useState(false);
-        const ref = useRef<HTMLDivElement>(null);
-        useEffect(() => { const h = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); }; document.addEventListener("mousedown", h); return () => document.removeEventListener("mousedown", h); }, []);
+        const localRef = useRef<HTMLDivElement>(null);
+        const handleRef = (node: any) => {
+          localRef.current = node;
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        };
+
+        useEffect(() => { const h = (e: MouseEvent) => { if (localRef.current && !localRef.current.contains(e.target as Node)) setOpen(false); }; document.addEventListener("mousedown", h); return () => document.removeEventListener("mousedown", h); }, []);
         return (
-        <div ref={ref} {...props} className={cn(className)}  ref={ref} className="relative inline-block">
+        <div ref={handleRef} {...props} className={cn(className)} className="relative inline-block">
           <button onClick={() => setOpen(!open)} className="px-4 py-2 rounded-lg bg-zinc-800 border border-white/10 text-white text-sm font-medium cursor-pointer hover:bg-zinc-700 transition-colors">{trigger || "Show Info"}</button>
           <AnimatePresence>
             {open && (

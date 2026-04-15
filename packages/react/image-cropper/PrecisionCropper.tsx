@@ -2,7 +2,7 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Move, ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const PrecisionCropper = React.forwardRef<any, any>(({ className, src = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&h=400&fit=crop", ...props }, ref) => {
         const [zoom, setZoom] = useState(1); const [pos, setPos] = useState({ x: 0, y: 0 });

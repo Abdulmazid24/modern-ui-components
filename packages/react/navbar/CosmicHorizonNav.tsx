@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface CosmicNavItem {
   id: string;
@@ -32,7 +32,7 @@ export const CosmicHorizonNav = React.forwardRef<any, CosmicHorizonNavProps>(({ 
         };
 
         return (
-        <nav ref={ref} {...props} className={cn(className)}  className={`cosmic-nav ${className}`} role="navigation">
+        <nav ref={ref} {...props} className={`cosmic-nav ${className}`} role="navigation">
           <div className="cosmic-horizon-arc">
             {/* The Horizon Curve (SVG) */}
             <svg className="cosmic-svg-arc" viewBox="0 0 400 60" preserveAspectRatio="none">
@@ -48,7 +48,7 @@ export const CosmicHorizonNav = React.forwardRef<any, CosmicHorizonNavProps>(({ 
                 const y = 4 * t * (1 - t) * 50; // simple parabola for arc
 
                 return (
-                  <button ref={ref} {...props} className={cn(className)} 
+                  <button 
                     key={item.id}
                     className={`cosmic-item ${isActive ? 'active' : ''}`}
                     onClick={() => handleClick(item.id)}

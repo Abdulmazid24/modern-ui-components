@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon, Monitor } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const modes = [{ id: "light", icon: <Sun size={16}/> }, { id: "dark", icon: <Moon size={16}/> }, { id: "system", icon: <Monitor size={16}/> }];
 export const SunMoonToggle = React.forwardRef<any, any>(({ className, onChange, ...props }, ref) => {

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, X } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const steps = [
   { title: "Welcome!", desc: "Let's get you started with Modern UI Vault.", target: "top-left" },

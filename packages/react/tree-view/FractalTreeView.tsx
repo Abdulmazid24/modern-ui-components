@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Folder, FolderOpen, FileText, ChevronRight } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface TreeNode {
   id: string;
@@ -35,7 +35,7 @@ const TreeViewNode = ({ node, level }: { node: TreeNode, level: number }) => {
   const hasChildren = node.isFolder && node.children && node.children.length > 0;
 
   return (
-    <li ref={ref} {...props} className={cn("relative", className)}>
+    <li >
       <div 
         className={`flex items-center gap-2 py-1.5 px-2 rounded-xl cursor-pointer transition-colors ${
           isOpen ? 'text-cyan-400' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/50'

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface AccordionItem {
   id: string;
@@ -84,7 +84,7 @@ const CrystalShards = () => {
   const shards = Array.from({ length: 8 });
 
   return (
-    <div ref={ref} {...props} className={cn("absolute inset-0 flex flex-wrap", className)}>
+    <div className="absolute inset-0 flex flex-wrap">
       {shards.map((_, i) => {
         // Random exit vectors
         const xDir = Math.random() > 0.5 ? 1 : -1;

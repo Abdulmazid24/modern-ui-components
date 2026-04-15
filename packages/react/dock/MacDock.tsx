@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useCallback } from 'react';
 import { Home, Search, Bell, Settings, User, Mail, Camera, Music, Video } from 'lucide-react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 /* ──────────────────────────────────────────────
    Types
@@ -21,14 +21,23 @@ export interface DockItemProps {
    ────────────────────────────────────────────── */
 
 const DockItem: React.FC<DockItemProps> = ({ icon, label, onClick, mouseX }) => {
-  const ref = useRef<HTMLButtonElement>(null);
+  const localRef = useRef<HTMLButtonElement>(null);
+        const handleRef = (node: any) => {
+          localRef.current = node;
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        };
+
 
   // Calculate distance from center of item to mouse X
   let scale = 1;
   let translateY = 0;
 
-  if (mouseX !== null && ref.current) {
-    const rect = ref.current.getBoundingClientRect();
+  if (mouseX !== null && localRef.current) {
+    const rect = localRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const distance = Math.abs(mouseX - centerX);
     
@@ -42,7 +51,7 @@ const DockItem: React.FC<DockItemProps> = ({ icon, label, onClick, mouseX }) => 
   }
 
   return (
-    <div ref={ref} {...props} className={cn("dock-item-container", className)}>
+    <div ref={handleRef} {...props} className={cn("dock-item-container", className)}>
       {/* Tooltip */}
       <div 
         className="dock-tooltip"
@@ -56,7 +65,7 @@ const DockItem: React.FC<DockItemProps> = ({ icon, label, onClick, mouseX }) => 
       
       {/* The actual dock icon */}
       <button
-        ref={ref}
+        ref={handleRef}
         onClick={onClick}
         className="dock-icon-btn"
         style={{
@@ -98,7 +107,7 @@ export const MacDock = React.forwardRef<any, DockItemProps>(({ className, ...pro
         ];
 
         return (
-        <div ref={ref} {...props} className={cn("dock-wrapper", className)}>
+        <div ref={handleRef} {...props} className={cn("dock-wrapper", className)}>
           <div 
             className="dock-panel"
             onMouseMove={handleMouseMove}

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const HoloQRCode = React.forwardRef<any, any>(({ className, data = "https://modern-ui-vault.dev", size = 180, ...props }, ref) => {
         // Simple deterministic QR-like pattern from string hash

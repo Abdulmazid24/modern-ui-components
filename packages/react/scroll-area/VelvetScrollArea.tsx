@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const VelvetScrollArea = React.forwardRef<any, any>(({ className, children, height = 200, ...props }, ref) => {
         return (

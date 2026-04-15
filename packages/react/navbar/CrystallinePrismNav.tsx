@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface PrismNavItem {
   id: string;
@@ -31,12 +31,12 @@ export const CrystallinePrismNav = React.forwardRef<any, CrystallinePrismNavProp
         };
 
         return (
-        <nav ref={ref} {...props} className={cn(className)}  className={`prism-nav ${className}`} role="navigation">
+        <nav ref={ref} {...props} className={`prism-nav ${className}`} role="navigation">
           <div className="prism-container">
             {items.map((item) => {
               const isActive = item.id === activeId;
               return (
-                <button ref={ref} {...props} className={cn(className)} 
+                <button 
                   key={item.id}
                   className={`prism-segment ${isActive ? 'active' : ''}`}
                   onClick={() => handleClick(item.id)}

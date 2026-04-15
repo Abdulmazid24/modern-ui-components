@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface NebulaNavItem {
   id: string;
@@ -68,7 +68,7 @@ export const NebulaPortalNav = React.forwardRef<any, NebulaPortalNavProps>(({ it
             {items.map((item) => {
               const isActive = item.id === activeId;
               return (
-                <button ref={ref} {...props} className={cn(className)} 
+                <button 
                   key={item.id}
                   className={`nebula-item ${isActive ? 'active' : ''}`}
                   onClick={() => handleClick(item.id)}

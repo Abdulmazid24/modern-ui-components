@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Info, AlertTriangle, CheckCircle, XCircle } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export type PrismAlertType = "info" | "success" | "warning" | "error";
 

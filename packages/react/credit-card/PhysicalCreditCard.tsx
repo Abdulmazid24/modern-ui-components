@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Copy } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const PhysicalCreditCard = React.forwardRef<any, any>(({ className, ...props }, ref) => {
         const [num, setNum] = useState("");

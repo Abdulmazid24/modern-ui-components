@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const FluidSheet = React.forwardRef<any, any>(({ className, side = "right", ...props }, ref) => {
         const [open, setOpen] = useState(false);

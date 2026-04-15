@@ -1,0 +1,36 @@
+{
+  "name": "morphingsocialbutton",
+  "title": "Morphing Social Button",
+  "category": "social-icons",
+  "description": "The icon to display in the center (e.g. from lucide-react)",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "MorphingSocialButton.tsx",
+          "content": "import React, { forwardRef } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface MorphingSocialButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  /**\n   * The icon to display in the center (e.g. from lucide-react)\n   */\n  icon?: React.ReactNode;\n  /**\n   * Tailwind gradient classes for the hover state\n   * @default \"from-[#405DE6] via-[#F77737] to-[#FCAF45]\" (Instagram-like)\n   */\n  hoverGradient?: string;\n}\n\nexport const MorphingSocialButton = forwardRef<HTMLButtonElement, MorphingSocialButtonProps>(\n  (\n    {\n      className,\n      icon,\n      hoverGradient = \"from-[#405DE6] via-[#F77737] to-[#FCAF45]\",\n      ...props\n    },\n    ref\n  ) => {\n    return (\n      <motion.button\n        ref={ref}\n        className={cn(\n          \"relative flex items-center justify-center w-16 h-16 group overflow-hidden bg-black outline-none\",\n          className\n        )}\n        // Initial state: square-ish with slight rounding\n        initial={{ borderRadius: \"12px\", background: \"#000000\" }}\n        // Hover state: perfect circle with gradient (handled via CSS opacity to avoid layout thrashing on gradients)\n        whileHover={{\n          borderRadius: \"50%\",\n          scale: 1.05,\n        }}\n        whileTap={{ scale: 0.95 }}\n        transition={{\n          type: \"spring\",\n          stiffness: 400,\n          damping: 25,\n        }}\n        {...props}\n      >\n        {/* Default Border Outline */}\n        <div className=\"absolute inset-0 border border-zinc-800 transition-colors duration-300 group-hover:border-transparent rounded-inherit\" />\n\n        {/* The Gradient Background that fades in on hover */}\n        <motion.div\n          className={cn(\n            \"absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-tr\",\n            hoverGradient\n          )}\n        />\n\n        {/* Icon Layer - Stays above the background */}\n        <div className=\"relative z-10 text-zinc-400 group-hover:text-white transition-colors duration-300\">\n          {icon || (\n            // Default placeholder icon if none provided\n            <svg\n               width=\"24\"\n               height=\"24\"\n               viewBox=\"0 0 24 24\"\n               fill=\"none\"\n               stroke=\"currentColor\"\n               strokeWidth=\"2\"\n               strokeLinecap=\"round\"\n               strokeLinejoin=\"round\"\n            >\n               <rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\" ry=\"5\" />\n               <path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\" />\n               <line x1=\"17.5\" y1=\"6.5\" x2=\"17.51\" y2=\"6.5\" />\n            </svg>\n          )}\n        </div>\n      </motion.button>\n    );\n  }\n);\n\nMorphingSocialButton.displayName = \"MorphingSocialButton\";\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "MorphingSocialButton.jsx",
+          "content": "import React, { forwardRef } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\n  /**\n   * Tailwind gradient classes for the hover state\n   * @default \"from-[#405DE6] via-[#F77737] to-[#FCAF45]\" (Instagram-like)\n   */\n  hoverGradient?;\n}\n\nexport const MorphingSocialButton = forwardRef<HTMLButtonElement, MorphingSocialButtonProps>(\n  (\n    {\n      className,\n      icon,\n      hoverGradient = \"from-[#405DE6] via-[#F77737] to-[#FCAF45]\",\n      ...props\n    },\n    ref\n  ) => {\n    return (\n      <motion.button\n        ref={ref}\n        className={cn(\n          \"relative flex items-center justify-center w-16 h-16 group overflow-hidden bg-black outline-none\",\n          className\n        )}\n        // Initial state: square-ish with slight rounding\n        initial={{ borderRadius: \"12px\", background: \"#000000\" }}\n        // Hover state: perfect circle with gradient (handled via CSS opacity to avoid layout thrashing on gradients)\n        whileHover={{\n          borderRadius: \"50%\",\n          scale: 1.05,\n        }}\n        whileTap={{ scale: 0.95 }}\n        transition={{\n          type: \"spring\",\n          stiffness: 400,\n          damping: 25,\n        }}\n        {...props}\n      >\n        {/* Default Border Outline */}\n        <div className=\"absolute inset-0 border border-zinc-800 transition-colors duration-300 group-hover:border-transparent rounded-inherit\" />\n\n        {/* The Gradient Background that fades in on hover */}\n        <motion.div\n          className={cn(\n            \"absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-tr\",\n            hoverGradient\n          )}\n        />\n\n        {/* Icon Layer - Stays above the background */}\n        <div className=\"relative z-10 text-zinc-400 group-hover:text-white transition-colors duration-300\">\n          {icon || (\n            // Default placeholder icon if none provided\n            <svg\n               width=\"24\"\n               height=\"24\"\n               viewBox=\"0 0 24 24\"\n               fill=\"none\"\n               stroke=\"currentColor\"\n               strokeWidth=\"2\"\n               strokeLinecap=\"round\"\n               strokeLinejoin=\"round\"\n            >\n               <rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\" ry=\"5\" />\n               <path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\" />\n               <line x1=\"17.5\" y1=\"6.5\" x2=\"17.51\" y2=\"6.5\" />\n            </svg>\n          )}\n        </div>\n      </motion.button>\n    );\n  }\n);\n\nMorphingSocialButton.displayName = \"MorphingSocialButton\";"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ]
+    }
+  },
+  "preview": {}
+}

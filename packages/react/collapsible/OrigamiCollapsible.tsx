@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const sections = [{ title: "What is Modern UI Vault?", content: "A next-generation, enterprise-grade component library with 150+ animated React primitives." }, { title: "How do I install it?", content: "Run npx modern-ui-vault add [component] to install any component directly into your project." }, { title: "Is it free?", content: "50+ components are free. Pro components require a license key starting at $19/month." }];
 export const OrigamiCollapsible = React.forwardRef<any, any>(({ className, items = sections, ...props }, ref) => {

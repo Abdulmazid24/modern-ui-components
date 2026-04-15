@@ -16,7 +16,16 @@ function BentoCard({
   className?: string;
   tilt?: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const localRef = useRef<HTMLDivElement>(null);
+        const handleRef = (node: any) => {
+          localRef.current = node;
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        };
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -25,8 +34,8 @@ function BentoCard({
   const springY = useSpring(mouseY, { stiffness: 150, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
+    if (!localRef.current) return;
+    const rect = localRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     mouseX.set(x);
@@ -35,8 +44,8 @@ function BentoCard({
 
   const handleMouseLeave = () => {
     // Reset to center on leave
-    if (ref.current) {
-        const rect = ref.current.getBoundingClientRect();
+    if (localRef.current) {
+        const rect = localRef.current.getBoundingClientRect();
         mouseX.set(rect.width / 2);
         mouseY.set(rect.height / 2);
     }
@@ -48,7 +57,7 @@ function BentoCard({
 
   return (
     <motion.div
-      ref={ref}
+      ref={handleRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{

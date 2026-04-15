@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface NeuralNavItem {
   id: string;
@@ -41,7 +41,7 @@ export const NeuralSynapseNav = React.forwardRef<any, NeuralSynapseNavProps>(({ 
         };
 
         return (
-        <nav ref={ref} {...props} className={cn(className)}  className={`neural-nav ${className}`} ref={navRef} role="navigation">
+        <nav ref={ref} {...props} className={`neural-nav ${className}`} ref={navRef} role="navigation">
           {/* The Synapse Connections Layer */}
           <svg className="neural-grid" aria-hidden="true">
             <defs>
@@ -78,7 +78,7 @@ export const NeuralSynapseNav = React.forwardRef<any, NeuralSynapseNavProps>(({ 
               const isRecentlyActive = item.id === prevActiveId;
               
               return (
-                <button ref={ref} {...props} className={cn(className)} 
+                <button 
                   key={item.id}
                   className={`neural-node ${isActive ? 'active' : ''} ${isRecentlyActive && isFiring ? 'source' : ''}`}
                   onClick={() => handleClick(item.id)}

@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Inbox } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const CosmicEmptyState = React.forwardRef<any, any>(({ className, title = "No data yet", desc = "Start by creating your first entry.", ...props }, ref) => {
         (

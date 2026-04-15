@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { UploadCloud, File, ScanLine } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface HoloDropzoneProps {
   onFileDrop?: (files: FileList) => void;

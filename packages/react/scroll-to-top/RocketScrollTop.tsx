@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const RocketScrollTop = React.forwardRef<any, any>(({ className, ...props }, ref) => {
         const [visible, setVisible] = useState(false);

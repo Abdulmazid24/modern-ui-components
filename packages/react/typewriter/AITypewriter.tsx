@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const AITypewriter = React.forwardRef<any, any>(({ className, texts = ["Building the future of UI...", "One component at a time.", "Modern UI Vault — 150+ components."], speed = 50, ...props }, ref) => {
         const [textIdx, setTextIdx] = useState(0); const [charIdx, setCharIdx] = useState(0); const [deleting, setDeleting] = useState(false);

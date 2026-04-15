@@ -2,7 +2,7 @@
 
 import React from 'react';
 import type { InputHTMLAttributes } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 interface NeumorphicInputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;

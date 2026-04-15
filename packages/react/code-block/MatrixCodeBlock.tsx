@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const sampleCode = `import { motion } from "framer-motion";\n\nexport const FadeIn = ({ children }) => (\n  <motion.div\n    initial={{ opacity: 0, y: 20 }}\n    animate={{ opacity: 1, y: 0 }}\n    transition={{ duration: 0.5 }}\n  >\n    {children}\n  </motion.div>\n);`;
 const keywords = ["import","export","const","from","return"];

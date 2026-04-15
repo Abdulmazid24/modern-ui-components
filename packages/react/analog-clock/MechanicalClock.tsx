@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const MechanicalClock = React.forwardRef<any, any>(({ className, ...props }, ref) => {
         // Use MotionValues to prevent React re-renders while updating every frame

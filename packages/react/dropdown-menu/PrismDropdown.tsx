@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Settings, User, LogOut, Zap } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const menuItems = [
   { icon: <User size={15} />, label: "Profile", shortcut: "⌘P" },
@@ -13,10 +13,19 @@ const menuItems = [
 
 export const PrismDropdown = React.forwardRef<any, any>(({ className, ...props }, ref) => {
         const [open, setOpen] = useState(false);
-        const ref = useRef<HTMLDivElement>(null);
-        useEffect(() => { const h = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); }; document.addEventListener("mousedown", h); return () => document.removeEventListener("mousedown", h); }, []);
+        const localRef = useRef<HTMLDivElement>(null);
+        const handleRef = (node: any) => {
+          localRef.current = node;
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        };
+
+        useEffect(() => { const h = (e: MouseEvent) => { if (localRef.current && !localRef.current.contains(e.target as Node)) setOpen(false); }; document.addEventListener("mousedown", h); return () => document.removeEventListener("mousedown", h); }, []);
         return (
-        <div ref={ref} {...props} className={cn(className)}  ref={ref} className="relative inline-block">
+        <div ref={handleRef} {...props} className={cn(className)} className="relative inline-block">
           <motion.button whileTap={{ scale: 0.97 }} onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 text-white text-sm font-medium cursor-pointer hover:border-white/20 transition-colors">
             Options <ChevronDown size={14} className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
           </motion.button>

@@ -53,23 +53,22 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
       if (cat === 'multi-select' || cat === 'command-palette') return { tags: [{ id: '1', label: 'Next.js' }, { id: '2', label: 'React' }], groups: [{ heading: 'Demo', items: [{ id: '1', label: 'Item' }] }] };
       
       // Default fallback for safe generic items
+      const isCard = cat === 'card' || cat === 'tilt-card' || cat === 'pricing-cards';
+      const isNavigation = cat === 'navbar' || cat === 'footer' || cat === 'sidebar';
+      
       return {
-         items: [
-           { id: '1', label: 'Dashboard', icon: <Globe size={18} /> },
-           { id: '2', label: 'Projects', icon: <Code2 size={18} /> },
-           { id: '3', label: 'Settings', icon: <ChevronLeft size={18} /> }
-         ],
-         cards: [
-           { id: '1', title: 'Demo 1', description: 'Sample card', bg: 'bg-zinc-900' },
-           { id: '2', title: 'Demo 2', description: 'Sample card', bg: 'bg-zinc-800' }
-         ],
-         navItems: [
-           { id: '1', label: 'Home' },
-           { id: '2', label: 'About' }
-         ],
-         links: [
-           { label: 'Home', href: '#' }
-         ]
+         ...(isCard && { 
+           children: (
+             <div className="flex flex-col items-center justify-center p-8 text-zinc-500 font-mono text-xs text-center border-2 border-dashed border-zinc-800 rounded-xl w-full h-full min-h-[200px]">
+                <Globe size={24} className="mb-2 opacity-50" />
+                Component Content Placeholder
+             </div>
+           )
+         }),
+         ...(isNavigation && {
+           links: [{ label: 'Home', href: '#' }, { label: 'Features', href: '#' }, { label: 'Pricing', href: '#' }],
+           items: [{ id: '1', label: 'Dashboard', icon: <Globe size={18} /> }, { id: '2', label: 'Projects', icon: <Code2 size={18} /> }]
+         })
       };
    };
 

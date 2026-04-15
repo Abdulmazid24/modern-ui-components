@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface AuroraInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
@@ -101,7 +101,7 @@ export const AuroraTextarea = React.forwardRef<any, AuroraTextareaProps>(({ labe
         const hasError = !!error;
 
         return (
-        <div ref={ref} {...props} className={cn("aurora-input-group", className)}>
+        <div >
           {label && <label className="aurora-label">{label}</label>}
 
           <div

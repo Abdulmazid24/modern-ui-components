@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 /* ---------- tiny SVG social icons ---------- */
 const GoogleIcon = () => (

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface ScrambleTextProps {
   text: string;
@@ -15,7 +15,16 @@ export const ScrambleText = React.forwardRef<any, ScrambleTextProps>(({ text, ch
         const [displayText, setDisplayText] = useState('');
         const [isIntersecting, setIsIntersecting] = useState(false);
         const [hasAnimated, setHasAnimated] = useState(false);
-        const ref = useRef<HTMLSpanElement>(null);
+        const localRef = useRef<HTMLSpanElement>(null);
+        const handleRef = (node: any) => {
+          localRef.current = node;
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        };
+
 
         // Set up intersection observer
         useEffect(() => {
@@ -28,8 +37,8 @@ export const ScrambleText = React.forwardRef<any, ScrambleTextProps>(({ text, ch
           { threshold: 0.1 }
         );
 
-        if (ref.current) {
-          observer.observe(ref.current);
+        if (localRef.current) {
+          observer.observe(localRef.current);
         }
 
         return () => observer.disconnect();
@@ -93,8 +102,7 @@ export const ScrambleText = React.forwardRef<any, ScrambleTextProps>(({ text, ch
         };
 
         return (
-        <span ref={ref} {...props} className={cn(className)}  
-          ref={ref} 
+        <span ref={handleRef} {...props} className={cn(className)} 
           className={`font-mono inline-block ${className}`}
           onMouseEnter={handleMouseEnter}
           style={{ minHeight: '1.2em' }} // Prevent layout shift

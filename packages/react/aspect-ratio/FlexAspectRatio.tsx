@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const FlexAspectRatio = React.forwardRef<any, any>(({ className, ratio = 16 / 9, children, ...props }, ref) => {
         (

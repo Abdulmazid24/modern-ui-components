@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, Search, Bell, User, Settings, Zap } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 const items = [{ icon: <Home size={20}/>, label: "Home" }, { icon: <Search size={20}/>, label: "Search" }, { icon: <Bell size={20}/>, label: "Alerts" }, { icon: <User size={20}/>, label: "Profile" }, { icon: <Settings size={20}/>, label: "Settings" }];
 export const AppleDock = React.forwardRef<any, any>(({ className, ...props }, ref) => {

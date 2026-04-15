@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const LiquidSwitch = React.forwardRef<any, any>(({ className, defaultChecked = false, onChange, ...props }, ref) => {
         const [on, setOn] = useState(defaultChecked);

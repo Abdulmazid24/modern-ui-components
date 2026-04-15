@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Copy, Plus, MoreHorizontal } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface TreeMapNode {
   id: string;

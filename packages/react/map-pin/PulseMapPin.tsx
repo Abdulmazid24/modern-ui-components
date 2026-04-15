@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const PulseMapPin = React.forwardRef<any, any>(({ className, label = "New York", color = "#7c3aed", ...props }, ref) => {
         (

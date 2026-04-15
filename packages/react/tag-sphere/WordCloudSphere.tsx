@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface WordCloudSphereProps {
   words?: string[];

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useCallback, useState } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 /* ──────────────────────────────────────────────
    Types

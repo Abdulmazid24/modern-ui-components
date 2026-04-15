@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Home, Mail, Settings, Camera, Music, Cloud } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface GravityDockProps {
   className?: string;
@@ -23,7 +23,7 @@ export const GravityDock = React.forwardRef<any, GravityDockProps>(({ className 
         ];
 
         return (
-        <div ref={ref} {...props} className={cn(className)}  
+        <div ref={handleRef} {...props} className={cn(className)}  
           className={`fixed bottom-8 left-1/2 -translate-x-1/2 flex items-end gap-2 px-4 pb-3 pt-6 rounded-3xl bg-zinc-950/80 backdrop-blur-xl border border-zinc-900 shadow-2xl ${className}`}
           onMouseMove={(e) => mouseX.set(e.pageX)}
           onMouseLeave={() => mouseX.set(Infinity)}
@@ -41,11 +41,20 @@ export const GravityDock = React.forwardRef<any, GravityDockProps>(({ className 
         });
 
 const DockItem = ({ mouseX, children }: { mouseX: any; children: React.ReactNode }) => {
-  const ref = useRef<HTMLButtonElement>(null);
+  const localRef = useRef<HTMLButtonElement>(null);
+        const handleRef = (node: any) => {
+          localRef.current = node;
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        };
+
 
   // Measure distance from mouse to the center of this item
   const distance = useTransform(mouseX, (val: number) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    const bounds = localRef.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
 
@@ -59,8 +68,7 @@ const DockItem = ({ mouseX, children }: { mouseX: any; children: React.ReactNode
   const y = useSpring(yTransform, { mass: 0.1, stiffness: 150, damping: 12 });
 
   return (
-    <motion.button ref={ref} {...props} className={cn(className)} 
-      ref={ref}
+    <motion.button ref={handleRef} {...props} className={cn(className)}
       style={{ width, height: width, y }}
       className="relative z-10 flex items-center justify-center bg-zinc-800 rounded-2xl border border-zinc-700/50 text-zinc-300 hover:text-white hover:bg-zinc-700 shadow-lg"
     >

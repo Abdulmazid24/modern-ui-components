@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { GripVertical } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const ElasticResizable = React.forwardRef<any, any>(({ className, ...props }, ref) => {
         const [width, setWidth] = useState(50);

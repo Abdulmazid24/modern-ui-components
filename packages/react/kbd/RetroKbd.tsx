@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const RetroKbd = React.forwardRef<any, any>(({ className, keys = ["⌘", "Shift", "P"], ...props }, ref) => {
         (

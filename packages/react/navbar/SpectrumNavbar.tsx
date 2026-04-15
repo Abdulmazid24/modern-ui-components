@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface SpectrumNavItem {
   id: string;
@@ -69,7 +69,7 @@ export const SpectrumNavbar = React.forwardRef<any, SpectrumNavbarProps>(({ clas
           {items.map((item) => {
             const isActive = item.id === activeId;
             return (
-              <button ref={ref} {...props} className={cn(className)} 
+              <button 
                 key={item.id}
                 data-spectrum={item.id}
                 className={`spectrum-item ${isActive ? 'active' : ''}`}

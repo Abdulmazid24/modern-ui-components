@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { AlertOctagon, RefreshCw } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const GlitchErrorBoundary = React.forwardRef<any, any>(({ className, error = "Something went wrong", ...props }, ref) => {
         (

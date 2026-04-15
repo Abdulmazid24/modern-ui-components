@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface TimelineEvent {
   id: string;
@@ -52,7 +52,7 @@ export const TemporalTimeline = React.forwardRef<any, TemporalTimelineProps>(({ 
               const isEven = index % 2 === 0;
               
               return (
-                <TimelineNode ref={ref} {...props} className={cn(className)}  
+                <TimelineNode  
                   key={event.id} 
                   event={event} 
                   isEven={isEven} 
@@ -92,7 +92,7 @@ const TimelineNode = ({
   const dotColor = useTransform(isActive, (active) => active ? "#22d3ee" : "#27272a");
 
   return (
-    <div ref={ref} {...props} className={cn(className)}  className={`flex flex-col md:flex-row items-center w-full gap-8 md:gap-0 ${isEven ? 'md:flex-row-reverse' : ''}`}>
+    <div  className={`flex flex-col md:flex-row items-center w-full gap-8 md:gap-0 ${isEven ? 'md:flex-row-reverse' : ''}`}>
       
       {/* Content Box */}
       <div className="w-full md:w-1/2 flex justify-start md:px-12">

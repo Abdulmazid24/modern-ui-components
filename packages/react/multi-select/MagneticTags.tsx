@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface Tag {
   id: string;
@@ -38,7 +38,7 @@ export const MagneticTags = React.forwardRef<any, MagneticTagsProps>(({ classNam
             {tags.map((tag, i) => {
               const colorClass = tag.color || colors[i % colors.length];
               return (
-                <motion.div ref={ref} {...props} className={cn(className)} 
+                <motion.div 
                   key={tag.id}
                   drag
                   dragConstraints={constraintsRef}

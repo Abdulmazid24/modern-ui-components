@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const PortalHoverCard = React.forwardRef<any, any>(({ className, avatar, name = "Sarah Chen", bio = "Senior Engineer building the future of component libraries.", ...props }, ref) => {
         const [hovered, setHovered] = useState(false);

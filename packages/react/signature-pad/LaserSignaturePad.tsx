@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { PenTool, RotateCcw } from "lucide-react";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface LaserSignaturePadProps {
   onClear?: () => void;

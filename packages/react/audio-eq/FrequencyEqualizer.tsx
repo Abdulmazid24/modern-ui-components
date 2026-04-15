@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export const FrequencyEqualizer = React.forwardRef<any, any>(({ className, ...props }, ref) => {
         const [bands, setBands] = useState<number[]>(Array(16).fill(10));

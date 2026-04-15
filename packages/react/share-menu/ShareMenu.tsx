@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { Share2 } from 'lucide-react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 /* ──────────────────────────────────────────────
    Types
@@ -75,8 +75,7 @@ export const ShareMenu = React.forwardRef<any, ShareMenuProps>(({ items, radius 
         const angleStep = 360 / items.length;
 
         return (
-        <div ref={ref} {...props} className={cn(className)} 
-          className={`relative inline-flex items-center justify-center ${className}`}
+        <div ref={ref} {...props} className={`relative inline-flex items-center justify-center ${className}`}
           style={{ width: (radius + itemSize) * 2, height: (radius + itemSize) * 2 }}
           role="menu"
           aria-label="Share menu"
@@ -94,7 +93,7 @@ export const ShareMenu = React.forwardRef<any, ShareMenuProps>(({ items, radius 
               : { type: 'button' as const };
 
             return (
-              <Wrapper ref={ref} {...props} className={cn(className)} 
+              <Wrapper 
                 key={item.id}
                 {...wrapperProps}
                 role="menuitem"

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 
 export interface AnimatedCounterProps {
   end: number;
@@ -15,7 +15,16 @@ export interface AnimatedCounterProps {
 export const AnimatedCounter = React.forwardRef<any, AnimatedCounterProps>(({ className, end, duration = 2000, suffix = '', prefix = '', label, ...props }, ref) => {
         const [count, setCount] = useState(0);
         const [isVisible, setIsVisible] = useState(false);
-        const ref = useRef<HTMLDivElement>(null);
+        const localRef = useRef<HTMLDivElement>(null);
+        const handleRef = (node: any) => {
+          localRef.current = node;
+          if (typeof ref === "function") {
+            ref(node);
+          } else if (ref) {
+            (ref as any).current = node;
+          }
+        };
+
 
         useEffect(() => {
         const observer = new IntersectionObserver(
@@ -28,8 +37,8 @@ export const AnimatedCounter = React.forwardRef<any, AnimatedCounterProps>(({ cl
           { threshold: 0.1 }
         );
 
-        if (ref.current) {
-          observer.observe(ref.current);
+        if (localRef.current) {
+          observer.observe(localRef.current);
         }
 
         return () => observer.disconnect();
@@ -71,7 +80,7 @@ export const AnimatedCounter = React.forwardRef<any, AnimatedCounterProps>(({ cl
         const formattedCount = new Intl.NumberFormat('en-US').format(count);
 
         return (
-        <div ref={ref} {...props} className={cn(className)}  ref={ref} className="animated-counter-container">
+        <div ref={handleRef} {...props} className={cn(className)} className="animated-counter-container">
           <div className="counter-value-wrapper">
             <span className="counter-prefix">{prefix}</span>
             <span className="counter-number">{formattedCount}</span>
