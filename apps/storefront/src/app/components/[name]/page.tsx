@@ -76,8 +76,8 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
 
   return (
     <div className="min-h-screen bg-black text-white p-6 md:p-12 font-sans selection:bg-cyan-500/30">
-      <Link href="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-8 text-sm uppercase tracking-widest font-bold">
-         <ChevronLeft size={16} /> Engineering Vault
+      <Link href="/components" className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition-colors mb-8 text-sm uppercase tracking-widest font-bold">
+         <ChevronLeft size={16} /> Component Explorer
       </Link>
 
       <div className="max-w-6xl mx-auto flex flex-col gap-8">

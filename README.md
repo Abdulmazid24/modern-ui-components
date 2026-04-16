@@ -1,64 +1,71 @@
-# 🚀 Modern UI Vault
+# 🚀 Modern UI Vault (Universe 2026 Edition)
 
-A premium, enterprise-grade React component library featuring 170+ mesmerizing, animation-heavy, and futuristic UI components. Built with **Next.js**, **Framer Motion**, **Tailwind CSS v4**, and **TypeScript**.
+A high-performance, enterprise-grade UI ecosystem featuring **472+ pro-grade components**. Built for the future with **Next.js**, **Framer Motion**, **Tailwind CSS v4**, and **Zero-Dependency Refraction Logic**.
 
-Stop building boring websites. Build the future with one command.
+Build interfaces that feel like living matter. Stop building websites—start building portals.
 
 ---
 
-## ⚡ Quick Start
+## 💎 The Three Pillars of Distinction
 
-You don't need to install bulky npm packages. Inject components directly into your codebase where you have full control to edit every single line of code.
+| Tier | Complexity | Purpose | Interaction Level |
+| :--- | :--- | :--- | :--- |
+| **Standard** | High | Base UI elements, forms, and layouts. | Smooth & Reliable |
+| **Legendary** | Extreme | High-impact visuals, 1-to-Many beams, and particle-bg. | Mesmerizing |
+| **God-Tier** | Science-Fiction | Liquid Glass, Mechanical Iris, and Synaptic Graphs. | Portal-Grade |
+
+---
+
+## ⚡ Why Modern UI Vault?
+
+Unlike other libraries that rely on heavy WebGL dependencies or copy-pasted shadcn clones, **Modern UI Vault** is built from the ground up using **Pseudo-3D Canvas** and **Refractive CSS Logic**.
+
+| Feature | Modern UI Vault | Others (MagicUI, etc.) |
+| :--- | :--- | :--- |
+| **Components** | **472+** | ~50 - 150 |
+| **Architecture** | Zero-Dependency Portability | Heavy Three.js / External deps |
+| **Navigation** | Apple-style Card Selection | Standard Sidebar |
+| **Audio** | Spatial Audio Hooks included | No native support |
+| **Design** | 2026 Futuristic Universe | Modern SaaS |
+| **Copyright** | **Zero Copyright Policy** | Often semi-restricted |
+
+---
+
+## 🛠️ Quick Start
+
+Copy-paste logic at its peak. Inject raw `.tsx` directly into your codebase.
 
 ### 1. Initialization
-First, initialize the vault in your Next.js or React project. This will install necessary dependencies (framer-motion, tailwind-merge, clsx) and set up your `lib/utils.ts`.
-
 ```bash
 npx modern-ui-vault init
 ```
 
-### 2. Authentication (Pro Users)
-If you have purchased a Pro License Key from our LemonSqueezy storefront, authenticate your CLI to unlock all premium components:
-
+### 2. Add Standard Components
 ```bash
-npx modern-ui-vault login
-```
-*You will be prompted to paste your License Key.*
-
-### 3. Add Components
-Browse our gallery and add components directly to your project:
-
-```bash
-# Add a free component
-npx modern-ui-vault add animated-button
-
-# Add a premium component (Requires Login)
-npx modern-ui-vault add quantumriftmodal
+npx modern-ui-vault add stripe-mega-menu
 ```
 
-Components will be automatically saved to your `components/ui` folder.
+### 3. Add God-Tier / Legendary Components
+```bash
+npx modern-ui-vault add mechanical-iris-portal
+npx modern-ui-vault add refractive-fluid-surface
+```
 
 ---
 
-## 🛡️ License & Expiration
-
-When you purchase a **Pro License**, you receive:
-- **1 Year of Updates:** You can download new premium components added to the vault for 365 days.
-- **5 Activations:** Your license key can be used to authenticate up to 5 different developer machines.
-
-To check your license status or if you need to revoke a machine, visit your LemonSqueezy customer portal.
+## 🛡️ Zero Copyright Policy
+Every line of code in this vault is mathematically generated or custom-crafted. We utilize NO third-party copyrighted assets or proprietary logic. 
+- **100% Commercial Freedom**: Use it for SaaS, Enterprise internal tools, or high-end agency work.
+- **Audit-Ready**: Clean source code without licensing bloat.
 
 ---
 
-## 🤝 Contributing & Customization
+## 🤝 The Support Ecosystem
 
-Every component you add via the CLI is injected as raw `.tsx`.
-There are no black-box packages. 
-1. Open the file in `components/ui`.
-2. Tweak the Framer Motion variants.
-3. Completely redesign the Tailwind classes.
-
-You own the code.
+- **Pro Updates**: 1 year of continuous legendary additions.
+- **Enterprise Support**: Custom component requests and optimization audits.
+- **Spatial Audio**: Enable immersive sounds using the `enableAudio` prop on supported components.
 
 ---
-*Powered by LemonSqueezy & Next.js.*
+
+*Built with passion by the Advanced Coding Team. (c) 2026 UI Universe.*

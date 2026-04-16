@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap, BookOpen, DollarSign, Code } from "lucide-react";
 
 const navLinks = [
-  { label: "Components", href: "/", icon: <Zap size={16} /> },
+  { label: "Components", href: "/components", icon: <Zap size={16} /> },
   { label: "Pricing", href: "/pricing", icon: <DollarSign size={16} /> },
   { label: "Docs", href: "/docs", icon: <BookOpen size={16} /> },
 ];

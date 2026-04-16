@@ -5,3 +5,4 @@ export * from './MorphLoginButton';
 export * from './ParachuteDownloadButton';
 export * from './SingularityButton';
 export * from './UploadButton';
+export * from './MagneticActionButton';

@@ -7,3 +7,7 @@ export * from './KineticOrigamiCard';
 export * from './LightningCard';
 export * from './NeonTiltCard';
 export * from './SwipeableCard';
+export * from './DirectionalHoverCard';
+export * from './InteractivePointerCard';
+export * from './MultidimensionalFlipCard';
+export * from './ThreeDProductShowcase';

@@ -1,0 +1,34 @@
+{
+  "name": "tracingbeam",
+  "title": "Tracing Beam",
+  "category": "effects",
+  "description": "An animated path/beam that follows the scroll progress along a vertical line. Ideal for guiding the user through high-density landing page sections.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "TracingBeam.tsx",
+          "content": "\"use client\";\n\nimport React, { useRef, useEffect, useState } from \"react\";\nimport { motion, useScroll, useSpring, useTransform } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\ninterface TracingBeamProps {\n  children: React.ReactNode;\n  className?: string;\n}\n\n/**\n * An animated path/beam that follows the scroll progress along a vertical line.\n * Ideal for guiding the user through high-density landing page sections.\n */\nexport const TracingBeam = ({ children, className }: TracingBeamProps) => {\n  const contentRef = useRef<HTMLDivElement>(null);\n  const { scrollYProgress } = useScroll({\n    target: contentRef,\n    offset: [\"start start\", \"end end\"],\n  });\n\n  const scrollVelocity = useSpring(scrollYProgress, {\n    stiffness: 100,\n    damping: 30,\n    restDelta: 0.001,\n  });\n\n  const pathHeight = useTransform(scrollVelocity, [0, 1], [\"0%\", \"100%\"]);\n\n  return (\n    <div ref={contentRef} className={cn(\"relative w-full max-w-4xl mx-auto\", className)}>\n      <div className=\"absolute left-[-20px] top-0 bottom-0 w-[2px] bg-zinc-900 overflow-hidden hidden md:block\">\n        <motion.div\n          style={{ height: pathHeight }}\n          className=\"w-full bg-gradient-to-b from-purple-500 via-cyan-400 to-transparent shadow-[0_0_15px_rgba(139,92,246,0.5)]\"\n        />\n        \n        {/* Glow point */}\n        <motion.div \n           style={{ top: pathHeight }}\n           className=\"absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white blur-sm opacity-50\"\n        />\n      </div>\n\n      <div className=\"md:pl-10\">\n        {children}\n      </div>\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "TracingBeam.jsx",
+          "content": "\"use client\";\n\nimport React, { useRef, useEffect, useState } from \"react\";\nimport { motion, useScroll, useSpring, useTransform } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n/**\n * An animated path/beam that follows the scroll progress along a vertical line.\n * Ideal for guiding the user through high-density landing page sections.\n */\nexport const TracingBeam = ({ children, className }: TracingBeamProps) => {\n  const contentRef = useRef(null);\n  const { scrollYProgress } = useScroll({\n    target: contentRef,\n    offset: [\"start start\", \"end end\"],\n  });\n\n  const scrollVelocity = useSpring(scrollYProgress, {\n    stiffness: 100,\n    damping: 30,\n    restDelta: 0.001,\n  });\n\n  const pathHeight = useTransform(scrollVelocity, [0, 1], [\"0%\", \"100%\"]);\n\n  return (\n    <div ref={contentRef} className={cn(\"relative w-full max-w-4xl mx-auto\", className)}>\n      <div className=\"absolute left-[-20px] top-0 bottom-0 w-[2px] bg-zinc-900 overflow-hidden hidden md:block\">\n        <motion.div\n          style={{ height: pathHeight }}\n          className=\"w-full bg-gradient-to-b from-purple-500 via-cyan-400 to-transparent shadow-[0_0_15px_rgba(139,92,246,0.5)]\"\n        />\n        \n        {/* Glow point */}\n        <motion.div \n           style={{ top: pathHeight }}\n           className=\"absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white blur-sm opacity-50\"\n        />\n      </div>\n\n      <div className=\"md:pl-10\">\n        {children}\n      </div>\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

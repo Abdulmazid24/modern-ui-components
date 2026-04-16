@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const registry = JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
       const components = registry.components || [];
       componentPages = components.map((c: any) => ({
-        url: `${SITE_URL}/vault/${c.name}`,
+        url: `${SITE_URL}/components/${c.name}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.7,

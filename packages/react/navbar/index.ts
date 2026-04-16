@@ -16,3 +16,4 @@ export * from './OrbitalNavbar';
 export * from './RippleTideNav';
 export * from './SingularityNavbar';
 export * from './SpectrumNavbar';
+export * from './StripeMegaMenu';

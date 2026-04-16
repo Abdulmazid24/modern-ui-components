@@ -1,0 +1,34 @@
+{
+  "name": "streamingtext",
+  "title": "Streaming Text",
+  "category": "text-effects",
+  "description": "An AI-style text component that reveals text character-by-character. Features a glowing trail and smooth entry logic.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "StreamingText.tsx",
+          "content": "\"use client\";\n\nimport React, { useState, useEffect } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\ninterface StreamingTextProps {\n  text: string;\n  speed?: number;\n  onComplete?: () => void;\n  className?: string;\n  glowColor?: string;\n}\n\n/**\n * An AI-style text component that reveals text character-by-character.\n * Features a glowing trail and smooth entry logic.\n */\nexport const StreamingText = ({\n  text,\n  speed = 20,\n  onComplete,\n  className,\n  glowColor = \"rgba(139, 92, 246, 0.5)\",\n}: StreamingTextProps) => {\n  const [displayedText, setDisplayedText] = useState(\"\");\n  const [currentIndex, setCurrentIndex] = useState(0);\n\n  useEffect(() => {\n    if (currentIndex < text.length) {\n      const timeout = setTimeout(() => {\n        setDisplayedText((prev) => prev + text[currentIndex]);\n        setCurrentIndex((prev) => prev + 1);\n      }, speed);\n\n      return () => clearTimeout(timeout);\n    } else if (onComplete) {\n      onComplete();\n    }\n  }, [currentIndex, text, speed, onComplete]);\n\n  // Handle case where text prop changes after animation starts\n  useEffect(() => {\n    setDisplayedText(\"\");\n    setCurrentIndex(0);\n  }, [text]);\n\n  return (\n    <div className={cn(\"font-sans leading-relaxed text-zinc-300\", className)}>\n      <AnimatePresence mode=\"popLayout\">\n        {displayedText.split(\"\").map((char, i) => (\n          <motion.span\n            key={`${char}-${i}`}\n            initial={{ opacity: 0, filter: \"blur(4px)\", y: 2 }}\n            animate={{ opacity: 1, filter: \"blur(0px)\", y: 0 }}\n            transition={{ duration: 0.2 }}\n            className=\"inline-block\"\n            style={{\n              textShadow: i === currentIndex - 1 ? `0 0 8px ${glowColor}` : \"none\",\n              color: i === currentIndex - 1 ? \"white\" : \"inherit\",\n            }}\n          >\n            {char === \" \" ? \"\\u00A0\" : char}\n          </motion.span>\n        ))}\n      </AnimatePresence>\n      \n      {/* cursor icon */}\n      {currentIndex < text.length && (\n        <motion.span\n          animate={{ opacity: [1, 0] }}\n          transition={{ repeat: Infinity, duration: 0.8 }}\n          className=\"inline-block w-1.5 h-5 ml-1 bg-purple-500 rounded-full vertical-middle\"\n        />\n      )}\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "StreamingText.jsx",
+          "content": "\"use client\";\n\nimport React, { useState, useEffect } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n/**\n * An AI-style text component that reveals text character-by-character.\n * Features a glowing trail and smooth entry logic.\n */\nexport const StreamingText = ({\n  text,\n  speed = 20,\n  onComplete,\n  className,\n  glowColor = \"rgba(139, 92, 246, 0.5)\",\n}: StreamingTextProps) => {\n  const [displayedText, setDisplayedText] = useState(\"\");\n  const [currentIndex, setCurrentIndex] = useState(0);\n\n  useEffect(() => {\n    if (currentIndex < text.length) {\n      const timeout = setTimeout(() => {\n        setDisplayedText((prev) => prev + text[currentIndex]);\n        setCurrentIndex((prev) => prev + 1);\n      }, speed);\n\n      return () => clearTimeout(timeout);\n    } else if (onComplete) {\n      onComplete();\n    }\n  }, [currentIndex, text, speed, onComplete]);\n\n  // Handle case where text prop changes after animation starts\n  useEffect(() => {\n    setDisplayedText(\"\");\n    setCurrentIndex(0);\n  }, [text]);\n\n  return (\n    <div className={cn(\"font-sans leading-relaxed text-zinc-300\", className)}>\n      <AnimatePresence mode=\"popLayout\">\n        {displayedText.split(\"\").map((char, i) => (\n          <motion.span\n            key={`${char}-${i}`}\n            initial={{ opacity: 0, filter: \"blur(4px)\", y: 2 }}\n            animate={{ opacity: 1, filter: \"blur(0px)\", y: 0 }}\n            transition={{ duration: 0.2 }}\n            className=\"inline-block\"\n            style={{\n              textShadow: i === currentIndex - 1 ? `0 0 8px ${glowColor}` : \"none\",\n              color: i === currentIndex - 1 ? \"white\" : \"inherit\",\n            }}\n          >\n            {char === \" \" ? \"\\u00A0\" : char}\n          </motion.span>\n        ))}\n      </AnimatePresence>\n      \n      {/* cursor icon */}\n      {currentIndex < text.length && (\n        <motion.span\n          animate={{ opacity: [1, 0] }}\n          transition={{ repeat: Infinity, duration: 0.8 }}\n          className=\"inline-block w-1.5 h-5 ml-1 bg-purple-500 rounded-full vertical-middle\"\n        />\n      )}\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

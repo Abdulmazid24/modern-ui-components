@@ -1,39 +1,28 @@
-# Changelog
+# Changelog - Modern UI Vault
 
-All notable changes to Modern UI Vault will be documented in this file.
+All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [2.0.0] - 2026-04-16 (The 2026 Universe Expansion)
 
-## [1.0.0] - 2026-04-13
+### Added (The God-Tier Expansion)
+- **God-Tier Components**: Added `RefractiveFluidSurface` (Liquid Glass logic), `MechanicalIrisPortal` (3D Shutter), `IntentDrivenInput`, `NeuromorphicSynapseGraph`, and `MultidimensionalFlipCard`.
+- **System-Wide Feature**: Integrated `useSpatialAudio` hook with `enableAudio` props for immersive UI.
+- **Enterprise Logic**: `ResizableIDEPanels` with recursive nesting (Horizontal/Vertical) support.
+- **Marketing Powerhouse**: `InfinitePerspectiveMarquee` and `3DProductShowcase`.
+- **Legendary Components**: 14 new components including `OrbitingCircles`, `RetroGrid`, `BackgroundBeams`, `TracingBeam`, and `AnimatedConnectingBeam` (1-to-Many logic).
 
-### 🎉 Initial Release
+### Changed (The Apple-Style Overhaul)
+- **Navigation**: Migrated from sidebar-heavy navigation to an **Apple-style Card-based Discovery** system.
+- **Super Groups**: Organized 472 components into 8 logical Super Groups (Actions, Display, Nav, Feedback, Input, Layout, Visual Effects, Utility).
+- **Core URL Structure**: Migrated `/vault` to `/components` for better SEO.
 
-#### Added
-- **186 Animated React Components** across 140 categories
-- **CLI Tool** (`npx modern-ui-vault`) with commands: `init`, `add`, `list`, `search`, `login`, `logout`, `doctor`
-- **Multi-Dialect Support** — TSX and JSX auto-generated
-- **Next.js 16 Storefront** — Component browser with live preview
-- **LemonSqueezy Integration** — Pro licensing and payment flow
-- **Supabase Backend** — License management, download analytics
-- **Registry System** — Automated JSON manifest generation
-- **Package Manager Detection** — Auto-detects npm, yarn, pnpm, bun
-- **SEO Optimized** — Sitemap, robots.txt, OpenGraph, JSON-LD structured data
-- **Rate Limiting** — API protection on verify and download endpoints
+### Fixed
+- Fixed registry indexing issues for advanced canvas-based components.
+- Generated comprehensive smoke tests for all 138 categories.
 
-#### Component Categories Include
-- Navigation: 15 navbar variants (Magnetic, Orbital, Nebula, Spectrum, etc.)
-- Buttons: 5 premium button effects (Liquid Chrome, Singularity, Morph Login, etc.)
-- Cards: Holographic Prism, Kinetic Origami, Holo Card
-- Modals: Glass Shatter, Quantum Rift, Crystal Dialog
-- Loaders: Accretion Disk, Bioluminescent Mycelium, Pulse, Spinner
-- Forms: Aurora Input, OTP Input, Auth Forms, Rich Text Editor
-- Data: Data Tables, Charts, Gantt, Heatmap, Tree Map
-- And 120+ more...
+---
 
-#### Architecture
-- NPM Workspace Monorepo
-- `packages/react/` — Component source (TSX)
-- `packages/cli/` — CLI tool
-- `packages/registry/` — Schema definitions
-- `apps/storefront/` — Next.js 16.2.3 showcase website
+## [1.0.0] - Baseline Release
+- Initial release with 170+ base components.
+- CLI foundation (`modern-ui-vault init/add`).
+- License verification system.

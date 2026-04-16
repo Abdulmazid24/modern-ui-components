@@ -157,7 +157,12 @@ async function buildRegistry() {
     const normalizedCategory = normalizeCategory(category);
 
     for (const fileName of files) {
-      if (!fileName.endsWith('.tsx') || fileName === 'index.ts' || fileName === 'index.tsx') continue;
+      // Only process .tsx files, ignore index, and IGNORE .test.tsx/.spec.tsx files
+      if (!fileName.endsWith('.tsx') || 
+          fileName === 'index.ts' || 
+          fileName === 'index.tsx' ||
+          fileName.includes('.test.') || 
+          fileName.includes('.spec.')) continue;
 
       const componentName = fileName.replace('.tsx', '');
       const slug = componentName.toLowerCase();

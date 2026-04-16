@@ -1,0 +1,34 @@
+{
+  "name": "directionalhovercard",
+  "title": "Directional Hover Card",
+  "category": "card",
+  "description": "A card where the overlay entrance corresponds to the mouse entry side.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "DirectionalHoverCard.tsx",
+          "content": "\"use client\";\n\nimport React, { useState, useRef } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\ninterface DirectionalHoverCardProps {\n  children: React.ReactNode;\n  overlay: React.ReactNode;\n  className?: string;\n}\n\n/**\n * A card where the overlay entrance corresponds to the mouse entry side.\n */\nexport const DirectionalHoverCard = ({\n  children,\n  overlay,\n  className,\n}: DirectionalHoverCardProps) => {\n  const containerRef = useRef<HTMLDivElement>(null);\n  const [direction, setDirection] = useState<\"top\" | \"bottom\" | \"left\" | \"right\" | null>(null);\n\n  const handleMouseEnter = (e: React.MouseEvent) => {\n    if (!containerRef.current) return;\n    \n    const { clientX, clientY } = e;\n    const { left, top, width, height } = containerRef.current.getBoundingClientRect();\n    \n    const x = clientX - left;\n    const y = clientY - top;\n\n    const topDist = y;\n    const bottomDist = height - y;\n    const leftDist = x;\n    const rightDist = width - x;\n\n    const minDist = Math.min(topDist, bottomDist, leftDist, rightDist);\n\n    if (minDist === topDist) setDirection(\"top\");\n    else if (minDist === bottomDist) setDirection(\"bottom\");\n    else if (minDist === leftDist) setDirection(\"left\");\n    else if (minDist === rightDist) setDirection(\"right\");\n  };\n\n  const variants = {\n    hidden: (dir: string) => ({\n      x: dir === \"left\" ? \"-100%\" : dir === \"right\" ? \"100%\" : 0,\n      y: dir === \"top\" ? \"-100%\" : dir === \"bottom\" ? \"100%\" : 0,\n    }),\n    visible: { x: 0, y: 0 },\n    exit: (dir: string) => ({\n      x: dir === \"left\" ? \"-100%\" : dir === \"right\" ? \"100%\" : 0,\n      y: dir === \"top\" ? \"-100%\" : dir === \"bottom\" ? \"100%\" : 0,\n    }),\n  };\n\n  return (\n    <div\n      ref={containerRef}\n      onMouseEnter={handleMouseEnter}\n      onMouseLeave={() => setDirection(null)}\n      className={cn(\"relative group overflow-hidden rounded-3xl bg-zinc-900\", className)}\n    >\n      <div className=\"h-full w-full\">{children}</div>\n\n      <AnimatePresence>\n        {direction && (\n          <motion.div\n            custom={direction}\n            variants={variants}\n            initial=\"hidden\"\n            animate=\"visible\"\n            exit=\"exit\"\n            transition={{ duration: 0.3, ease: \"easeOut\" }}\n            className=\"absolute inset-0 z-10 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center\"\n          >\n            {overlay}\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "DirectionalHoverCard.jsx",
+          "content": "\"use client\";\n\nimport React, { useState, useRef } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n/**\n * A card where the overlay entrance corresponds to the mouse entry side.\n */\nexport const DirectionalHoverCard = ({\n  children,\n  overlay,\n  className,\n}: DirectionalHoverCardProps) => {\n  const containerRef = useRef(null);\n  const [direction, setDirection] = useState<\"top\" | \"bottom\" | \"left\" | \"right\" | null>(null);\n\n  const handleMouseEnter = (e) => {\n    if (!containerRef.current) return;\n    \n    const { clientX, clientY } = e;\n    const { left, top, width, height } = containerRef.current.getBoundingClientRect();\n    \n    const x = clientX - left;\n    const y = clientY - top;\n\n    const topDist = y;\n    const bottomDist = height - y;\n    const leftDist = x;\n    const rightDist = width - x;\n\n    const minDist = Math.min(topDist, bottomDist, leftDist, rightDist);\n\n    if (minDist === topDist) setDirection(\"top\");\n    else if (minDist === bottomDist) setDirection(\"bottom\");\n    else if (minDist === leftDist) setDirection(\"left\");\n    else if (minDist === rightDist) setDirection(\"right\");\n  };\n\n  const variants = {\n    hidden: (dir) => ({\n      x: dir === \"left\" ? \"-100%\" : dir === \"right\" ? \"100%\" : 0,\n      y: dir === \"top\" ? \"-100%\" : dir === \"bottom\" ? \"100%\" : 0,\n    }),\n    visible,\n    exit: (dir) => ({\n      x: dir === \"left\" ? \"-100%\" : dir === \"right\" ? \"100%\" : 0,\n      y: dir === \"top\" ? \"-100%\" : dir === \"bottom\" ? \"100%\" : 0,\n    }),\n  };\n\n  return (\n    <div\n      ref={containerRef}\n      onMouseEnter={handleMouseEnter}\n      onMouseLeave={() => setDirection(null)}\n      className={cn(\"relative group overflow-hidden rounded-3xl bg-zinc-900\", className)}\n    >\n      <div className=\"h-full w-full\">{children}</div>\n\n      \n        {direction && (\n          <motion.div\n            custom={direction}\n            variants={variants}\n            initial=\"hidden\"\n            animate=\"visible\"\n            exit=\"exit\"\n            transition={{ duration: 0.3, ease: \"easeOut\" }}\n            className=\"absolute inset-0 z-10 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center\"\n          >\n            {overlay}\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

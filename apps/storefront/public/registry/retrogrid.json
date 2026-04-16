@@ -1,0 +1,30 @@
+{
+  "name": "retrogrid",
+  "title": "Retro Grid",
+  "category": "particle-bg",
+  "description": "A cinematic 3D perspective grid background with an animated infinite scroll.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "RetroGrid.tsx",
+          "content": "\"use client\";\n\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\ninterface RetroGridProps {\n  className?: string;\n  angle?: number;\n}\n\n/**\n * A cinematic 3D perspective grid background with an animated infinite scroll.\n */\nexport const RetroGrid = ({ className, angle = 65 }: RetroGridProps) => {\n  return (\n    <div\n      className={cn(\n        \"pointer-events-none absolute h-full w-full overflow-hidden opacity-50 [perspective:200px]\",\n        className\n      )}\n    >\n      {/* Grid Container */}\n      <div\n        className=\"absolute inset-0 [transform:rotateX(var(--grid-angle))] \"\n        style={{ \"--grid-angle\": `${angle}deg` } as React.CSSProperties}\n      >\n        <div className=\"animate-grid [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_0),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_0)] [background-repeat:repeat] [background-size:60px_60px] [height:300%] [inset:0%_-50%] [margin-left:-50%] [transform-origin:100%_0_0] [width:600vw]\" />\n      </div>\n\n      {/* Atmospheric Gradient */}\n      <div className=\"absolute inset-0 bg-gradient-to-t from-black to-transparent to-90%\" />\n      \n      <style jsx global>{`\n        @keyframes grid {\n          0% {\n            transform: translateY(-50%);\n          }\n          100% {\n            transform: translateY(0);\n          }\n        }\n        .animate-grid {\n          animation: grid 15s linear infinite;\n        }\n      `}</style>\n    </div>\n  );\n};\n"
+        }
+      ],
+      "dependencies": []
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "RetroGrid.jsx",
+          "content": "\"use client\";\n\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\n/**\n * A cinematic 3D perspective grid background with an animated infinite scroll.\n */\nexport const RetroGrid = ({ className, angle = 65 }: RetroGridProps) => {\n  return (\n    <div\n      className={cn(\n        \"pointer-events-none absolute h-full w-full overflow-hidden opacity-50 [perspective:200px]\",\n        className\n      )}\n    >\n      {/* Grid Container */}\n      <div\n        className=\"absolute inset-0 [transform:rotateX(var(--grid-angle))] \"\n        style={{ \"--grid-angle\": `${angle}deg` }.CSSProperties}\n      >\n        <div className=\"animate-grid [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_0),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_0)] [background-repeat:repeat] [background-size:60px_60px] [height:300%] [inset:0%_-50%] [margin-left:-50%] [transform-origin:100%_0_0] [width:600vw]\" />\n      </div>\n\n      {/* Atmospheric Gradient */}\n      <div className=\"absolute inset-0 bg-gradient-to-t from-black to-transparent to-90%\" />\n      \n      <style jsx global>{`\n        @keyframes grid {\n          0% {\n            transform: translateY(-50%);\n          }\n          100% {\n            transform: translateY(0);\n          }\n        }\n        .animate-grid {\n          animation: grid 15s linear infinite;\n        }\n      `}</style>\n    </div>\n  );\n};"
+        }
+      ],
+      "dependencies": []
+    }
+  },
+  "preview": {}
+}
