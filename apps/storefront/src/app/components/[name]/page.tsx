@@ -51,6 +51,13 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
       if (cat === 'badge') return { text: "Hologram Badge" };
       if (cat === 'alert') return { title: "System Ready", message: "All systems operational." };
       if (cat === 'multi-select' || cat === 'command-palette') return { tags: [{ id: '1', label: 'Next.js' }, { id: '2', label: 'React' }], groups: [{ heading: 'Demo', items: [{ id: '1', label: 'Item' }] }] };
+      if (cat === 'effects') return { 
+        containerRef: { current: document.body },
+        connections: [
+          { fromRef: { current: document.body }, toRef: { current: document.body } }
+        ]
+      };
+      if (cat === 'particle-bg') return { count: 12 };
       
       // Default fallback for safe generic items
       const isCard = cat === 'card' || cat === 'tilt-card' || cat === 'pricing-cards';

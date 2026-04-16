@@ -30,7 +30,7 @@ export const AnimatedConnectingBeam = ({
 
   useEffect(() => {
     const updatePaths = () => {
-      if (!containerRef.current) return;
+      if (!containerRef || !containerRef.current) return;
       const containerRect = containerRef.current.getBoundingClientRect();
 
       const newPaths = connections.map((conn) => {
