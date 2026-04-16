@@ -1,3 +1,2 @@
-export { QuantumCheckbox } from './QuantumCheckbox';
-export { QuantumEntangledCheck } from './QuantumEntangledCheck';
-export type { QuantumEntangledCheckProps } from './QuantumEntangledCheck';
+export * from './QuantumCheckbox';
+export * from './QuantumEntangledCheck';

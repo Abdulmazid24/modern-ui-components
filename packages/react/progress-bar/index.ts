@@ -1,3 +1,2 @@
-export { LaserProgressBar } from './LaserProgressBar';
-export { HolographicRingProgress } from './HolographicRingProgress';
-export type { HolographicRingProgressProps } from './HolographicRingProgress';
+export * from './HolographicRingProgress';
+export * from './LaserProgressBar';

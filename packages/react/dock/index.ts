@@ -1,1 +1,1 @@
-export { MacDock } from './MacDock';
+export * from './MacDock';
