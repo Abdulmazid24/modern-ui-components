@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Zap, Crown, Building2, Sparkles } from "lucide-react";
 
-const tiers = [
+const BASE_TIERS = [
   {
     id: "free",
     name: "Free",
@@ -13,7 +13,7 @@ const tiers = [
     description: "Core components for personal projects",
     icon: <Sparkles size={24} />,
     features: [
-      "70+ Animated Components",
+      "{free_count} Animated Components",
       "TSX & JSX Dialects",
       "CLI Installation",
       "Community Support",
@@ -33,7 +33,7 @@ const tiers = [
     description: "Full vault for individual developers",
     icon: <Zap size={24} />,
     features: [
-      "All 300+ Components",
+      "All {total_count} Components",
       "All Dialects (TSX, JSX)",
       "1 Year of Updates",
       "3 Machine Activations",
@@ -91,6 +91,23 @@ const tiers = [
 
 export default function PricingPage() {
   const [hoveredTier, setHoveredTier] = useState<string | null>(null);
+  const [stats, setStats] = useState({ free: 70, total: 300 });
+
+  React.useEffect(() => {
+    fetch("/registry/index.json")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.stats) {
+          setStats({ free: data.stats.freeComponents, total: data.stats.totalComponents });
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const tiers = BASE_TIERS.map(tier => ({
+    ...tier,
+    features: tier.features.map(f => f.replace('{free_count}', stats.free.toString() + '+').replace('{total_count}', stats.total.toString() + '+'))
+  }));
 
   return (
     <main className="min-h-screen bg-black text-white">

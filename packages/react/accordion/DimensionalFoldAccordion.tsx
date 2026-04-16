@@ -16,7 +16,6 @@ export interface DimensionalFoldAccordionProps {
   items: AccordionItem[];
   defaultOpenId?: string;
   className?: string;
-  accentColor?: string;
 }
 
 const defaultItems: AccordionItem[] = [
@@ -25,14 +24,8 @@ const defaultItems: AccordionItem[] = [
   { id: "3", title: "Kinetic Energy", content: "Convert user interactions into raw visual power through optimized vertex shaders.", icon: <Zap size={18} /> },
 ];
 
-/**
- * Dimensional Fold Accordion
- * A 100/100 world-first kinetic component.
- * Panels unfold in 3D using perspective transforms, creating a 
- * physical "paper-fold" aesthetic with dynamic lighting and shadows.
- */
 export const DimensionalFoldAccordion = React.forwardRef<HTMLDivElement, DimensionalFoldAccordionProps>(
-  ({ items = defaultItems, defaultOpenId, className, accentColor = "#fbbf24" }, ref) => {
+  ({ items = defaultItems, defaultOpenId, className }, ref) => {
     const [openId, setOpenId] = useState<string | null>(defaultOpenId || null);
 
     const toggle = (id: string) => {
@@ -42,93 +35,85 @@ export const DimensionalFoldAccordion = React.forwardRef<HTMLDivElement, Dimensi
     return (
       <div 
         ref={ref} 
-        className={cn("w-full max-w-xl space-y-4 perspective-[1500px]", className)}
+        style={{ perspective: "2000px" }}
+        className={cn("w-full max-w-xl space-y-6", className)}
       >
         {items.map((item) => {
           const isOpen = openId === item.id;
 
           return (
-            <div key={item.id} className="group">
-              {/* Header / Trigger */}
+            <div key={item.id} className="relative group">
+              {/* Header / Trigger - Elevated Card Look */}
               <button
                 onClick={() => toggle(item.id)}
                 className={cn(
-                  "relative w-full flex items-center justify-between p-5 rounded-2xl z-20 transition-all duration-300",
-                  "bg-zinc-900 border border-zinc-800 hover:border-zinc-700 shadow-xl",
-                  isOpen && "rounded-b-none border-b-transparent shadow-none"
+                  "relative w-full flex items-center justify-between p-6 z-20 transition-all duration-500",
+                  "bg-zinc-950 border border-zinc-800 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.5)]",
+                  isOpen ? "rounded-t-xl" : "rounded-xl hover:border-zinc-600 hover:-translate-y-1"
                 )}
               >
                 <div className="flex items-center gap-4">
-                  <div 
-                    className={cn(
-                        "p-2 rounded-xl transition-colors",
-                        isOpen ? "bg-amber-500/10 text-amber-500" : "bg-zinc-800 text-zinc-400"
-                    )}
-                  >
+                  <div className={cn(
+                      "p-3 rounded-lg shadow-inner flex items-center justify-center transition-all duration-500",
+                      isOpen ? "bg-amber-500 text-black rotate-[360deg]" : "bg-zinc-900 text-zinc-500"
+                  )}>
                     {item.icon}
                   </div>
                   <span className={cn(
-                    "font-bold tracking-tight transition-colors",
-                    isOpen ? "text-white" : "text-zinc-400 group-hover:text-zinc-200"
+                    "text-lg font-bold uppercase tracking-[0.2em] transition-colors",
+                    isOpen ? "text-white" : "text-zinc-500 group-hover:text-zinc-300"
                   )}>
                     {item.title}
                   </span>
                 </div>
+                
                 <motion.div
-                  animate={{ rotate: isOpen ? 180 : 0, color: isOpen ? accentColor : "#52525b" }}
+                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  className={cn(
+                      "w-10 h-10 flex items-center justify-center rounded-full border border-zinc-800",
+                      isOpen ? "bg-zinc-800 text-amber-500" : "text-zinc-600"
+                  )}
                 >
                   <ChevronDown size={20} />
                 </motion.div>
-                
-                {/* Active Underglow */}
-                {isOpen && (
-                  <motion.div 
-                    layoutId="header-glow"
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-500/5 via-transparent to-transparent pointer-events-none"
-                  />
-                )}
               </button>
 
-              {/* Dimensional Content Fold */}
+              {/* Dimensional Content Fold - Perspective Logic */}
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div
-                    initial={{ rotateX: -90, opacity: 0, originY: 0 }}
+                    initial={{ rotateX: -110, opacity: 0, originY: 0 }}
                     animate={{ rotateX: 0, opacity: 1 }}
-                    exit={{ rotateX: -90, opacity: 0 }}
-                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="relative z-10"
+                    exit={{ rotateX: -110, opacity: 0 }}
+                    transition={{ 
+                      type: "spring", 
+                      stiffness: 120, 
+                      damping: 14,
+                      opacity: { duration: 0.2 }
+                    }}
+                    className="relative z-10 origin-top"
                   >
-                    <div className={cn(
-                        "p-6 rounded-b-2xl bg-zinc-900/50 backdrop-blur-xl border border-t-0 border-zinc-800 shadow-2xl overflow-hidden",
-                        "after:absolute after:inset-0 after:bg-gradient-to-b after:from-black/40 after:to-transparent after:pointer-events-none"
-                    )}>
-                      {/* Internal Content with Lighting Effect */}
+                    {/* The "Paper" container */}
+                    <div className="relative p-8 rounded-b-xl bg-zinc-900 border border-t-0 border-zinc-800 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.8)] overflow-hidden">
+                      
+                      {/* Crease Lighting Effect (Gradient at the top to simulate a fold) */}
+                      <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+                      
                       <motion.div
-                        initial={{ y: -20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="relative z-10 text-zinc-400 leading-relaxed text-sm lg:text-base"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.15 }}
+                        className="relative z-10 text-zinc-400 leading-relaxed font-mono text-sm uppercase tracking-wide"
                       >
+                        <div className="mb-4 text-xs text-amber-500/50">DATA_BLOCK.LOADED</div>
                         {item.content}
                       </motion.div>
                       
-                      {/* Geometric Decorative Element */}
-                      <div 
-                         className="absolute -right-4 -bottom-4 w-24 h-24 rotate-12 opacity-5 pointer-events-none"
-                         style={{ color: accentColor }}
-                      >
-                         <Box size={96} />
-                      </div>
+                      {/* Subtle Grid Pattern for Material Feel */}
+                      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+                        style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} 
+                      />
                     </div>
-                    
-                    {/* The "Paper Fold" Shadow Cast on parent */}
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.3 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute inset-0 bg-black blur-xl -z-10 translate-y-4 scale-95"
-                    />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -140,4 +125,4 @@ export const DimensionalFoldAccordion = React.forwardRef<HTMLDivElement, Dimensi
   }
 );
 
-DimensionalFoldAccordion.displayName = "DimensionalFoldAccordion";
+DimensionalFoldAccordion.displayName = "DimensionalFoldAccordion"; 
