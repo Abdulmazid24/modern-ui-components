@@ -1,30 +1,16 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { verifyRateLimit } from '@/lib/ratelimit';
 
 export const dynamic = 'force-dynamic';
 
-// Minimal in-memory rate limiter (For production at scale, use Upstash Redis / Vercel KV)
-const rateLimitCache = new Map<string, { count: number; lastReset: number }>();
-const RATE_LIMIT_MAX = 10;
-const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  let record = rateLimitCache.get(ip);
-  if (!record || (now - record.lastReset > RATE_LIMIT_WINDOW_MS)) {
-    rateLimitCache.set(ip, { count: 1, lastReset: now });
-    return true;
-  }
-  if (record.count >= RATE_LIMIT_MAX) return false;
-  record.count++;
-  return true;
-}
-
 export async function GET(request: Request) {
   try {
-    // 1. IP Rate Limiting
+    // 1. IP Rate Limiting (Redis-backed)
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
-    if (!checkRateLimit(ip)) {
+    const isAllowed = await verifyRateLimit(ip);
+    
+    if (!isAllowed) {
       return NextResponse.json({ error: 'Rate limit exceeded. Try again in a minute.' }, { status: 429 });
     }
 
@@ -35,8 +21,8 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: 'No license token provided' }, { status: 400 });
     }
 
-    // Dev Fallback
-    if (token === "vault_pro_key") {
+    // Dev Fallback for testing
+    if (process.env.NODE_ENV === "development" && token === process.env.DEV_BYPASS_TOKEN) {
        return NextResponse.json({ success: true, user: "Dev Admin" }, { status: 200 });
     }
 

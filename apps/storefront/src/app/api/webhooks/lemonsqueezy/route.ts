@@ -146,6 +146,28 @@ export async function POST(request: Request) {
           }, { onConflict: 'license_key' });
 
           console.log(`[Webhook] License created: ${tier} for ${customerEmail}`);
+          
+          // --- SEND LICENSE EMAIL VIA RESEND ---
+          try {
+            if (process.env.RESEND_API_KEY) {
+              const { Resend } = require('resend');
+              const { LicenseDeliveryEmail } = require('@/emails/LicenseDelivery');
+              const resend = new Resend(process.env.RESEND_API_KEY);
+              
+              await resend.emails.send({
+                from: 'Modern UI Vault <bot@modern-ui-vault.dev>',
+                to: customerEmail,
+                subject: `Your ${tier} License Key - Modern UI Vault`,
+                react: LicenseDeliveryEmail({ licenseKey: newLicenseKey, tier }),
+              });
+              console.log(`[Webhook] Email dispatched to ${customerEmail}`);
+            } else {
+               console.log(`[Webhook] RESEND_API_KEY missing, skipping email to ${customerEmail}`);
+            }
+          } catch (emailErr) {
+            console.error(`[Webhook] Failed to send email to ${customerEmail}:`, emailErr);
+            // Don't throw, we still want to mark the webhook as processed
+          }
         }
 
         await supabase

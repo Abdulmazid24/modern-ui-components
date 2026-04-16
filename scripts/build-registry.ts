@@ -169,6 +169,11 @@ async function buildRegistry() {
 
       // Extract description
       const description = extractDescription(content, componentName);
+      
+      const isPro = PRO_COMPONENTS.includes(slug);
+      const publicContent = isPro 
+        ? "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add " + slug
+        : content;
 
       // Create entry
       const componentEntry = {
@@ -176,16 +181,16 @@ async function buildRegistry() {
         title: componentName.replace(/([A-Z])/g, ' $1').trim(),
         category: normalizedCategory,
         description,
-        isPro: PRO_COMPONENTS.includes(slug),
+        isPro,
         dialects: {
           tsx: {
             language: 'tsx',
-            files: [{ name: fileName, content }],
+            files: [{ name: fileName, content: publicContent }],
             dependencies,
           },
           jsx: {
             language: 'jsx',
-            files: [{ name: fileName.replace('.tsx', '.jsx'), content: stripTypes(content) }],
+            files: [{ name: fileName.replace('.tsx', '.jsx'), content: stripTypes(publicContent) }],
             dependencies: dependencies.filter(d => d !== 'typescript'),
           },
         },

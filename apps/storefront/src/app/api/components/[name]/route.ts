@@ -6,26 +6,14 @@ import fs from 'fs';
 // Force dynamic route since we rely on headers
 export const dynamic = 'force-dynamic';
 
-// Minimal in-memory rate limiter
-const rateLimitCache = new Map<string, { count: number; lastReset: number }>();
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  let record = rateLimitCache.get(ip);
-  if (!record || (now - record.lastReset > 60000)) {
-    rateLimitCache.set(ip, { count: 1, lastReset: now });
-    return true;
-  }
-  if (record.count >= 20) return false; // 20 components per minute per IP limit
-  record.count++;
-  return true;
-}
+import { downloadRateLimit } from '@/lib/ratelimit';
 
 // Pro-tier check is now embedded in registry data (set by build-registry.ts from shared config)
 // No more hardcoded list here — single source of truth in packages/registry/shared-config.ts
 
 async function verifyProAccessCached(token: string | undefined): Promise<boolean> {
   if (!token) return false;
-  if (token === "vault_pro_key") return true;
+  if (process.env.NODE_ENV === "development" && token === process.env.DEV_BYPASS_TOKEN) return true;
 
   try {
     // 1. Try hitting Supabase Cache first
@@ -78,7 +66,9 @@ export async function GET(
 ) {
   try {
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
-    if (!checkRateLimit(ip)) {
+    const isAllowed = await downloadRateLimit(ip);
+    
+    if (!isAllowed) {
       return NextResponse.json({ error: 'Rate limit exceeded. Try again in a minute.' }, { status: 429 });
     }
 
