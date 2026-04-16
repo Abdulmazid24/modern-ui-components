@@ -40,11 +40,14 @@ export interface AnimatedCarouselProps {
    Component
    ────────────────────────────────────────────── */
 
-export const AnimatedCarousel = React.forwardRef<any, AnimatedCarouselProps>(({ cards, radius = 340, cardWidth = 280, cardHeight = 360, spinDuration = 25, pauseOnHover = true, heading = '3D Carousel', headingGradient = 'linear-gradient(90deg, #a855f7, #ec4899, #a855f7)', className = '', ...props }, ref) => {
+export const AnimatedCarousel = React.forwardRef<any, AnimatedCarouselProps>(({ cards = [], radius = 340, cardWidth = 280, cardHeight = 360, spinDuration = 25, pauseOnHover = true, heading = '3D Carousel', headingGradient = 'linear-gradient(90deg, #a855f7, #ec4899, #a855f7)', className = '', ...props }, ref) => {
         const [isPaused, setIsPaused] = useState(false);
         const trackRef = useRef<HTMLDivElement>(null);
-        const count = cards.length;
-        const angleStep = 360 / count;
+        
+        const count = cards?.length || 0;
+        const angleStep = count > 0 ? 360 / count : 0;
+
+        if (count === 0) return null;
 
         return (
         <div ref={ref} {...props} className={cn(className)} 

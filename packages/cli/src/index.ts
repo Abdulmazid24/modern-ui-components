@@ -68,22 +68,50 @@ function resolveProjectPaths(): ProjectPaths {
     const cwd = process.cwd();
     let componentsDir = path.join(cwd, 'components', 'ui');
     let libDir = path.join(cwd, 'lib');
+    let resolvedAliasPath = '';
 
-    // Check for src/ directory (Next.js App Router, Vite, etc.)
-    if (fs.existsSync(path.join(cwd, 'src'))) {
-        componentsDir = path.join(cwd, 'src', 'components', 'ui');
-        libDir = path.join(cwd, 'src', 'lib');
+    // Check tsconfig.json for paths alias
+    if (fs.existsSync(path.join(cwd, 'tsconfig.json'))) {
+        try {
+            // Very basic strip-comments and parse for compilerOptions.paths
+            const tsconfigRaw = fs.readFileSync(path.join(cwd, 'tsconfig.json'), 'utf-8');
+            const tsconfigCleaned = tsconfigRaw.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '$1');
+            const tsConfig = JSON.parse(tsconfigCleaned);
+            
+            const paths = tsConfig?.compilerOptions?.paths;
+            if (paths) {
+                // Find alias for @/* or ~/*
+                const aliasKey = Object.keys(paths).find(k => k.endsWith('/*'));
+                if (aliasKey && paths[aliasKey] && paths[aliasKey][0]) {
+                    const aliasTarget = paths[aliasKey][0].replace('/*', ''); // e.g. "./src" or "./"
+                    resolvedAliasPath = path.join(cwd, aliasTarget);
+                }
+            }
+        } catch { /* ignore parse errors */ }
     }
 
-    // Check for components.json (shadcn-style config)
+    // Default to src/ if it exists and no alias found
+    if (!resolvedAliasPath && fs.existsSync(path.join(cwd, 'src'))) {
+        resolvedAliasPath = path.join(cwd, 'src');
+    } else if (!resolvedAliasPath) {
+        resolvedAliasPath = cwd;
+    }
+
+    componentsDir = path.join(resolvedAliasPath, 'components', 'ui');
+    libDir = path.join(resolvedAliasPath, 'lib');
+
+    // Check for components.json (shadcn-style config overrides everything)
     if (fs.existsSync(path.join(cwd, 'components.json'))) {
         try {
             const compConfig = JSON.parse(fs.readFileSync(path.join(cwd, 'components.json'), 'utf-8'));
             if (compConfig.aliases?.components) {
-                componentsDir = path.join(cwd, compConfig.aliases.components.replace('@/', 'src/'), 'ui');
+                // Instead of hardcoding 'src/', resolve relative to cwd + whatever prefix shadcn uses
+                const compAlias = compConfig.aliases.components.replace(/^[@~]\//, ''); 
+                componentsDir = path.join(resolvedAliasPath, compAlias, 'ui');
             }
             if (compConfig.aliases?.utils) {
-                libDir = path.join(cwd, compConfig.aliases.utils.replace('@/', 'src/').replace('/utils', ''));
+                const utilsAlias = compConfig.aliases.utils.replace(/^[@~]\//, '');
+                libDir = path.dirname(path.join(resolvedAliasPath, utilsAlias));
             }
         } catch { /* ignore parse errors */ }
     }
