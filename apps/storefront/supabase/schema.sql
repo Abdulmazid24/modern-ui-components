@@ -118,20 +118,30 @@ ALTER TABLE vault_webhook_events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE vault_analytics ENABLE ROW LEVEL SECURITY;
 
 -- Service role can do everything (API routes use service role key)
+-- We explicitly bind this to the service_role so anon keys have NO access.
+
+DROP POLICY IF EXISTS "Service role full access to vault_licenses" ON vault_licenses;
 CREATE POLICY "Service role full access to vault_licenses"
   ON vault_licenses FOR ALL
+  TO service_role
   USING (true) WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Service role full access to vault_downloads" ON vault_downloads;
 CREATE POLICY "Service role full access to vault_downloads"
   ON vault_downloads FOR ALL
+  TO service_role
   USING (true) WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Service role full access to vault_webhook_events" ON vault_webhook_events;
 CREATE POLICY "Service role full access to vault_webhook_events"
   ON vault_webhook_events FOR ALL
+  TO service_role
   USING (true) WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Service role full access to vault_analytics" ON vault_analytics;
 CREATE POLICY "Service role full access to vault_analytics"
   ON vault_analytics FOR ALL
+  TO service_role
   USING (true) WITH CHECK (true);
 
 -- ─── 6. Updated_at Trigger ──────────────────────────────────────
