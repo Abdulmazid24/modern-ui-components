@@ -50,8 +50,8 @@ export const AnimatedCarousel = React.forwardRef<any, AnimatedCarouselProps>(({ 
         if (count === 0) return null;
 
         return (
-        <div ref={ref} {...props} className={cn(className)} 
-          className={`anim-carousel-container ${className}`}
+        <div ref={ref} {...props} 
+          className={cn("anim-carousel-container", className)}
           onMouseEnter={() => pauseOnHover && setIsPaused(true)}
           onMouseLeave={() => pauseOnHover && setIsPaused(false)}
           role="region"
