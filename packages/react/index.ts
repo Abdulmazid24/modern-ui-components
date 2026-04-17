@@ -74,6 +74,7 @@ export * from './magnetic';
 export * from './magnifier';
 export * from './map-pin';
 export * from './marquee';
+export * from './menu';
 export * from './modal';
 export * from './multi-select';
 export * from './navbar';

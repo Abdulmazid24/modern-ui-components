@@ -5,5 +5,6 @@ export * from './DotsLoader';
 export * from './DoubleSpinner';
 export * from './GravityWellLoader';
 export * from './PulseLoader';
+export * from './PixelFlowLoader';
 export * from './Spinner';
 export * from './SquidGameLoaders';

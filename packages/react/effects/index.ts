@@ -7,3 +7,4 @@ export * from './TracingBeam';
 export * from './AnimatedConnectingBeam';
 export * from './RefractiveFluidSurface';
 export * from './LiquidImageMagnifier';
+export * from './NeuralPathTracer';

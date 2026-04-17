@@ -42,7 +42,13 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
    // Generate mock props based on category/title to prevent runtime crashes
    const getMockProps = () => {
       const cat = registryData.category;
-      if (cat === 'select') return { options: [{ value: '1', label: 'Option 1' }, { value: '2', label: 'Option 2' }] };
+      if (cat === 'select' || cat === 'input') return { 
+        options: [
+          { id: '1', label: 'Neural Core v1', category: 'Computing' }, 
+          { id: '2', label: 'Quantum Node B2', category: 'Network' },
+          { id: '3', label: 'Synapse Buffer', category: 'Memory' }
+        ] 
+      };
       if (cat === 'layout' || cat === 'accordion' || cat === 'tabs' || cat === 'timeline') return { items: [{ id: '1', label: 'Item 1', title: 'Item 1', content: 'Demo Content', date: '2026' }, { id: '2', label: 'Item 2', title: 'Item 2', content: 'Demo Content', date: '2027' }] };
       if (cat === 'tree-view') return { data: [{ id: '1', label: 'Folder A', isFolder: true, children: [{ id: '1-1', label: 'File.js' }] }] };
       if (cat === 'breadcrumbs') return { paths: [{ id: '1', label: 'Home' }, { id: '2', label: 'Features' }], activeId: '2' };
@@ -58,6 +64,13 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
         ]
       };
       if (cat === 'particle-bg') return { count: 12 };
+      if (cat === 'menu') return {
+        items: [
+          { id: '1', label: 'Home', icon: Plus },
+          { id: '2', label: 'Search', icon: Search },
+          { id: '3', label: 'Settings', icon: Settings }
+        ]
+      };
       
       // Default fallback for safe generic items
       const isCard = cat === 'card' || cat === 'tilt-card' || cat === 'pricing-cards';

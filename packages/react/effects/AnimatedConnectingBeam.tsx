@@ -33,8 +33,8 @@ export const AnimatedConnectingBeam = ({
       if (!containerRef || !containerRef.current) return;
       const containerRect = containerRef.current.getBoundingClientRect();
 
-      const newPaths = connections.map((conn) => {
-        if (!conn.fromRef.current || !conn.toRef.current) return "";
+      const newPaths = (connections || []).map((conn) => {
+        if (!conn?.fromRef?.current || !conn?.toRef?.current) return "";
         
         const fromRect = conn.fromRef.current.getBoundingClientRect();
         const toRect = conn.toRef.current.getBoundingClientRect();
