@@ -39,14 +39,18 @@ export interface TeamCarouselProps {
    Component
    ────────────────────────────────────────────── */
 
-export const TeamCarousel = React.forwardRef<any, TeamCarouselProps>(({ members, radius = 320, cardWidth = 260, cardHeight = 340, autoPlay = 0, heading = 'OUR TEAM', activeIndex: controlledIndex, onChange, className = '', ...props }, ref) => {
+export const TeamCarousel = React.forwardRef<any, TeamCarouselProps>(({ members = [], radius = 320, cardWidth = 260, cardHeight = 340, autoPlay = 0, heading = 'OUR TEAM', activeIndex: controlledIndex, onChange, className = '', ...props }, ref) => {
         const [internalIndex, setInternalIndex] = useState(0);
         const isControlled = controlledIndex !== undefined;
         const activeIndex = isControlled ? controlledIndex : internalIndex;
         const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
         const count = members.length;
-        const angleStep = 360 / count;
+        const angleStep = count > 0 ? 360 / count : 0;
+
+        if (count === 0) {
+          return <div ref={ref} {...props} className={className}><p style={{ color: '#71717a', textAlign: 'center', padding: '2rem' }}>No team members provided.</p></div>;
+        }
 
         const goTo = useCallback(
         (idx: number) => {

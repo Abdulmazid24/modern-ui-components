@@ -1,0 +1,30 @@
+{
+  "name": "atmosphericblur",
+  "title": "Atmospheric Blur",
+  "category": "progressive-blur",
+  "description": "A premium, animated Atmospheric Blur component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "AtmosphericBlur.tsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\nexport interface AtmosphericBlurProps { readonly direction?: \"top\" | \"bottom\" | \"left\" | \"right\"; readonly intensity?: number; readonly height?: number; readonly className?: string; }\n\n/** AtmosphericBlur — A progressive blur overlay that gradually blurs content from one edge, creating depth of field. */\nexport const AtmosphericBlur = React.forwardRef<HTMLDivElement, AtmosphericBlurProps>(\n  ({ className, direction = \"bottom\", intensity = 12, height = 200, ...props }, ref) => {\n    const dirMap = { top: \"to top\", bottom: \"to bottom\", left: \"to left\", right: \"to right\" };\n    const posMap = { top: \"top-0 left-0 right-0\", bottom: \"bottom-0 left-0 right-0\", left: \"left-0 top-0 bottom-0\", right: \"right-0 top-0 bottom-0\" };\n    const sizeMap = { top: { height }, bottom: { height }, left: { width: height }, right: { width: height } };\n\n    return (\n      <div ref={ref} {...props} className={cn(\"absolute pointer-events-none z-20\", posMap[direction], className)} style={sizeMap[direction]}>\n        {Array.from({ length: 6 }).map((_, i) => (\n          <div key={i} className=\"absolute inset-0\" style={{\n            backdropFilter: `blur(${(i / 5) * intensity}px)`,\n            maskImage: `linear-gradient(${dirMap[direction]}, rgba(0,0,0,${i / 5}) ${(i / 6) * 100}%, rgba(0,0,0,${(i + 1) / 5}) ${((i + 1) / 6) * 100}%, transparent ${((i + 1) / 6) * 100 + 1}%)`,\n            WebkitMaskImage: `linear-gradient(${dirMap[direction]}, rgba(0,0,0,${i / 5}) ${(i / 6) * 100}%, rgba(0,0,0,${(i + 1) / 5}) ${((i + 1) / 6) * 100}%, transparent ${((i + 1) / 6) * 100 + 1}%)`,\n          }} />\n        ))}\n      </div>\n    );\n  }\n);\nAtmosphericBlur.displayName = \"AtmosphericBlur\";\n"
+        }
+      ],
+      "dependencies": []
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "AtmosphericBlur.jsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\n/** AtmosphericBlur — A progressive blur overlay that gradually blurs content from one edge, creating depth of field. */\nexport const AtmosphericBlur = React.forwardRef<HTMLDivElement, AtmosphericBlurProps>(\n  ({ className, direction = \"bottom\", intensity = 12, height = 200, ...props }, ref) => {\n    const dirMap = { top: \"to top\", bottom: \"to bottom\", left: \"to left\", right: \"to right\" };\n    const posMap = { top: \"top-0 left-0 right-0\", bottom: \"bottom-0 left-0 right-0\", left: \"left-0 top-0 bottom-0\", right: \"right-0 top-0 bottom-0\" };\n    const sizeMap = { top, bottom, left, right };\n\n    return (\n      <div ref={ref} {...props} className={cn(\"absolute pointer-events-none z-20\", posMap[direction], className)} style={sizeMap[direction]}>\n        {Array.from({ length: 6 }).map((_, i) => (\n          <div key={i} className=\"absolute inset-0\" style={{\n            backdropFilter: `blur(${(i / 5) * intensity}px)`,\n            maskImage: `linear-gradient(${dirMap[direction]}, rgba(0,0,0,${i / 5}) ${(i / 6) * 100}%, rgba(0,0,0,${(i + 1) / 5}) ${((i + 1) / 6) * 100}%, transparent ${((i + 1) / 6) * 100 + 1}%)`,\n            WebkitMaskImage: `linear-gradient(${dirMap[direction]}, rgba(0,0,0,${i / 5}) ${(i / 6) * 100}%, rgba(0,0,0,${(i + 1) / 5}) ${((i + 1) / 6) * 100}%, transparent ${((i + 1) / 6) * 100 + 1}%)`,\n          }} />\n        ))}\n      </div>\n    );\n  }\n);\nAtmosphericBlur.displayName = \"AtmosphericBlur\";"
+        }
+      ],
+      "dependencies": []
+    }
+  },
+  "preview": {}
+}

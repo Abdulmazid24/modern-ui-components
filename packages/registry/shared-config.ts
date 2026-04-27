@@ -114,6 +114,8 @@ export const PRO_COMPONENTS: string[] = [
   // Navigation
   "atmospherichalonav",
   "magneticliquiddock",
+  "holographicmenubar",
+  "dimensionalnavigationmenu",
   // Loaders
   "accretiondiskloader",
   "bioluminescentmycelium",
@@ -137,7 +139,61 @@ export const PRO_COMPONENTS: string[] = [
   "magnetickanban",
   "hackerterminal",
   "hapticdial",
+  // ─── New God-Tier Components (April 2026) ──────────────────
+  // High Priority — Complex Enterprise
+  "quantumlabel",
+  "realitytearalertdialog",
+  "synapticmentions",
+  "gravitytransferlist",
+  "neuralinputgroup",
+  // Medium Priority — Advanced Interactions
+  "holographicguidedtour",
+  "orbitingfloatbutton",
+  "vortexpopconfirm",
+  // Nice to Have — Premium Visual Effects
+  "nebulaeiconcloud",
+  "celestiallamp",
+  "cinematicmacbookscroll",
+  "cosmicheroparallax",
+  "cosmiccoolmode",
+  // Phase 2: Professional Components
+  "quantumhero",
+  "kinetictestimonial",
+  "neuralnotificationcenter",
+  "holographicfaq",
+  "cosmicctabanner",
+  "bentofeaturegrid",
+  "holographiclogocloud",
+  "kineticteamgrid",
+  "neuralcontactform",
+  "plasmanewsletter",
+  "holographiccookieconsent",
+  "quantumbacktotop",
+  "kineticblockquote",
+  "neoncodehighlight",
+  "neuraluserprofile",
+  "neonstatcard",
+  "quantumdatacard",
+  "neonhighlight",
+  "quantumeditabletext",
+  "plasmataginput",
+  "holographiclinkpreview",
+  "dimensionalsettingspanel",
+  "threadedcomment",
+  "holographicwizard",
+  // Phase 3: Competitive Components
+  "cosmiccomparisontable",
+  "dimensionalchangelog",
+  "quantumroadmap",
+  "holographicmasonry",
+  "plasmasplitter",
+  "nebulamarqueetestimonials",
+  "prismaticpricingtoggle",
+  "enterpriseappshell",
+  "cinematicpageheader",
+  "orbitordertracker",
 ];
+
 
 /**
  * Check if a component slug is in the Pro tier.

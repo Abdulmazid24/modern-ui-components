@@ -1,0 +1,34 @@
+{
+  "name": "quantummorphtext",
+  "title": "Quantum Morph Text",
+  "category": "morphing-text",
+  "description": "QuantumMorphText — Text that morphs between multiple strings with per-character stagger and blur transitions. Each character dissolves and re-forms individually, creating a \"quantum teleportation\" effect. Inspired by Magic UI's Morphing Text.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "QuantumMorphText.tsx",
+          "content": "\"use client\";\n\nimport React, { useState, useEffect, useRef, useCallback } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nconst MORPH_SPRING = { type: \"spring\", stiffness: 100, damping: 15 } as const;\nconst DEFAULT_INTERVAL_MS = 3000;\nconst CHAR_STAGGER_SECONDS = 0.03;\n\nexport interface QuantumMorphTextProps {\n  texts: readonly string[];\n  interval?: number;\n  className?: string;\n}\n\n/**\n * QuantumMorphText — Text that morphs between multiple strings with\n * per-character stagger and blur transitions. Each character dissolves\n * and re-forms individually, creating a \"quantum teleportation\" effect.\n * Inspired by Magic UI's Morphing Text.\n */\nexport const QuantumMorphText = React.forwardRef<\n  HTMLDivElement,\n  QuantumMorphTextProps\n>(({ className, texts, interval = DEFAULT_INTERVAL_MS, ...props }, ref) => {\n  const [currentIndex, setCurrentIndex] = useState(0);\n  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);\n\n  const startCycle = useCallback(() => {\n    timerRef.current = setInterval(() => {\n      setCurrentIndex((prev) => (prev + 1) % texts.length);\n    }, interval);\n  }, [texts.length, interval]);\n\n  useEffect(() => {\n    startCycle();\n    return () => {\n      if (timerRef.current) clearInterval(timerRef.current);\n    };\n  }, [startCycle]);\n\n  const currentText = texts[currentIndex];\n\n  return (\n    <div\n      ref={ref}\n      {...props}\n      className={cn(\"relative inline-flex overflow-hidden\", className)}\n    >\n      <AnimatePresence mode=\"wait\">\n        <motion.div\n          key={currentText}\n          className=\"flex\"\n          initial=\"hidden\"\n          animate=\"visible\"\n          exit=\"exit\"\n          variants={{\n            visible: { transition: { staggerChildren: CHAR_STAGGER_SECONDS } },\n            exit: { transition: { staggerChildren: CHAR_STAGGER_SECONDS, staggerDirection: -1 } },\n          }}\n        >\n          {currentText.split(\"\").map((char, i) => (\n            <motion.span\n              key={`${currentText}-${i}`}\n              className=\"inline-block whitespace-pre\"\n              variants={{\n                hidden: {\n                  opacity: 0,\n                  y: 20,\n                  filter: \"blur(12px)\",\n                  scale: 0.8,\n                },\n                visible: {\n                  opacity: 1,\n                  y: 0,\n                  filter: \"blur(0px)\",\n                  scale: 1,\n                },\n                exit: {\n                  opacity: 0,\n                  y: -20,\n                  filter: \"blur(12px)\",\n                  scale: 0.8,\n                },\n              }}\n              transition={MORPH_SPRING}\n            >\n              {char}\n            </motion.span>\n          ))}\n        </motion.div>\n      </AnimatePresence>\n    </div>\n  );\n});\n\nQuantumMorphText.displayName = \"QuantumMorphText\";\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "QuantumMorphText.jsx",
+          "content": "\"use client\";\n\nimport React, { useState, useEffect, useRef, useCallback } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nconst MORPH_SPRING = { type: \"spring\", stiffness: 100, damping: 15 };\nconst DEFAULT_INTERVAL_MS = 3000;\nconst CHAR_STAGGER_SECONDS = 0.03;\n\n  interval?;\n  className?;\n}\n\n/**\n * QuantumMorphText — Text that morphs between multiple strings with\n * per-character stagger and blur transitions. Each character dissolves\n * and re-forms individually, creating a \"quantum teleportation\" effect.\n * Inspired by Magic UI's Morphing Text.\n */\nexport const QuantumMorphText = React.forwardRef<\n  HTMLDivElement,\n  QuantumMorphTextProps\n>(({ className, texts, interval = DEFAULT_INTERVAL_MS, ...props }, ref) => {\n  const [currentIndex, setCurrentIndex] = useState(0);\n  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);\n\n  const startCycle = useCallback(() => {\n    timerRef.current = setInterval(() => {\n      setCurrentIndex((prev) => (prev + 1) % texts.length);\n    }, interval);\n  }, [texts.length, interval]);\n\n  useEffect(() => {\n    startCycle();\n    return () => {\n      if (timerRef.current) clearInterval(timerRef.current);\n    };\n  }, [startCycle]);\n\n  const currentText = texts[currentIndex];\n\n  return (\n    <div\n      ref={ref}\n      {...props}\n      className={cn(\"relative inline-flex overflow-hidden\", className)}\n    >\n      <AnimatePresence mode=\"wait\">\n        <motion.div\n          key={currentText}\n          className=\"flex\"\n          initial=\"hidden\"\n          animate=\"visible\"\n          exit=\"exit\"\n          variants={{\n            visible },\n            exit },\n          }}\n        >\n          {currentText.split(\"\").map((char, i) => (\n            <motion.span\n              key={`${currentText}-${i}`}\n              className=\"inline-block whitespace-pre\"\n              variants={{\n                hidden,\n                visible,\n                exit,\n              }}\n              transition={MORPH_SPRING}\n            >\n              {char}\n            </motion.span>\n          ))}\n        </motion.div>\n      </AnimatePresence>\n    </div>\n  );\n});\n\nQuantumMorphText.displayName = \"QuantumMorphText\";"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

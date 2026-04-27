@@ -1,0 +1,36 @@
+{
+  "name": "kineticblockquote",
+  "title": "Kinetic Blockquote",
+  "category": "blockquote",
+  "description": "A premium, animated Kinetic Blockquote component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "KineticBlockquote.tsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { Quote } from \"lucide-react\";\nimport { cn } from \"../utils\";\n\nexport interface KineticBlockquoteProps {\n  readonly children: React.ReactNode;\n  readonly author?: string;\n  readonly source?: string;\n  readonly gradient?: boolean;\n  readonly className?: string;\n}\n\n/** KineticBlockquote — Animated blockquote with neon accent line and floating quote mark. */\nexport const KineticBlockquote = React.forwardRef<HTMLQuoteElement, KineticBlockquoteProps>(\n  ({ className, children, author, source, gradient = true, ...props }, ref) => {\n    return (\n      <motion.blockquote \n        ref={ref} {...props} \n        initial={{ opacity: 0, x: -20 }}\n        whileInView={{ opacity: 1, x: 0 }}\n        viewport={{ once: true }}\n        transition={{ type: \"spring\", stiffness: 200, damping: 25 }}\n        className={cn(\"relative pl-6 sm:pl-8 py-2 my-8 group\", className)}\n      >\n        {/* Animated Left Border */}\n        <div className=\"absolute left-0 top-0 bottom-0 w-1 bg-zinc-800 rounded-full overflow-hidden\">\n          {gradient && (\n            <motion.div \n              initial={{ height: 0 }} whileInView={{ height: \"100%\" }} viewport={{ once: true }} transition={{ delay: 0.2, duration: 0.8 }}\n              className=\"absolute top-0 left-0 right-0 bg-gradient-to-b from-violet-500 to-cyan-400\" \n            />\n          )}\n        </div>\n\n        {/* Floating Quote Icon */}\n        <Quote className=\"absolute -top-3 -left-3 w-8 h-8 text-zinc-800/50 group-hover:text-violet-500/20 transition-colors duration-500 -rotate-12 pointer-events-none\" />\n\n        <div className=\"relative z-10 text-xl sm:text-2xl font-medium text-zinc-300 leading-relaxed italic\">\n          {children}\n        </div>\n\n        {(author || source) && (\n          <footer className=\"mt-4 flex items-center gap-2 text-sm\">\n            {author && <span className=\"font-semibold text-white\">{author}</span>}\n            {author && source && <span className=\"text-zinc-600\">—</span>}\n            {source && <cite className=\"text-zinc-500 not-italic\">{source}</cite>}\n          </footer>\n        )}\n      </motion.blockquote>\n    );\n  }\n);\nKineticBlockquote.displayName = \"KineticBlockquote\";\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "KineticBlockquote.jsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { Quote } from \"lucide-react\";\nimport { cn } from \"../utils\";\n\n  readonly author?;\n  readonly source?;\n  readonly gradient?;\n  readonly className?;\n}\n\n/** KineticBlockquote — Animated blockquote with neon accent line and floating quote mark. */\nexport const KineticBlockquote = React.forwardRef<HTMLQuoteElement, KineticBlockquoteProps>(\n  ({ className, children, author, source, gradient = true, ...props }, ref) => {\n    return (\n      <motion.blockquote \n        ref={ref} {...props} \n        initial={{ opacity: 0, x: -20 }}\n        whileInView={{ opacity: 1, x: 0 }}\n        viewport={{ once: true }}\n        transition={{ type: \"spring\", stiffness: 200, damping: 25 }}\n        className={cn(\"relative pl-6 sm:pl-8 py-2 my-8 group\", className)}\n      >\n        {/* Animated Left Border */}\n        <div className=\"absolute left-0 top-0 bottom-0 w-1 bg-zinc-800 rounded-full overflow-hidden\">\n          {gradient && (\n            <motion.div \n              initial={{ height: 0 }} whileInView={{ height: \"100%\" }} viewport={{ once: true }} transition={{ delay: 0.2, duration: 0.8 }}\n              className=\"absolute top-0 left-0 right-0 bg-gradient-to-b from-violet-500 to-cyan-400\" \n            />\n          )}\n        </div>\n\n        {/* Floating Quote Icon */}\n        <Quote className=\"absolute -top-3 -left-3 w-8 h-8 text-zinc-800/50 group-hover:text-violet-500/20 transition-colors duration-500 -rotate-12 pointer-events-none\" />\n\n        <div className=\"relative z-10 text-xl sm:text-2xl font-medium text-zinc-300 leading-relaxed italic\">\n          {children}\n        </div>\n\n        {(author || source) && (\n          <footer className=\"mt-4 flex items-center gap-2 text-sm\">\n            {author && <span className=\"font-semibold text-white\">{author}</span>}\n            {author && source && <span className=\"text-zinc-600\">—</span>}\n            {source && <cite className=\"text-zinc-500 not-italic\">{source}</cite>}\n          </footer>\n        )}\n      </motion.blockquote>\n    );\n  }\n);\nKineticBlockquote.displayName = \"KineticBlockquote\";"
+        }
+      ],
+      "dependencies": [
+        "framer-motion",
+        "lucide-react"
+      ]
+    }
+  },
+  "preview": {}
+}

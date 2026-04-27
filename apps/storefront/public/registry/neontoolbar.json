@@ -1,0 +1,34 @@
+{
+  "name": "neontoolbar",
+  "title": "Neon Toolbar",
+  "category": "toolbar",
+  "description": "A premium, animated Neon Toolbar component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "NeonToolbar.tsx",
+          "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nexport interface NeonToolbarProps { readonly children: React.ReactNode; readonly orientation?: \"horizontal\" | \"vertical\"; readonly className?: string; }\n\n/** NeonToolbar — A glowing toolbar container that unifies buttons, toggles, and controls with a shared neon border beam and glass surface. */\nexport const NeonToolbar = React.forwardRef<HTMLDivElement, NeonToolbarProps>(\n  ({ className, children, orientation = \"horizontal\", ...props }, ref) => (\n    <div ref={ref} {...props}\n      className={cn(\"relative inline-flex items-center gap-1 p-1.5 rounded-2xl bg-zinc-950/80 backdrop-blur-2xl border border-zinc-800/60 overflow-hidden\",\n        orientation === \"vertical\" && \"flex-col\", className)}>\n      <div className=\"absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent\" />\n      <div className=\"absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none\" />\n      {React.Children.map(children, (child) => (\n        <div className=\"relative z-10\">{child}</div>\n      ))}\n    </div>\n  )\n);\nNeonToolbar.displayName = \"NeonToolbar\";\n\nexport interface ToolbarButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> { readonly active?: boolean; }\nexport const ToolbarButton = React.forwardRef<HTMLButtonElement, ToolbarButtonProps>(\n  ({ className, active, children, ...props }, ref) => (\n    <motion.button ref={ref} {...props} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}\n      className={cn(\"px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer\",\n        active ? \"bg-violet-500/15 text-violet-300 border border-violet-500/20\" : \"text-zinc-500 hover:text-zinc-200 hover:bg-white/5 border border-transparent\", className)}>\n      {children}\n    </motion.button>\n  )\n);\nToolbarButton.displayName = \"ToolbarButton\";\n\nexport const ToolbarSeparator = ({ className }: { className?: string }) => (\n  <div className={cn(\"w-px h-5 bg-zinc-800 mx-0.5\", className)} />\n);\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "NeonToolbar.jsx",
+          "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n/** NeonToolbar — A glowing toolbar container that unifies buttons, toggles, and controls with a shared neon border beam and glass surface. */\nexport const NeonToolbar = React.forwardRef<HTMLDivElement, NeonToolbarProps>(\n  ({ className, children, orientation = \"horizontal\", ...props }, ref) => (\n    <div ref={ref} {...props}\n      className={cn(\"relative inline-flex items-center gap-1 p-1.5 rounded-2xl bg-zinc-950/80 backdrop-blur-2xl border border-zinc-800/60 overflow-hidden\",\n        orientation === \"vertical\" && \"flex-col\", className)}>\n      <div className=\"absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent\" />\n      <div className=\"absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none\" />\n      {React.Children.map(children, (child) => (\n        <div className=\"relative z-10\">{child}</div>\n      ))}\n    </div>\n  )\n);\nNeonToolbar.displayName = \"NeonToolbar\";\n\nexport const ToolbarButton = React.forwardRef<HTMLButtonElement, ToolbarButtonProps>(\n  ({ className, active, children, ...props }, ref) => (\n    <motion.button ref={ref} {...props} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}\n      className={cn(\"px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer\",\n        active ? \"bg-violet-500/15 text-violet-300 border border-violet-500/20\" : \"text-zinc-500 hover:text-zinc-200 hover:bg-white/5 border border-transparent\", className)}>\n      {children}\n    </motion.button>\n  )\n);\nToolbarButton.displayName = \"ToolbarButton\";\n\nexport const ToolbarSeparator = ({ className }) => (\n  <div className={cn(\"w-px h-5 bg-zinc-800 mx-0.5\", className)} />\n);"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

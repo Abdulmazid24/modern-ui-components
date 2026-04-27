@@ -1,0 +1,34 @@
+{
+  "name": "laserscrollprogress",
+  "title": "Laser Scroll Progress",
+  "category": "scroll-progress",
+  "description": "LaserScrollProgress — A razor-thin, glowing scroll progress indicator that sits at the top or bottom of the viewport. Uses spring physics for buttery-smooth tracking. Inspired by Magic UI's Scroll Progress, enhanced with our vault's neon laser aesthetic.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "LaserScrollProgress.tsx",
+          "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion, useScroll, useSpring } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nconst PROGRESS_SPRING = { stiffness: 200, damping: 30, restDelta: 0.001 } as const;\nconst GLOW_COLOR_START = \"#8b5cf6\";\nconst GLOW_COLOR_END = \"#06b6d4\";\n\nexport interface LaserScrollProgressProps {\n  position?: \"top\" | \"bottom\";\n  height?: number;\n  className?: string;\n}\n\n/**\n * LaserScrollProgress — A razor-thin, glowing scroll progress indicator\n * that sits at the top or bottom of the viewport. Uses spring physics\n * for buttery-smooth tracking. Inspired by Magic UI's Scroll Progress,\n * enhanced with our vault's neon laser aesthetic.\n */\nexport const LaserScrollProgress = React.forwardRef<\n  HTMLDivElement,\n  LaserScrollProgressProps\n>(({ className, position = \"top\", height = 3, ...props }, ref) => {\n  const { scrollYProgress } = useScroll();\n  const scaleX = useSpring(scrollYProgress, PROGRESS_SPRING);\n\n  return (\n    <div\n      ref={ref}\n      {...props}\n      className={cn(\n        \"fixed left-0 right-0 z-[100] pointer-events-none\",\n        position === \"top\" ? \"top-0\" : \"bottom-0\",\n        className\n      )}\n    >\n      <motion.div\n        className=\"origin-left\"\n        style={{\n          scaleX,\n          height,\n          background: `linear-gradient(90deg, ${GLOW_COLOR_START}, ${GLOW_COLOR_END})`,\n          boxShadow: `0 0 15px ${GLOW_COLOR_START}, 0 0 30px ${GLOW_COLOR_END}`,\n        }}\n      />\n    </div>\n  );\n});\n\nLaserScrollProgress.displayName = \"LaserScrollProgress\";\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "LaserScrollProgress.jsx",
+          "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion, useScroll, useSpring } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nconst PROGRESS_SPRING = { stiffness: 200, damping: 30, restDelta: 0.001 };\nconst GLOW_COLOR_START = \"#8b5cf6\";\nconst GLOW_COLOR_END = \"#06b6d4\";\n\n  height?;\n  className?;\n}\n\n/**\n * LaserScrollProgress — A razor-thin, glowing scroll progress indicator\n * that sits at the top or bottom of the viewport. Uses spring physics\n * for buttery-smooth tracking. Inspired by Magic UI's Scroll Progress,\n * enhanced with our vault's neon laser aesthetic.\n */\nexport const LaserScrollProgress = React.forwardRef<\n  HTMLDivElement,\n  LaserScrollProgressProps\n>(({ className, position = \"top\", height = 3, ...props }, ref) => {\n  const { scrollYProgress } = useScroll();\n  const scaleX = useSpring(scrollYProgress, PROGRESS_SPRING);\n\n  return (\n    <div\n      ref={ref}\n      {...props}\n      className={cn(\n        \"fixed left-0 right-0 z-[100] pointer-events-none\",\n        position === \"top\" ? \"top-0\" : \"bottom-0\",\n        className\n      )}\n    >\n      <motion.div\n        className=\"origin-left\"\n        style={{\n          scaleX,\n          height,\n          background: `linear-gradient(90deg, ${GLOW_COLOR_START}, ${GLOW_COLOR_END})`,\n          boxShadow: `0 0 15px ${GLOW_COLOR_START}, 0 0 30px ${GLOW_COLOR_END}`,\n        }}\n      />\n    </div>\n  );\n});\n\nLaserScrollProgress.displayName = \"LaserScrollProgress\";"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

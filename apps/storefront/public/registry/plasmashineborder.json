@@ -1,0 +1,30 @@
+{
+  "name": "plasmashineborder",
+  "title": "Plasma Shine Border",
+  "category": "shine-border",
+  "description": "A premium, animated Plasma Shine Border component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "PlasmaShineBorder.tsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\nexport interface PlasmaShineBorderProps { readonly color?: string; readonly speed?: number; readonly children: React.ReactNode; readonly className?: string; }\n\n/** PlasmaShineBorder — A border with a rotating shine beam that orbits the element's perimeter using conic gradient animation. */\nexport const PlasmaShineBorder = React.forwardRef<HTMLDivElement, PlasmaShineBorderProps>(\n  ({ className, color = \"#8b5cf6\", speed = 3, children, ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"relative rounded-2xl p-px overflow-hidden\", className)}>\n      <div className=\"absolute inset-0 rounded-2xl\" style={{\n        background: `conic-gradient(from 0deg, transparent 70%, ${color} 85%, transparent 100%)`,\n        animation: `shine-rotate ${speed}s linear infinite`,\n      }} />\n      <div className=\"relative z-10 bg-zinc-950 rounded-[calc(1rem-1px)] h-full\">{children}</div>\n      <style>{`@keyframes shine-rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>\n    </div>\n  )\n);\nPlasmaShineBorder.displayName = \"PlasmaShineBorder\";\n"
+        }
+      ],
+      "dependencies": []
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "PlasmaShineBorder.jsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\n/** PlasmaShineBorder — A border with a rotating shine beam that orbits the element's perimeter using conic gradient animation. */\nexport const PlasmaShineBorder = React.forwardRef<HTMLDivElement, PlasmaShineBorderProps>(\n  ({ className, color = \"#8b5cf6\", speed = 3, children, ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"relative rounded-2xl p-px overflow-hidden\", className)}>\n      <div className=\"absolute inset-0 rounded-2xl\" style={{\n        background: `conic-gradient(from 0deg, transparent 70%, ${color} 85%, transparent 100%)`,\n        animation: `shine-rotate ${speed}s linear infinite`,\n      }} />\n      <div className=\"relative z-10 bg-zinc-950 rounded-[calc(1rem-1px)] h-full\">{children}</div>\n      <style>{`@keyframes shine-rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>\n    </div>\n  )\n);\nPlasmaShineBorder.displayName = \"PlasmaShineBorder\";"
+        }
+      ],
+      "dependencies": []
+    }
+  },
+  "preview": {}
+}

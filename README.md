@@ -1,71 +1,91 @@
-# 🚀 Modern UI Vault (Universe 2026 Edition)
+# 🚀 Modern UI Vault (Universe 2026)
 
-A high-performance, enterprise-grade UI ecosystem featuring **472+ pro-grade components**. Built for the future with **Next.js**, **Framer Motion**, **Tailwind CSS v4**, and **Zero-Dependency Refraction Logic**.
+An enterprise-grade UI ecosystem featuring **370+ pro-grade components** across **234 categories**. Engineered for the next generation of web interfaces using **Next.js**, **Framer Motion**, and **Tailwind CSS v4**.
 
-Build interfaces that feel like living matter. Stop building websites—start building portals.
+Unlike traditional component libraries, Modern UI Vault provides **raw source code ownership**. Use our CLI to inject high-performance, physics-based components directly into your codebase.
 
----
-
-## 💎 The Three Pillars of Distinction
-
-| Tier | Complexity | Purpose | Interaction Level |
-| :--- | :--- | :--- | :--- |
-| **Standard** | High | Base UI elements, forms, and layouts. | Smooth & Reliable |
-| **Legendary** | Extreme | High-impact visuals, 1-to-Many beams, and particle-bg. | Mesmerizing |
-| **God-Tier** | Science-Fiction | Liquid Glass, Mechanical Iris, and Synaptic Graphs. | Portal-Grade |
+### ✨ Recent Additions (April 2026)
+- **Phase 1: Enterprise Foundations** (Typography, Grids, Advanced Inputs, Pickers)
+- **Phase 2: Professional Components** (Hero Sections, Bento Grids, Wizards, Dashboards)
+- **Phase 3: Competitive Edge** (Pricing Matrix, Splitters, Roadmaps, Holographic Masonry)
 
 ---
 
-## ⚡ Why Modern UI Vault?
+## 🏗️ Architecture Overview
 
-Unlike other libraries that rely on heavy WebGL dependencies or copy-pasted shadcn clones, **Modern UI Vault** is built from the ground up using **Pseudo-3D Canvas** and **Refractive CSS Logic**.
+The project is structured as a high-performance monorepo using **npm workspaces** and **Turborepo** (optional):
 
-| Feature | Modern UI Vault | Others (MagicUI, etc.) |
-| :--- | :--- | :--- |
-| **Components** | **472+** | ~50 - 150 |
-| **Architecture** | Zero-Dependency Portability | Heavy Three.js / External deps |
-| **Navigation** | Apple-style Card Selection | Standard Sidebar |
-| **Audio** | Spatial Audio Hooks included | No native support |
-| **Design** | 2026 Futuristic Universe | Modern SaaS |
-| **Copyright** | **Zero Copyright Policy** | Often semi-restricted |
+- `apps/storefront`: Next.js 16 (App Router) documentation and registry server.
+- `packages/react`: The core component library (139+ unique assets).
+- `packages/cli`: The `modern-ui-vault` command-line interface.
+- `packages/registry`: Type definitions and schema for the component distribution system.
+- `scripts/`: Advanced AST-based tools for registry building and code refactoring.
 
 ---
 
-## 🛠️ Quick Start
+## 🛠️ Tech Stack
 
-Copy-paste logic at its peak. Inject raw `.tsx` directly into your codebase.
+- **Framework**: [Next.js 16](https://nextjs.org/) (React 19)
+- **Animation**: [Framer Motion 12](https://www.framer.com/motion/) (Physics-based springs)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Type Safety**: [TypeScript 5.9](https://www.typescriptlang.org/) (Strict Mode)
+- **Testing**: [Vitest](https://vitest.dev/) + React Testing Library
 
-### 1. Initialization
+---
+
+## ⚡ Quick Start (Consumer)
+
+### 1. Initialize Project
 ```bash
 npx modern-ui-vault init
 ```
+*This installs core dependencies (`framer-motion`, `lucide-react`, `clsx`, `tailwind-merge`) and creates `components.json`.*
 
-### 2. Add Standard Components
+### 2. Add Components
 ```bash
-npx modern-ui-vault add stripe-mega-menu
-```
-
-### 3. Add God-Tier / Legendary Components
-```bash
-npx modern-ui-vault add mechanical-iris-portal
-npx modern-ui-vault add refractive-fluid-surface
+npx modern-ui-vault add neon-tilt-card
 ```
 
 ---
 
-## 🛡️ Zero Copyright Policy
-Every line of code in this vault is mathematically generated or custom-crafted. We utilize NO third-party copyrighted assets or proprietary logic. 
-- **100% Commercial Freedom**: Use it for SaaS, Enterprise internal tools, or high-end agency work.
-- **Audit-Ready**: Clean source code without licensing bloat.
+## 💻 Local Development (Contributor)
+
+### Prerequisites
+- Node.js 20+
+- PowerShell 7+ (for Windows users)
+
+### Setup
+```powershell
+# Install dependencies
+npm install
+
+# Start the storefront (Docs & Registry)
+npm run dev
+```
+
+### Registry Management
+Whenever you add or modify a component in `packages/react`, you must rebuild the registry:
+```bash
+npm run registry:build
+```
 
 ---
 
-## 🤝 The Support Ecosystem
+## 🛡️ Engineering Standards
+
+- **Zero-Dependency Core**: Components should rely on internal utils (`cn()`) and core peer-deps only.
+- **Refractive Logic**: Use `useMotionValue` and `useSpring` for buttery smooth 60fps interactions.
+- **Accessibility**: All interactive elements must follow WAI-ARIA patterns.
+- **Theme Support**: First-class support for `dark` and `light` modes via Tailwind variables.
+
+---
+
+## 🤝 Support & Enterprise
 
 - **Pro Updates**: 1 year of continuous legendary additions.
-- **Enterprise Support**: Custom component requests and optimization audits.
-- **Spatial Audio**: Enable immersive sounds using the `enableAudio` prop on supported components.
+- **Custom Audits**: Performance and UX optimization for enterprise clients.
+- **Contact**: engineering@modern-ui-vault.dev
 
 ---
-
-*Built with passion by the Advanced Coding Team. (c) 2026 UI Universe.*
+*Built with passion by the Advanced Coding Team. © 2026 UI Universe.*

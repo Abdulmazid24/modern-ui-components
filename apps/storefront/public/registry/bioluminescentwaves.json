@@ -1,0 +1,30 @@
+{
+  "name": "bioluminescentwaves",
+  "title": "Bioluminescent Waves",
+  "category": "wavy-background",
+  "description": "A premium, animated Bioluminescent Waves component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "BioluminescentWaves.tsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\nexport interface BioluminescentWavesProps { readonly color?: string; readonly layers?: number; readonly className?: string; }\n\n/** BioluminescentWaves — Animated wavy background with bioluminescent glow. Uses CSS keyframes for buttery performance. */\nexport const BioluminescentWaves = React.forwardRef<HTMLDivElement, BioluminescentWavesProps>(\n  ({ className, color = \"#8b5cf6\", layers = 3, ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"absolute inset-0 overflow-hidden pointer-events-none\", className)}>\n      {Array.from({ length: layers }).map((_, i) => (\n        <div key={i} className=\"absolute inset-0\" style={{\n          background: `linear-gradient(180deg, transparent 60%, ${color}${Math.round(8 + i * 4).toString(16).padStart(2, \"0\")} 100%)`,\n          maskImage: `url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='white' d='M0,${192 + i * 30}L48,${208 + i * 20}C96,${224 + i * 10},192,${256 - i * 15},288,${240 + i * 10}C384,${224 + i * 5},480,${176 - i * 10},576,${176 + i * 15}C672,${176 + i * 5},768,${224 - i * 10},864,${224 + i * 8}C960,${224 - i * 5},1056,${176 + i * 10},1152,${160 + i * 12}C1248,${144 + i * 8},1344,${160 - i * 5},1392,${168 + i * 6}L1440,${176 + i * 10}L1440,320L0,320Z'/%3E%3C/svg%3E\")`,\n          WebkitMaskImage: `url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='white' d='M0,${192 + i * 30}L48,${208 + i * 20}C96,${224 + i * 10},192,${256 - i * 15},288,${240 + i * 10}C384,${224 + i * 5},480,${176 - i * 10},576,${176 + i * 15}C672,${176 + i * 5},768,${224 - i * 10},864,${224 + i * 8}C960,${224 - i * 5},1056,${176 + i * 10},1152,${160 + i * 12}C1248,${144 + i * 8},1344,${160 - i * 5},1392,${168 + i * 6}L1440,${176 + i * 10}L1440,320L0,320Z'/%3E%3C/svg%3E\")`,\n          maskSize: \"100% 100%\",\n          animation: `wave-drift ${12 + i * 4}s ease-in-out infinite alternate`,\n        }} />\n      ))}\n      <style>{`@keyframes wave-drift { 0% { transform: translateX(0); } 100% { transform: translateX(-3%); } }`}</style>\n    </div>\n  )\n);\nBioluminescentWaves.displayName = \"BioluminescentWaves\";\n"
+        }
+      ],
+      "dependencies": []
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "BioluminescentWaves.jsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\n/** BioluminescentWaves — Animated wavy background with bioluminescent glow. Uses CSS keyframes for buttery performance. */\nexport const BioluminescentWaves = React.forwardRef<HTMLDivElement, BioluminescentWavesProps>(\n  ({ className, color = \"#8b5cf6\", layers = 3, ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"absolute inset-0 overflow-hidden pointer-events-none\", className)}>\n      {Array.from({ length: layers }).map((_, i) => (\n        <div key={i} className=\"absolute inset-0\" style={{\n          background: `linear-gradient(180deg, transparent 60%, ${color}${Math.round(8 + i * 4).toString(16).padStart(2, \"0\")} 100%)`,\n          maskImage: `url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='white' d='M0,${192 + i * 30}L48,${208 + i * 20}C96,${224 + i * 10},192,${256 - i * 15},288,${240 + i * 10}C384,${224 + i * 5},480,${176 - i * 10},576,${176 + i * 15}C672,${176 + i * 5},768,${224 - i * 10},864,${224 + i * 8}C960,${224 - i * 5},1056,${176 + i * 10},1152,${160 + i * 12}C1248,${144 + i * 8},1344,${160 - i * 5},1392,${168 + i * 6}L1440,${176 + i * 10}L1440,320L0,320Z'/%3E%3C/svg%3E\")`,\n          WebkitMaskImage: `url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='white' d='M0,${192 + i * 30}L48,${208 + i * 20}C96,${224 + i * 10},192,${256 - i * 15},288,${240 + i * 10}C384,${224 + i * 5},480,${176 - i * 10},576,${176 + i * 15}C672,${176 + i * 5},768,${224 - i * 10},864,${224 + i * 8}C960,${224 - i * 5},1056,${176 + i * 10},1152,${160 + i * 12}C1248,${144 + i * 8},1344,${160 - i * 5},1392,${168 + i * 6}L1440,${176 + i * 10}L1440,320L0,320Z'/%3E%3C/svg%3E\")`,\n          maskSize: \"100% 100%\",\n          animation: `wave-drift ${12 + i * 4}s ease-in-out infinite alternate`,\n        }} />\n      ))}\n      <style>{`@keyframes wave-drift { 0% { transform: translateX(0); } 100% { transform: translateX(-3%); } }`}</style>\n    </div>\n  )\n);\nBioluminescentWaves.displayName = \"BioluminescentWaves\";"
+        }
+      ],
+      "dependencies": []
+    }
+  },
+  "preview": {}
+}

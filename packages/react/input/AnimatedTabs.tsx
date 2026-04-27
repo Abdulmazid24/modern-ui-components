@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from "@/lib/utils";
 
-export interface TabItem {
+export interface AnimatedTabItem {
   id: string;
   label: string;
   icon?: React.ReactNode;
@@ -11,7 +11,7 @@ export interface TabItem {
 }
 
 export interface AnimatedTabsProps {
-  tabs: TabItem[];
+  tabs: AnimatedTabItem[];
   activeTab?: string;
   onChange?: (tabId: string) => void;
   variant?: 'pill' | 'underline' | 'glow';

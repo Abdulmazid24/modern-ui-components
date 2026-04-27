@@ -1,0 +1,30 @@
+{
+  "name": "celestialmeteors",
+  "title": "Celestial Meteors",
+  "category": "meteors",
+  "description": "A premium, animated Celestial Meteors component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "CelestialMeteors.tsx",
+          "content": "\"use client\";\nimport React, { useMemo } from \"react\";\nimport { cn } from \"../utils\";\n\nexport interface CelestialMeteorsProps { readonly count?: number; readonly className?: string; }\n\n/** CelestialMeteors — Shooting star / meteor shower with CSS-only animation for zero-JS overhead. */\nexport const CelestialMeteors = React.forwardRef<HTMLDivElement, CelestialMeteorsProps>(\n  ({ className, count = 12, ...props }, ref) => {\n    const meteors = useMemo(() => Array.from({ length: count }).map((_, i) => ({\n      id: i, left: `${Math.random() * 100}%`, delay: `${Math.random() * 5}s`, duration: `${1.5 + Math.random() * 3}s`, size: Math.random() * 1.5 + 0.5,\n    })), [count]);\n\n    return (\n      <div ref={ref} {...props} className={cn(\"absolute inset-0 overflow-hidden pointer-events-none\", className)}>\n        {meteors.map((m) => (\n          <div key={m.id} className=\"absolute\" style={{ left: m.left, top: \"-5%\", animation: `meteor-fall ${m.duration} ${m.delay} linear infinite` }}>\n            <div className=\"w-px rounded-full\" style={{ height: `${40 + Math.random() * 60}px`, background: \"linear-gradient(to bottom, #8b5cf6, transparent)\", boxShadow: \"0 0 4px #8b5cf6\", width: `${m.size}px` }} />\n          </div>\n        ))}\n        <style>{`@keyframes meteor-fall { 0% { transform: translateY(0) translateX(0) rotate(215deg); opacity: 1; } 70% { opacity: 1; } 100% { transform: translateY(120vh) translateX(-30vw) rotate(215deg); opacity: 0; } }`}</style>\n      </div>\n    );\n  }\n);\nCelestialMeteors.displayName = \"CelestialMeteors\";\n"
+        }
+      ],
+      "dependencies": []
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "CelestialMeteors.jsx",
+          "content": "\"use client\";\nimport React, { useMemo } from \"react\";\nimport { cn } from \"../utils\";\n\n/** CelestialMeteors — Shooting star / meteor shower with CSS-only animation for zero-JS overhead. */\nexport const CelestialMeteors = React.forwardRef<HTMLDivElement, CelestialMeteorsProps>(\n  ({ className, count = 12, ...props }, ref) => {\n    const meteors = useMemo(() => Array.from({ length: count }).map((_, i) => ({\n      id: i, left: `${Math.random() * 100}%`, delay: `${Math.random() * 5}s`, duration: `${1.5 + Math.random() * 3}s`, size: Math.random() * 1.5 + 0.5,\n    })), [count]);\n\n    return (\n      <div ref={ref} {...props} className={cn(\"absolute inset-0 overflow-hidden pointer-events-none\", className)}>\n        {meteors.map((m) => (\n          <div key={m.id} className=\"absolute\" style={{ left: m.left, top: \"-5%\", animation: `meteor-fall ${m.duration} ${m.delay} linear infinite` }}>\n            <div className=\"w-px rounded-full\" style={{ height: `${40 + Math.random() * 60}px`, background: \"linear-gradient(to bottom, #8b5cf6, transparent)\", boxShadow: \"0 0 4px #8b5cf6\", width: `${m.size}px` }} />\n          </div>\n        ))}\n        <style>{`@keyframes meteor-fall { 0% { transform: translateY(0) translateX(0) rotate(215deg); opacity: 1; } 70% { opacity: 1; } 100% { transform: translateY(120vh) translateX(-30vw) rotate(215deg); opacity: 0; } }`}</style>\n      </div>\n    );\n  }\n);\nCelestialMeteors.displayName = \"CelestialMeteors\";"
+        }
+      ],
+      "dependencies": []
+    }
+  },
+  "preview": {}
+}

@@ -1,0 +1,34 @@
+{
+  "name": "magneticaffix",
+  "title": "Magnetic Affix",
+  "category": "affix",
+  "description": "A premium, animated Magnetic Affix component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "MagneticAffix.tsx",
+          "content": "\"use client\";\nimport React, { useState, useEffect } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nexport interface MagneticAffixProps { readonly offsetTop?: number; readonly offsetBottom?: number; readonly position?: \"top\" | \"bottom\"; readonly children: React.ReactNode; readonly className?: string; }\n\n/** MagneticAffix — An element that becomes fixed (sticky) when scrolled past, with a magnetic slide-in animation and neon border on activation. */\nexport const MagneticAffix = React.forwardRef<HTMLDivElement, MagneticAffixProps>(\n  ({ className, offsetTop = 0, position = \"top\", children, ...props }, ref) => {\n    const [isFixed, setIsFixed] = useState(false);\n    const sentinelRef = React.useRef<HTMLDivElement>(null);\n\n    useEffect(() => {\n      const sentinel = sentinelRef.current;\n      if (!sentinel) return;\n      const observer = new IntersectionObserver(([entry]) => setIsFixed(!entry.isIntersecting), { rootMargin: `-${offsetTop}px 0px 0px 0px` });\n      observer.observe(sentinel);\n      return () => observer.disconnect();\n    }, [offsetTop]);\n\n    return (\n      <>\n        <div ref={sentinelRef} className=\"h-0 w-full\" />\n        <motion.div ref={ref} {...props}\n          className={cn(isFixed ? \"fixed left-0 right-0 z-40\" : \"relative\", position === \"top\" ? \"top-0\" : \"bottom-0\", className)}\n          style={isFixed ? { top: offsetTop } : undefined}\n          animate={isFixed ? { y: [position === \"top\" ? -20 : 20, 0] } : {}}\n          transition={{ type: \"spring\", stiffness: 400, damping: 30 }}>\n          {isFixed && <div className=\"absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent\" />}\n          {children}\n        </motion.div>\n      </>\n    );\n  }\n);\nMagneticAffix.displayName = \"MagneticAffix\";\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "MagneticAffix.jsx",
+          "content": "\"use client\";\nimport React, { useState, useEffect } from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n/** MagneticAffix — An element that becomes fixed (sticky) when scrolled past, with a magnetic slide-in animation and neon border on activation. */\nexport const MagneticAffix = React.forwardRef<HTMLDivElement, MagneticAffixProps>(\n  ({ className, offsetTop = 0, position = \"top\", children, ...props }, ref) => {\n    const [isFixed, setIsFixed] = useState(false);\n    const sentinelRef = React.useRef(null);\n\n    useEffect(() => {\n      const sentinel = sentinelRef.current;\n      if (!sentinel) return;\n      const observer = new IntersectionObserver(([entry]) => setIsFixed(!entry.isIntersecting), { rootMargin: `-${offsetTop}px 0px 0px 0px` });\n      observer.observe(sentinel);\n      return () => observer.disconnect();\n    }, [offsetTop]);\n\n    return (\n      <>\n        <div ref={sentinelRef} className=\"h-0 w-full\" />\n        <motion.div ref={ref} {...props}\n          className={cn(isFixed ? \"fixed left-0 right-0 z-40\" : \"relative\", position === \"top\" ? \"top-0\" : \"bottom-0\", className)}\n          style={isFixed ? { top: offsetTop } }\n          animate={isFixed ? { y: [position === \"top\" ? -20 : 20, 0] } }\n          transition={{ type: \"spring\", stiffness: 400, damping: 30 }}>\n          {isFixed && <div className=\"absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent\" />}\n          {children}\n        </motion.div>\n      </>\n    );\n  }\n);\nMagneticAffix.displayName = \"MagneticAffix\";"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

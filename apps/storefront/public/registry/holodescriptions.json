@@ -1,0 +1,30 @@
+{
+  "name": "holodescriptions",
+  "title": "Holo Descriptions",
+  "category": "descriptions",
+  "description": "A premium, animated Holo Descriptions component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "HoloDescriptions.tsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\nexport interface DescriptionItem { readonly label: string; readonly value: React.ReactNode; readonly span?: number; }\nexport interface HoloDescriptionsProps { readonly title?: string; readonly items: readonly DescriptionItem[]; readonly columns?: number; readonly bordered?: boolean; readonly className?: string; }\n\n/** HoloDescriptions — A key-value display grid with holographic separators and neon label accents. */\nexport const HoloDescriptions = React.forwardRef<HTMLDivElement, HoloDescriptionsProps>(\n  ({ className, title, items, columns = 3, bordered = true, ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"bg-zinc-950 rounded-2xl overflow-hidden\", bordered && \"border border-zinc-800\", className)}>\n      {title && <div className=\"px-5 py-3 border-b border-zinc-800 text-sm font-bold text-white\">{title}</div>}\n      <div className=\"grid gap-px bg-zinc-800/30\" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>\n        {items.map((item, i) => (\n          <div key={i} className=\"bg-zinc-950 p-4\" style={{ gridColumn: item.span ? `span ${item.span}` : undefined }}>\n            <dt className=\"text-[10px] font-semibold text-violet-400/80 uppercase tracking-widest mb-1\">{item.label}</dt>\n            <dd className=\"text-sm text-zinc-200\">{item.value}</dd>\n          </div>\n        ))}\n      </div>\n    </div>\n  )\n);\nHoloDescriptions.displayName = \"HoloDescriptions\";\n"
+        }
+      ],
+      "dependencies": []
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "HoloDescriptions.jsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { cn } from \"../utils\";\n\n/** HoloDescriptions — A key-value display grid with holographic separators and neon label accents. */\nexport const HoloDescriptions = React.forwardRef<HTMLDivElement, HoloDescriptionsProps>(\n  ({ className, title, items, columns = 3, bordered = true, ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"bg-zinc-950 rounded-2xl overflow-hidden\", bordered && \"border border-zinc-800\", className)}>\n      {title && <div className=\"px-5 py-3 border-b border-zinc-800 text-sm font-bold text-white\">{title}</div>}\n      <div className=\"grid gap-px bg-zinc-800/30\" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>\n        {items.map((item, i) => (\n          <div key={i} className=\"bg-zinc-950 p-4\" style={{ gridColumn: item.span ? `span ${item.span}`  }}>\n            <dt className=\"text-[10px] font-semibold text-violet-400/80 uppercase tracking-widest mb-1\">{item.label}</dt>\n            <dd className=\"text-sm text-zinc-200\">{item.value}</dd>\n          </div>\n        ))}\n      </div>\n    </div>\n  )\n);\nHoloDescriptions.displayName = \"HoloDescriptions\";"
+        }
+      ],
+      "dependencies": []
+    }
+  },
+  "preview": {}
+}

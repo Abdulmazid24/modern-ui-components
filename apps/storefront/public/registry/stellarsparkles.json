@@ -1,0 +1,34 @@
+{
+  "name": "stellarsparkles",
+  "title": "Stellar Sparkles",
+  "category": "sparkles",
+  "description": "A premium, animated Stellar Sparkles component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "StellarSparkles.tsx",
+          "content": "\"use client\";\nimport React, { useMemo } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nexport interface StellarSparklesProps { readonly count?: number; readonly color?: string; readonly children?: React.ReactNode; readonly className?: string; }\n\n/** StellarSparkles — Floating sparkle particles that orbit around children with randomized size, position, and blink timing. */\nexport const StellarSparkles = React.forwardRef<HTMLDivElement, StellarSparklesProps>(\n  ({ className, count = 20, color = \"#8b5cf6\", children, ...props }, ref) => {\n    const particles = useMemo(() => Array.from({ length: count }).map((_, i) => ({\n      id: i, x: `${Math.random() * 100}%`, y: `${Math.random() * 100}%`, size: Math.random() * 3 + 1,\n      delay: Math.random() * 3, duration: 1.5 + Math.random() * 2,\n    })), [count]);\n\n    return (\n      <div ref={ref} {...props} className={cn(\"relative inline-block\", className)}>\n        {particles.map((p) => (\n          <motion.div key={p.id} className=\"absolute rounded-full pointer-events-none\"\n            style={{ left: p.x, top: p.y, width: p.size, height: p.size, backgroundColor: color, boxShadow: `0 0 ${p.size * 3}px ${color}` }}\n            animate={{ opacity: [0, 1, 0], scale: [0, 1, 0] }}\n            transition={{ duration: p.duration, delay: p.delay, repeat: Infinity }}\n          />\n        ))}\n        <div className=\"relative z-10\">{children}</div>\n      </div>\n    );\n  }\n);\nStellarSparkles.displayName = \"StellarSparkles\";\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "StellarSparkles.jsx",
+          "content": "\"use client\";\nimport React, { useMemo } from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n/** StellarSparkles — Floating sparkle particles that orbit around children with randomized size, position, and blink timing. */\nexport const StellarSparkles = React.forwardRef<HTMLDivElement, StellarSparklesProps>(\n  ({ className, count = 20, color = \"#8b5cf6\", children, ...props }, ref) => {\n    const particles = useMemo(() => Array.from({ length: count }).map((_, i) => ({\n      id: i, x: `${Math.random() * 100}%`, y: `${Math.random() * 100}%`, size: Math.random() * 3 + 1,\n      delay: Math.random() * 3, duration: 1.5 + Math.random() * 2,\n    })), [count]);\n\n    return (\n      <div ref={ref} {...props} className={cn(\"relative inline-block\", className)}>\n        {particles.map((p) => (\n          <motion.div key={p.id} className=\"absolute rounded-full pointer-events-none\"\n            style={{ left: p.x, top: p.y, width: p.size, height: p.size, backgroundColor: color, boxShadow: `0 0 ${p.size * 3}px ${color}` }}\n            animate={{ opacity: [0, 1, 0], scale: [0, 1, 0] }}\n            transition={{ duration: p.duration, delay: p.delay, repeat: Infinity }}\n          />\n        ))}\n        <div className=\"relative z-10\">{children}</div>\n      </div>\n    );\n  }\n);\nStellarSparkles.displayName = \"StellarSparkles\";"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

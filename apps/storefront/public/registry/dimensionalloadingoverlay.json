@@ -1,0 +1,34 @@
+{
+  "name": "dimensionalloadingoverlay",
+  "title": "Dimensional Loading Overlay",
+  "category": "loading-overlay",
+  "description": "A premium, animated Dimensional Loading Overlay component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": false,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "DimensionalLoadingOverlay.tsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nexport interface DimensionalLoadingOverlayProps { readonly visible: boolean; readonly label?: string; readonly children: React.ReactNode; readonly className?: string; }\n\n/** DimensionalLoadingOverlay — A full-area loading overlay with a dimensional rift spinner and glitch effect. */\nexport const DimensionalLoadingOverlay = React.forwardRef<HTMLDivElement, DimensionalLoadingOverlayProps>(\n  ({ className, visible, label = \"Loading...\", children, ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"relative\", className)}>\n      {children}\n      <AnimatePresence>\n        {visible && (\n          <motion.div className=\"absolute inset-0 z-30 flex flex-col items-center justify-center bg-zinc-950/80 backdrop-blur-md rounded-inherit\"\n            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>\n            <motion.div className=\"w-10 h-10 rounded-full border-2 border-transparent border-t-violet-500 border-r-cyan-500\"\n              animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: \"linear\" }}\n              style={{ boxShadow: \"0 0 20px rgba(139,92,246,0.3)\" }} />\n            <motion.span className=\"mt-4 text-xs font-mono text-zinc-400\"\n              animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1.5, repeat: Infinity }}>{label}</motion.span>\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  )\n);\nDimensionalLoadingOverlay.displayName = \"DimensionalLoadingOverlay\";\n"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "DimensionalLoadingOverlay.jsx",
+          "content": "\"use client\";\nimport React from \"react\";\nimport { motion, AnimatePresence } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n/** DimensionalLoadingOverlay — A full-area loading overlay with a dimensional rift spinner and glitch effect. */\nexport const DimensionalLoadingOverlay = React.forwardRef<HTMLDivElement, DimensionalLoadingOverlayProps>(\n  ({ className, visible, label = \"Loading...\", children, ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"relative\", className)}>\n      {children}\n      \n        {visible && (\n          <motion.div className=\"absolute inset-0 z-30 flex flex-col items-center justify-center bg-zinc-950/80 backdrop-blur-md rounded-inherit\"\n            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>\n            <motion.div className=\"w-10 h-10 rounded-full border-2 border-transparent border-t-violet-500 border-r-cyan-500\"\n              animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: \"linear\" }}\n              style={{ boxShadow: \"0 0 20px rgba(139,92,246,0.3)\" }} />\n            <motion.span className=\"mt-4 text-xs font-mono text-zinc-400\"\n              animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1.5, repeat: Infinity }}>{label}</motion.span>\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  )\n);\nDimensionalLoadingOverlay.displayName = \"DimensionalLoadingOverlay\";"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}
