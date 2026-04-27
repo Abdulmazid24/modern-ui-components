@@ -73,7 +73,7 @@ The `modern-ui-vault` CLI mimics the `shadcn/ui` experience:
 4. Commit and push. The Vercel deployment of `storefront` will automatically serve the new registry.
 
 ### 5.2 Pro Component Locking
-To mark a component as Pro, add its slug to the `PRO_COMPONENTS` array in `scripts/build-registry.ts`. The script will then replace the source code with a license prompt in the public registry.
+To mark a component as Pro, add its slug to the `PRO_COMPONENTS` array in `packages/registry/shared-config.ts`. The registry build script will then parse this configuration to properly apply license gates and restrict source code access in the public registry.
 
 ---
 
