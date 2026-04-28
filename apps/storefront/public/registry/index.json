@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T16:03:39.865Z",
+  "generatedAt": "2026-04-28T16:09:39.966Z",
   "stats": {
-    "totalComponents": 364,
+    "totalComponents": 365,
     "totalCategories": 230,
     "freeComponents": 284,
-    "proComponents": 80
+    "proComponents": 81
   },
   "categories": [
     "3d-pin",
@@ -11085,6 +11085,40 @@
             {
               "name": "Animated3DToggle.jsx",
               "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add animated3dtoggle"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "asymmetrictoggle",
+      "title": "Asymmetric Toggle",
+      "category": "switch",
+      "description": "A premium, animated Asymmetric Toggle component built with React, Framer Motion, and Tailwind CSS.",
+      "isPro": true,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "AsymmetricToggle.tsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add asymmetrictoggle"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "AsymmetricToggle.jsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add asymmetrictoggle"
             }
           ],
           "dependencies": [

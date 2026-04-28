@@ -1,0 +1,34 @@
+{
+  "name": "asymmetrictoggle",
+  "title": "Asymmetric Toggle",
+  "category": "switch",
+  "description": "A premium, animated Asymmetric Toggle component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": true,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "AsymmetricToggle.tsx",
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add asymmetrictoggle"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "AsymmetricToggle.jsx",
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add asymmetrictoggle"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}
