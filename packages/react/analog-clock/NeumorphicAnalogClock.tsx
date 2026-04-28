@@ -8,10 +8,11 @@ export interface NeumorphicAnalogClockProps {
 }
 
 export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps) => {
-  const [time, setTime] = useState(new Date());
+  const [mounted, setMounted] = useState(false);
+  const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
-    // Initial sync
+    setMounted(true);
     setTime(new Date());
     
     // Update every second for the ticking effect
@@ -22,9 +23,10 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
     return () => clearInterval(interval);
   }, []);
 
-  const seconds = time.getSeconds();
-  const minutes = time.getMinutes();
-  const hours = time.getHours() % 12;
+  // Default to 12:00:00 before mounting to avoid SSR hydration mismatch
+  const seconds = time ? time.getSeconds() : 0;
+  const minutes = time ? time.getMinutes() : 0;
+  const hours = time ? time.getHours() % 12 : 0;
 
   // Calculate rotations
   const secondDeg = seconds * 6; // 360 / 60
@@ -52,7 +54,7 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
         }}
       >
         {/* Numbers 1-12 */}
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute w-full h-full pointer-events-none">
           {Array.from({ length: 12 }).map((_, i) => {
             const num = i === 0 ? 12 : i;
             const angle = i * 30;
@@ -75,54 +77,60 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
         </div>
 
         {/* Hands Container */}
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute w-full h-full pointer-events-none">
           {/* Hour Hand */}
-          <div
-            className="absolute rounded-full bg-[#6b809a]"
-            style={{
-              width: "6px",
-              height: "22%",
-              bottom: "50%",
-              left: "50%",
-              transformOrigin: "bottom center",
-              transform: `translateX(-50%) rotate(${hourDeg}deg)`,
-              transition: "transform 0.1s cubic-bezier(0.4, 2.08, 0.55, 0.44)",
-              boxShadow: "2px 2px 4px rgba(163,177,198,0.6)",
-            }}
-          />
+          {mounted && (
+            <div
+              className="absolute rounded-full bg-[#6b809a]"
+              style={{
+                width: "6px",
+                height: "22%",
+                bottom: "50%",
+                left: "calc(50% - 3px)", // exact center minus half width
+                transformOrigin: "50% 100%", // bottom center
+                transform: `rotate(${hourDeg}deg)`,
+                transition: "transform 0.1s cubic-bezier(0.4, 2.08, 0.55, 0.44)",
+                boxShadow: "2px 2px 4px rgba(163,177,198,0.6)",
+              }}
+            />
+          )}
 
           {/* Minute Hand */}
-          <div
-            className="absolute rounded-full bg-[#7d93ae]"
-            style={{
-              width: "4px",
-              height: "32%",
-              bottom: "50%",
-              left: "50%",
-              transformOrigin: "bottom center",
-              transform: `translateX(-50%) rotate(${minuteDeg}deg)`,
-              transition: "transform 0.1s cubic-bezier(0.4, 2.08, 0.55, 0.44)",
-              boxShadow: "2px 2px 4px rgba(163,177,198,0.6)",
-            }}
-          />
+          {mounted && (
+            <div
+              className="absolute rounded-full bg-[#7d93ae]"
+              style={{
+                width: "4px",
+                height: "32%",
+                bottom: "50%",
+                left: "calc(50% - 2px)", // exact center minus half width
+                transformOrigin: "50% 100%", // bottom center
+                transform: `rotate(${minuteDeg}deg)`,
+                transition: "transform 0.1s cubic-bezier(0.4, 2.08, 0.55, 0.44)",
+                boxShadow: "2px 2px 4px rgba(163,177,198,0.6)",
+              }}
+            />
+          )}
 
           {/* Second Hand */}
-          <div
-            className="absolute rounded-full bg-[#ff4757]"
-            style={{
-              width: "2px",
-              height: "40%",
-              bottom: "50%", 
-              left: "50%",
-              transformOrigin: "bottom center",
-              transform: `translateX(-50%) rotate(${secondDeg}deg)`,
-              transition: seconds === 0 ? "none" : "transform 0.05s cubic-bezier(0.4, 2.08, 0.55, 0.44)",
-              boxShadow: "1px 1px 3px rgba(163,177,198,0.6)",
-            }}
-          >
-            {/* The tail of the second hand extending backwards */}
-            <div className="absolute top-full left-0 w-full h-4 bg-[#ff4757] rounded-full" />
-          </div>
+          {mounted && (
+            <div
+              className="absolute rounded-full bg-[#ff4757]"
+              style={{
+                width: "2px",
+                height: "40%",
+                bottom: "50%", 
+                left: "calc(50% - 1px)", // exact center minus half width
+                transformOrigin: "50% 100%", // bottom center
+                transform: `rotate(${secondDeg}deg)`,
+                transition: seconds === 0 ? "none" : "transform 0.05s cubic-bezier(0.4, 2.08, 0.55, 0.44)",
+                boxShadow: "1px 1px 3px rgba(163,177,198,0.6)",
+              }}
+            >
+              {/* The tail of the second hand extending backwards */}
+              <div className="absolute top-full left-0 w-full h-4 bg-[#ff4757] rounded-full" />
+            </div>
+          )}
 
           {/* Center Pin */}
           <div
