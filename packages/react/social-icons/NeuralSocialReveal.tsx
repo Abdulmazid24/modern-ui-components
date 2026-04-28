@@ -10,7 +10,7 @@ import {
   Briefcase as Briefcase, 
   Disc as Discord, 
   Send as Telegram,
-  Frame,
+  Frame as Framer,
   Share2
 } from "lucide-react";
 import { cn } from "../utils";
