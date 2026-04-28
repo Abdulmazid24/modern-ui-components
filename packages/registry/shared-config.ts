@@ -119,9 +119,11 @@ export const PRO_COMPONENTS: string[] = [
   // Loaders
   "accretiondiskloader",
   "bioluminescentmycelium",
+  "neoncubeloader",
   // Toggles & Switches
   "zerogravitytoggle",
   "microportalswitch",
+  "neumorphicswitch",
   // Data Visualization
   "geometrictreemap",
   "synapsenodegraph",
