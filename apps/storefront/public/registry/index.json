@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T15:49:43.454Z",
+  "generatedAt": "2026-04-28T16:03:39.865Z",
   "stats": {
-    "totalComponents": 363,
+    "totalComponents": 364,
     "totalCategories": 230,
     "freeComponents": 284,
-    "proComponents": 79
+    "proComponents": 80
   },
   "categories": [
     "3d-pin",
@@ -11055,6 +11055,40 @@
           "dependencies": [
             "framer-motion",
             "lucide-react"
+          ]
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "animated3dtoggle",
+      "title": "Animated3 D Toggle",
+      "category": "switch",
+      "description": "A premium, animated Animated3 D Toggle component built with React, Framer Motion, and Tailwind CSS.",
+      "isPro": true,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "Animated3DToggle.tsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add animated3dtoggle"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "Animated3DToggle.jsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add animated3dtoggle"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
           ]
         }
       },
