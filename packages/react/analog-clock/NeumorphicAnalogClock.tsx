@@ -59,24 +59,16 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
             return (
               <div
                 key={i}
-                className="absolute inset-0 flex justify-center py-4"
-                style={{ transform: `rotate(${angle}deg)` }}
+                className="absolute w-10 h-10 flex items-center justify-center text-xl font-bold text-[#8ba3c2]"
+                style={{
+                  top: "50%",
+                  left: "50%",
+                  // 110px radius for placement
+                  transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-110px) rotate(-${angle}deg)`,
+                  textShadow: "1px 1px 2px rgba(255,255,255,1), -1px -1px 2px rgba(163,177,198,0.5)",
+                }}
               >
-                {/* Rotate the text back so it remains upright */}
-                <div
-                  className="flex items-center justify-center w-8 h-8"
-                  style={{ transform: `rotate(-${angle}deg)` }}
-                >
-                  <span 
-                    className="text-xl font-bold text-[#8ba3c2]"
-                    style={{
-                      // Embossed text effect
-                      textShadow: "1px 1px 1px rgba(255,255,255,0.8), -1px -1px 1px rgba(163,177,198,0.4)"
-                    }}
-                  >
-                    {num}
-                  </span>
-                </div>
+                {num}
               </div>
             );
           })}
