@@ -16,7 +16,7 @@ Unlike traditional component libraries, Modern UI Vault provides **raw source co
 The project is structured as a high-performance monorepo using **npm workspaces** and **Turborepo** (optional):
 
 - `apps/storefront`: Next.js 16 (App Router) documentation and registry server.
-- `packages/react`: The core component library (139+ unique assets).
+- `packages/react`: The core component library (370+ unique assets).
 - `packages/cli`: The `modern-ui-vault` command-line interface.
 - `packages/registry`: Type definitions and schema for the component distribution system.
 - `scripts/`: Advanced AST-based tools for registry building and code refactoring.
