@@ -22,15 +22,7 @@ const __dirname = path.dirname(__filename);
 const COMPONENTS_DIR = path.resolve(__dirname, '../packages/react');
 const OUTPUT_DIR = path.resolve(__dirname, '../apps/storefront/public/registry');
 
-// ─── Pro Components (matches shared-config.ts) ──────────────────
-const PRO_COMPONENTS: string[] = [
-  'holographicprismcard', 'kineticorigamicard', 'glassshattermodal', 'quantumriftmodal',
-  'atmospherichalonav', 'magneticliquiddock', 'accretiondiskloader', 'bioluminescentmycelium',
-  'zerogravitytoggle', 'microportalswitch', 'geometrictreemap', 'synapsenodegraph',
-  'hologlobe', 'holodropzone', 'mechanicalclock', 'aicommsterminal', 'physicalcreditcard',
-  'vaultpasswordmeter', 'rpgskilltree', 'blueprintmapper', 'wordcloudsphere',
-  'thumbstickpad', 'magnetickanban', 'hackerterminal', 'hapticdial',
-];
+import { PRO_COMPONENTS } from '../packages/registry/shared-config';
 
 // ─── Category Normalization ─────────────────────────────────────
 const CATEGORY_ALIASES: Record<string, string> = {
