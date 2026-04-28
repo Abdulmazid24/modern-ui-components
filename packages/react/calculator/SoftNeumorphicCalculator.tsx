@@ -96,16 +96,18 @@ export const SoftNeumorphicCalculator = forwardRef<HTMLDivElement, SoftNeumorphi
         {...props}
       >
         {/* Display */}
-        <div className="w-full h-28 mb-8 rounded-[24px] bg-[#e0e5ec] shadow-[inset_8px_8px_16px_rgba(163,177,198,0.6),inset_-8px_-8px_16px_rgba(255,255,255,0.9)] flex flex-col items-end justify-end p-6 overflow-hidden relative">
-          <span className="text-zinc-500 text-base h-6 tracking-widest absolute top-5 right-6">{equation}</span>
-          <span
+        <div className="w-full h-32 mb-6 rounded-3xl bg-[#e0e5ec] shadow-[inset_8px_8px_16px_rgba(163,177,198,0.6),inset_-8px_-8px_16px_rgba(255,255,255,0.9)] flex flex-col items-end justify-between p-6 overflow-hidden">
+          <div className="text-zinc-500 text-base tracking-widest w-full text-right h-6 overflow-hidden text-ellipsis whitespace-nowrap">
+            {equation}
+          </div>
+          <div
             className={cn(
-              "text-5xl font-semibold text-zinc-700 tracking-tight break-all",
-              display.length > 10 && "text-3xl"
+              "font-semibold text-zinc-700 tracking-tight w-full text-right break-all",
+              display.length > 10 ? "text-3xl" : "text-5xl"
             )}
           >
             {display || "0"}
-          </span>
+          </div>
         </div>
 
         {/* Keypad */}
@@ -122,9 +124,9 @@ export const SoftNeumorphicCalculator = forwardRef<HTMLDivElement, SoftNeumorphi
                 boxShadow: "6px 6px 12px rgba(163,177,198,0.6), -6px -6px 12px rgba(255,255,255,0.8), inset 1px 1px 2px rgba(255,255,255,0.9), inset -1px -1px 2px rgba(163,177,198,0.2)"
               }}
               className={cn(
-                "h-16 flex items-center justify-center rounded-[20px] text-2xl font-bold select-none transition-shadow duration-200",
+                "h-16 flex items-center justify-center rounded-xl text-2xl font-bold select-none transition-shadow duration-200",
                 "bg-[#e0e5ec]",
-                btn.type === "action" ? "text-[#d13d7c]" : "text-zinc-600",
+                btn.type === "action" ? "text-pink-600" : "text-zinc-600",
                 btn.span === 2 && "col-span-2"
               )}
             >
