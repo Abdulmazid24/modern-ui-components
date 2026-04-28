@@ -124,6 +124,7 @@ export const PRO_COMPONENTS: string[] = [
   "zerogravitytoggle",
   "microportalswitch",
   "neumorphicswitch",
+  "holographicswitch",
   // Data Visualization
   "geometrictreemap",
   "synapsenodegraph",

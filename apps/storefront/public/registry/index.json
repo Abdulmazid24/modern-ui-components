@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T15:22:36.534Z",
+  "generatedAt": "2026-04-28T15:25:12.931Z",
   "stats": {
-    "totalComponents": 360,
+    "totalComponents": 361,
     "totalCategories": 230,
     "freeComponents": 284,
-    "proComponents": 76
+    "proComponents": 77
   },
   "categories": [
     "3d-pin",
@@ -10987,6 +10987,40 @@
           "dependencies": [
             "framer-motion",
             "lucide-react"
+          ]
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "holographicswitch",
+      "title": "Holographic Switch",
+      "category": "switch",
+      "description": "A premium, animated Holographic Switch component built with React, Framer Motion, and Tailwind CSS.",
+      "isPro": true,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "HolographicSwitch.tsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add holographicswitch"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "HolographicSwitch.jsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add holographicswitch"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
           ]
         }
       },
