@@ -1,0 +1,34 @@
+{
+  "name": "chromaringloader",
+  "title": "Chroma Ring Loader",
+  "category": "loader",
+  "description": "A premium, animated Chroma Ring Loader component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": true,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "ChromaRingLoader.tsx",
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add chromaringloader"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "ChromaRingLoader.jsx",
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add chromaringloader"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}
