@@ -4,20 +4,16 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../utils";
 
-export interface SoftToggleSwitchProps {
+export interface SoftToggleSwitchProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
   className?: string;
 }
 
-export const SoftToggleSwitch = ({
-  checked,
-  defaultChecked = false,
-  onChange,
-  className,
-}: SoftToggleSwitchProps) => {
-  const [isInternalChecked, setIsInternalChecked] = useState(defaultChecked);
+export const SoftToggleSwitch = React.forwardRef<HTMLButtonElement, SoftToggleSwitchProps>(
+  ({ checked, defaultChecked = false, onChange, className, ...props }, ref) => {
+    const [isInternalChecked, setIsInternalChecked] = useState(defaultChecked);
 
   const isChecked = checked !== undefined ? checked : isInternalChecked;
 
@@ -29,17 +25,20 @@ export const SoftToggleSwitch = ({
 
   return (
     <button
+      ref={ref}
       role="switch"
       aria-checked={isChecked}
       onClick={handleToggle}
       className={cn(
-        "relative flex items-center p-[6px] cursor-pointer rounded-full bg-[#ebebeb]",
-        "w-28 h-14",
+        "relative flex items-center p-2 rounded-full overflow-hidden transition-all duration-300",
+        "w-28 h-12",
+        isChecked ? "bg-indigo-50" : "bg-gray-100", // Soft background changes slightly
         className
       )}
       style={{
-        boxShadow: "inset 4px 4px 8px #d1d1d1, inset -4px -4px 8px #ffffff",
+        boxShadow: "inset 4px 4px 8px rgba(0,0,0,0.05), inset -4px -4px 8px rgba(255,255,255,0.8)",
       }}
+      {...props}
     >
       {/* Track inner design (the two circles and connecting line) */}
       <div className="absolute inset-0 flex items-center justify-between px-3 pointer-events-none">
@@ -85,8 +84,12 @@ export const SoftToggleSwitch = ({
            style={{
              backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 2px, #000 2px, #000 4px)",
            }}
-        />
+        >
+          <div className="absolute top-1/2 left-1/2 w-3/4 h-3/4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+        </div>
       </motion.div>
     </button>
   );
-};
+});
+
+SoftToggleSwitch.displayName = "SoftToggleSwitch";

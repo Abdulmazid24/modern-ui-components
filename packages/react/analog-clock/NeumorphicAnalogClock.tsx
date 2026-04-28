@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { cn } from "../utils";
 
-export interface NeumorphicAnalogClockProps {
+export interface NeumorphicAnalogClockProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps) => {
-  const [mounted, setMounted] = useState(false);
+export const NeumorphicAnalogClock = React.forwardRef<HTMLDivElement, NeumorphicAnalogClockProps>(
+  ({ className, ...props }, ref) => {
+    const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
 
   return (
     <div
+      ref={ref}
       className={cn(
         "relative flex items-center justify-center rounded-full bg-[#e0e5ec]",
         "w-80 h-80",
@@ -44,6 +46,7 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
         // Outer soft drop shadow and highlight
         boxShadow: "9px 9px 16px rgba(163,177,198,0.6), -9px -9px 16px rgba(255,255,255,0.5)",
       }}
+      {...props}
     >
       {/* Recessed Inner Clock Face */}
       <div
@@ -149,4 +152,6 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
       </div>
     </div>
   );
-};
+});
+
+NeumorphicAnalogClock.displayName = "NeumorphicAnalogClock";

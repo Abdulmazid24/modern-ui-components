@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../utils";
 
-export interface InteractiveOtpFormProps {
+export interface InteractiveOtpFormProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   onSuccess?: () => void;
   onFail?: () => void;
@@ -13,13 +13,9 @@ export interface InteractiveOtpFormProps {
 
 type Status = "idle" | "success" | "error";
 
-export const InteractiveOtpForm = ({
-  className,
-  onSuccess,
-  onFail,
-  expectedOtp = "123456",
-}: InteractiveOtpFormProps) => {
-  const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
+export const InteractiveOtpForm = React.forwardRef<HTMLDivElement, InteractiveOtpFormProps>(
+  ({ className, onSuccess, onFail, expectedOtp = "123456", ...props }, ref) => {
+    const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const [status, setStatus] = useState<Status>("idle");
   const [timer, setTimer] = useState(30);
   
@@ -85,6 +81,7 @@ export const InteractiveOtpForm = ({
 
   return (
     <div
+      ref={ref}
       className={cn(
         "relative flex flex-col items-center justify-center p-8 rounded-3xl bg-[#1c1c1e] text-white w-[380px] overflow-hidden font-sans",
         className
@@ -92,6 +89,7 @@ export const InteractiveOtpForm = ({
       style={{
         boxShadow: "10px 10px 20px #0e0e10, -10px -10px 20px #2a2a2c",
       }}
+      {...props}
     >
       <h2 className="text-2xl font-semibold mb-2">Verify Code</h2>
       <p className="text-sm text-gray-400 mb-8">Enter the 6-digit code</p>
@@ -203,4 +201,6 @@ export const InteractiveOtpForm = ({
       </AnimatePresence>
     </div>
   );
-};
+});
+
+InteractiveOtpForm.displayName = "InteractiveOtpForm";

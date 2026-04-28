@@ -4,20 +4,16 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../utils";
 
-export interface SpaceToggleSwitchProps {
+export interface SpaceToggleSwitchProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?: (checked: boolean) => void;
   className?: string;
 }
 
-export const SpaceToggleSwitch = ({
-  checked,
-  defaultChecked = false,
-  onChange,
-  className,
-}: SpaceToggleSwitchProps) => {
-  const [isInternalChecked, setIsInternalChecked] = useState(defaultChecked);
+export const SpaceToggleSwitch = React.forwardRef<HTMLButtonElement, SpaceToggleSwitchProps>(
+  ({ checked, defaultChecked = false, onChange, className, ...props }, ref) => {
+    const [isInternalChecked, setIsInternalChecked] = useState(defaultChecked);
 
   const isChecked = checked !== undefined ? checked : isInternalChecked;
 
@@ -29,6 +25,7 @@ export const SpaceToggleSwitch = ({
 
   return (
     <button
+      ref={ref}
       role="switch"
       aria-checked={isChecked}
       onClick={handleToggle}
@@ -41,6 +38,7 @@ export const SpaceToggleSwitch = ({
       style={{
         boxShadow: "inset 0 4px 10px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3)",
       }}
+      {...props}
     >
       {/* Starry Background (Twinkling dots) */}
       <div className="absolute inset-0 pointer-events-none opacity-60">
@@ -139,4 +137,6 @@ export const SpaceToggleSwitch = ({
       </motion.div>
     </button>
   );
-};
+});
+
+SpaceToggleSwitch.displayName = "SpaceToggleSwitch";
