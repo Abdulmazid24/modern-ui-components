@@ -20,7 +20,11 @@ export interface GlowingRadioNavProps {
 }
 
 export const GlowingRadioNav = ({
-  options,
+  options = [
+    { id: "1", label: "Free", value: "free" },
+    { id: "2", label: "Basic", value: "basic" },
+    { id: "3", label: "Premium", value: "premium" },
+  ],
   defaultValue,
   onChange,
   className,
