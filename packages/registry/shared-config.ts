@@ -127,6 +127,7 @@ export const PRO_COMPONENTS: string[] = [
   "microportalswitch",
   "neumorphicswitch",
   "holographicswitch",
+  "interactiveotpform",
   "animated3dtoggle",
   "asymmetrictoggle",
   "softtoggleswitch",

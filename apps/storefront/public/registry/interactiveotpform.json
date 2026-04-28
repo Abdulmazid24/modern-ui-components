@@ -1,0 +1,34 @@
+{
+  "name": "interactiveotpform",
+  "title": "Interactive Otp Form",
+  "category": "otp-input",
+  "description": "A premium, animated Interactive Otp Form component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": true,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "InteractiveOtpForm.tsx",
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add interactiveotpform"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "InteractiveOtpForm.jsx",
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add interactiveotpform"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}
