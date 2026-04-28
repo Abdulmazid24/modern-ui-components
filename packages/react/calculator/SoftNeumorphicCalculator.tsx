@@ -96,12 +96,12 @@ export const SoftNeumorphicCalculator = forwardRef<HTMLDivElement, SoftNeumorphi
         {...props}
       >
         {/* Display */}
-        <div className="w-full h-24 mb-8 rounded-[20px] bg-[#e0e5ec] shadow-[inset_6px_6px_10px_rgba(163,177,198,0.5),inset_-6px_-6px_10px_rgba(255,255,255,1)] flex flex-col items-end justify-end p-5 overflow-hidden relative">
-          <span className="text-zinc-500 text-sm h-5 tracking-widest absolute top-4 right-5">{equation}</span>
+        <div className="w-full h-28 mb-8 rounded-[24px] bg-[#e0e5ec] shadow-[inset_8px_8px_16px_rgba(163,177,198,0.6),inset_-8px_-8px_16px_rgba(255,255,255,0.9)] flex flex-col items-end justify-end p-6 overflow-hidden relative">
+          <span className="text-zinc-500 text-base h-6 tracking-widest absolute top-5 right-6">{equation}</span>
           <span
             className={cn(
-              "text-4xl font-semibold text-zinc-700 tracking-tight break-all",
-              display.length > 10 && "text-2xl"
+              "text-5xl font-semibold text-zinc-700 tracking-tight break-all",
+              display.length > 10 && "text-3xl"
             )}
           >
             {display || "0"}
@@ -116,11 +116,14 @@ export const SoftNeumorphicCalculator = forwardRef<HTMLDivElement, SoftNeumorphi
               onClick={() => handleInput(btn.label)}
               whileTap={{ 
                 scale: 0.95, 
-                boxShadow: "inset 4px 4px 8px rgba(163,177,198,0.5), inset -4px -4px 8px rgba(255,255,255,1)" 
+                boxShadow: "inset 6px 6px 10px rgba(163,177,198,0.6), inset -6px -6px 10px rgba(255,255,255,1), 0px 0px 0px rgba(163,177,198,0.6), 0px 0px 0px rgba(255,255,255,1)" 
+              }}
+              style={{
+                boxShadow: "6px 6px 12px rgba(163,177,198,0.6), -6px -6px 12px rgba(255,255,255,0.8), inset 1px 1px 2px rgba(255,255,255,0.9), inset -1px -1px 2px rgba(163,177,198,0.2)"
               }}
               className={cn(
-                "h-14 flex items-center justify-center rounded-[16px] text-xl font-bold select-none transition-shadow",
-                "bg-[#e0e5ec] shadow-[4px_4px_8px_rgba(163,177,198,0.5),-4px_-4px_8px_rgba(255,255,255,1)]",
+                "h-16 flex items-center justify-center rounded-[20px] text-2xl font-bold select-none transition-shadow duration-200",
+                "bg-[#e0e5ec]",
                 btn.type === "action" ? "text-[#d13d7c]" : "text-zinc-600",
                 btn.span === 2 && "col-span-2"
               )}
