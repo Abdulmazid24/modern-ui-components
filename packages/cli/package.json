@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --format cjs --minify",
-    "dev": "tsup src/index.ts --format cjs --watch"
+    "dev": "tsup src/index.ts --format cjs --watch",
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "chalk": "^4.1.2",
