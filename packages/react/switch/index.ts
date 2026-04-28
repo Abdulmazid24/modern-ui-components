@@ -4,3 +4,4 @@ export * from './HolographicSwitch';
 export * from './Animated3DToggle';
 export * from './AsymmetricToggle';
 export * from './SoftToggleSwitch';
+export * from './SpaceToggleSwitch';

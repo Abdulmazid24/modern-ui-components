@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T16:36:47.644Z",
+  "generatedAt": "2026-04-28T16:41:42.858Z",
   "stats": {
-    "totalComponents": 370,
+    "totalComponents": 371,
     "totalCategories": 230,
     "freeComponents": 284,
-    "proComponents": 86
+    "proComponents": 87
   },
   "categories": [
     "3d-pin",
@@ -11387,6 +11387,40 @@
             {
               "name": "SoftToggleSwitch.jsx",
               "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add softtoggleswitch"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "spacetoggleswitch",
+      "title": "Space Toggle Switch",
+      "category": "switch",
+      "description": "A premium, animated Space Toggle Switch component built with React, Framer Motion, and Tailwind CSS.",
+      "isPro": true,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "SpaceToggleSwitch.tsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add spacetoggleswitch"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "SpaceToggleSwitch.jsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add spacetoggleswitch"
             }
           ],
           "dependencies": [
