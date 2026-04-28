@@ -115,15 +115,19 @@ export function NebulaRippleFooter({
           </div>
 
           {/* Links Columns */}
-          {Object.entries(links).map(([title, items], idx) => (
+          {Object.entries(
+            Array.isArray(links) 
+              ? { "Quick Links": links.map((l: any) => ({ name: l.label || l.name || "Link", href: l.href || "#" })) }
+              : links
+          ).map(([title, items], idx) => (
             <div key={title} className="space-y-6">
               <h3 className="text-white font-semibold tracking-wide text-sm uppercase">
                 {title}
               </h3>
               <ul className="space-y-4">
-                {items.map((item) => (
-                  <li key={item.name}>
-                    <InteractiveLink name={item.name} href={item.href} />
+                {Array.isArray(items) && items.map((item: any) => (
+                  <li key={item.name || item.label || Math.random()}>
+                    <InteractiveLink name={item.name || item.label || "Link"} href={item.href || "#"} />
                   </li>
                 ))}
               </ul>
