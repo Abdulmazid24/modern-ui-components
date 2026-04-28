@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, Code2, Globe, Copy, Check, Terminal, Lock, Smartphone, Tablet, Monitor } from "lucide-react";
+import { ChevronLeft, Code2, Globe, Copy, Check, Terminal, Lock, Smartphone, Tablet, Monitor, Plus, Search, Settings } from "lucide-react";
 import dynamic from 'next/dynamic';
 import { CodeBlock } from "@/components/CodeBlock";
 
@@ -12,6 +12,7 @@ type RegistryData = {
   title: string;
   category: string;
   isPro?: boolean;
+  dependencies?: string[];
   dialects?: Record<string, { files?: { content: string }[], dependencies?: string[] }>;
 };
 
@@ -223,7 +224,7 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
 
                 <div className="p-4 border-b border-zinc-900 flex items-center justify-between bg-zinc-900/50">
                    <div className="flex gap-2">
-                      {Object.keys(registryData.dialects).map(dialect => (
+                      {Object.keys(registryData.dialects || {}).map(dialect => (
                          <button
                             key={dialect}
                             onClick={() => setActiveDialect(dialect)}
@@ -236,7 +237,7 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
                       ))}
                    </div>
                    <button 
-                     onClick={() => handleCopy(registryData.dialects[activeDialect]?.files[0]?.content)}
+                     onClick={() => handleCopy(registryData.dialects?.[activeDialect]?.files?.[0]?.content || '')}
                      className="flex items-center gap-2 text-xs font-bold px-4 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-lg transition-all"
                    >
                       {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
@@ -245,7 +246,7 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
                 </div>
                 <div className={`flex-1 overflow-auto ${isPro ? 'blur-sm select-none' : ''}`}>
                    <CodeBlock
-                     code={registryData.dialects[activeDialect]?.files[0]?.content || ''}
+                     code={registryData.dialects?.[activeDialect]?.files?.[0]?.content || ''}
                      language={activeDialect}
                      showLineNumbers={true}
                      maxHeight="600px"

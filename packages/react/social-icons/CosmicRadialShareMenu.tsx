@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Share2, X, Code as Code2, Share2 as MessageCircle, Globe as Facebook, 
+  Share2, X, Code as Code2, Globe as Facebook, 
   Briefcase as Briefcase, Camera as Instagram, Video as Youtube, MessageCircle 
 } from "lucide-react";
 import { cn } from "../utils";
