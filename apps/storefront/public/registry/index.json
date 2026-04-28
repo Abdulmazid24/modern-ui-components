@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T16:28:04.752Z",
+  "generatedAt": "2026-04-28T16:32:22.077Z",
   "stats": {
-    "totalComponents": 368,
+    "totalComponents": 369,
     "totalCategories": 230,
     "freeComponents": 284,
-    "proComponents": 84
+    "proComponents": 85
   },
   "categories": [
     "3d-pin",
@@ -9470,6 +9470,40 @@
             }
           ],
           "dependencies": []
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "glassradiogroup",
+      "title": "Glass Radio Group",
+      "category": "radio-group",
+      "description": "A premium, animated Glass Radio Group component built with React, Framer Motion, and Tailwind CSS.",
+      "isPro": true,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "GlassRadioGroup.tsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add glassradiogroup"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "GlassRadioGroup.jsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add glassradiogroup"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
         }
       },
       "preview": {}
