@@ -128,6 +128,7 @@ export const PRO_COMPONENTS: string[] = [
   "holographicswitch",
   "animated3dtoggle",
   "asymmetrictoggle",
+  "softtoggleswitch",
   // Data Visualization
   "geometrictreemap",
   "synapsenodegraph",

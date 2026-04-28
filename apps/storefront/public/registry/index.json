@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T16:23:46.776Z",
+  "generatedAt": "2026-04-28T16:28:04.752Z",
   "stats": {
-    "totalComponents": 367,
+    "totalComponents": 368,
     "totalCategories": 230,
     "freeComponents": 284,
-    "proComponents": 83
+    "proComponents": 84
   },
   "categories": [
     "3d-pin",
@@ -11285,6 +11285,40 @@
             {
               "name": "NeumorphicSwitch.jsx",
               "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add neumorphicswitch"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "softtoggleswitch",
+      "title": "Soft Toggle Switch",
+      "category": "switch",
+      "description": "A premium, animated Soft Toggle Switch component built with React, Framer Motion, and Tailwind CSS.",
+      "isPro": true,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "SoftToggleSwitch.tsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add softtoggleswitch"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "SoftToggleSwitch.jsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add softtoggleswitch"
             }
           ],
           "dependencies": [
