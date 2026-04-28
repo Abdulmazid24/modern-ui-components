@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { Search, Lock, MoveRight, ChevronLeft, Filter, X } from "lucide-react";
 import Link from "next/link";
 import { CATEGORY_GROUPS, getGroupByCategory } from "@/lib/categories";
@@ -76,6 +76,7 @@ function ExplorerContent() {
   const activeGroup = CATEGORY_GROUPS.find(g => g.id === selectedGroupId);
 
   return (
+    <LazyMotion features={domAnimation}>
     <div className="min-h-screen bg-black text-white pt-24 pb-20 px-6">
       <div className="max-w-7xl mx-auto">
         
@@ -135,7 +136,7 @@ function ExplorerContent() {
 
               {/* Sub-categories (relevant to selected group) */}
               {activeGroup && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 mb-4 px-2">Sub Categories</h3>
                    <div className="flex flex-wrap lg:flex-col gap-1">
                       {activeGroup.categories.map(cat => {
@@ -153,7 +154,7 @@ function ExplorerContent() {
                          );
                       })}
                    </div>
-                </motion.div>
+                </m.div>
               )}
            </aside>
 
@@ -182,7 +183,7 @@ function ExplorerContent() {
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                        <AnimatePresence mode="popLayout">
                           {filteredComponents.map((comp, i) => (
-                             <motion.div
+                             <m.div
                                key={comp.name}
                                layout
                                initial={{ opacity: 0, y: 20 }}
@@ -218,7 +219,7 @@ function ExplorerContent() {
                                       </div>
                                    </div>
                                 </Link>
-                             </motion.div>
+                             </m.div>
                           ))}
                        </AnimatePresence>
                     </div>
@@ -237,6 +238,7 @@ function ExplorerContent() {
         </div>
       </div>
     </div>
+    </LazyMotion>
   );
 }
 

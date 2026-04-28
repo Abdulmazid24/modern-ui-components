@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { 
   ArrowRight, 
   Terminal, 
@@ -43,6 +43,7 @@ export default function LandingPage() {
   ];
 
   return (
+    <LazyMotion features={domAnimation}>
     <main className="min-h-screen bg-black text-white selection:bg-purple-500/30">
       {/* ───── 1. HERO SECTION ───── */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
@@ -59,16 +60,16 @@ export default function LandingPage() {
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto text-center">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900/50 border border-white/5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 mb-8"
           >
             <Sparkles size={12} className="text-purple-500" />
             The Enterprise UI Ecosystem
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -81,9 +82,9 @@ export default function LandingPage() {
             <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
               Vault
             </span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -91,9 +92,9 @@ export default function LandingPage() {
           >
             A high-performance component architecture for React.
             <span className="text-white"> Physics-based interactions,</span> zero runtime bloat, and total code ownership.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -110,7 +111,7 @@ export default function LandingPage() {
               <Terminal size={16} />
               <code>npx modern-ui-vault init</code>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -128,7 +129,7 @@ export default function LandingPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {trendingComponents.map((comp, i) => (
-            <motion.div
+            <m.div
               key={comp.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -160,7 +161,7 @@ export default function LandingPage() {
                 </p>
               </div>
             </Link>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </section>
@@ -175,7 +176,7 @@ export default function LandingPage() {
 
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {CATEGORY_GROUPS.map((group, i) => (
-                <motion.div
+                <m.div
                   key={group.id}
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -193,7 +194,7 @@ export default function LandingPage() {
                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
                        <AnimatePresence>
                           {hoveredGroupId === group.id && (
-                             <motion.div 
+                             <m.div 
                                initial={{ opacity: 0 }}
                                animate={{ opacity: 0.3 }}
                                exit={{ opacity: 0 }}
@@ -201,7 +202,7 @@ export default function LandingPage() {
                              >
                                 {/* We'll use custom-built mini-interfaces as SVG/Motion placeholders for now */}
                                 <GroupIconComponent id={group.id} />
-                             </motion.div>
+                             </m.div>
                           )}
                        </AnimatePresence>
                     </div>
@@ -221,7 +222,7 @@ export default function LandingPage() {
                     {/* Glossy Reflection */}
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
            </div>
         </div>
@@ -261,6 +262,7 @@ export default function LandingPage() {
         </div>
       </section>
     </main>
+    </LazyMotion>
   );
 }
 
@@ -296,11 +298,11 @@ function GroupIconComponent({ id }: { id: string }) {
 
   if (id === "actions") {
     return (
-      <motion.div variants={container} initial="hidden" animate="show" className="flex gap-4">
+      <m.div variants={container} initial="hidden" animate="show" className="flex gap-4">
         {[1, 2, 3].map(i => (
-          <motion.div key={i} variants={item} className="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/40" />
+          <m.div key={i} variants={item} className="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/40" />
         ))}
-      </motion.div>
+      </m.div>
     );
   }
 
@@ -308,7 +310,7 @@ function GroupIconComponent({ id }: { id: string }) {
     return (
       <div className="flex items-end gap-2 h-20">
         {[10, 40, 20, 60, 30].map((h, i) => (
-          <motion.div 
+          <m.div 
             key={i} 
             initial={{ height: 0 }} 
             animate={{ height: `${h}%` }} 
