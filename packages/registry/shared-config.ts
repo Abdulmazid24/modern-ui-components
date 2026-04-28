@@ -120,6 +120,7 @@ export const PRO_COMPONENTS: string[] = [
   "accretiondiskloader",
   "bioluminescentmycelium",
   "neoncubeloader",
+  "gradientringloader",
   // Toggles & Switches
   "zerogravitytoggle",
   "microportalswitch",

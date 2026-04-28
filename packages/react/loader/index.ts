@@ -1,5 +1,6 @@
 export * from './AccretionDiskLoader';
 export * from './NeonCubeLoader';
+export * from './GradientRingLoader';
 export * from './BarsLoader';
 export * from './BioluminescentMycelium';
 export * from './DotsLoader';

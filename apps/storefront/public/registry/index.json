@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T16:09:39.966Z",
+  "generatedAt": "2026-04-28T16:18:19.361Z",
   "stats": {
-    "totalComponents": 365,
+    "totalComponents": 366,
     "totalCategories": 230,
     "freeComponents": 284,
-    "proComponents": 81
+    "proComponents": 82
   },
   "categories": [
     "3d-pin",
@@ -6740,6 +6740,40 @@
             }
           ],
           "dependencies": []
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "gradientringloader",
+      "title": "Gradient Ring Loader",
+      "category": "loader",
+      "description": "A premium, animated Gradient Ring Loader component built with React, Framer Motion, and Tailwind CSS.",
+      "isPro": true,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "GradientRingLoader.tsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add gradientringloader"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "GradientRingLoader.jsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add gradientringloader"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
         }
       },
       "preview": {}
