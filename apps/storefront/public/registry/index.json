@@ -1,10 +1,10 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T15:02:04.502Z",
+  "generatedAt": "2026-04-28T15:15:06.390Z",
   "stats": {
-    "totalComponents": 359,
+    "totalComponents": 360,
     "totalCategories": 230,
-    "freeComponents": 285,
+    "freeComponents": 286,
     "proComponents": 74
   },
   "categories": [
@@ -6735,6 +6735,40 @@
             {
               "name": "GravityWellLoader.jsx",
               "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"@/lib/utils\";\n\n  className?;\n  color?;\n  particleCount?;\n}\n\n/**\n * Gravity Well Loader\n * An ultra-premium 100/100 loader featuring a 3D gravity indentation effect.\n * Particles are sucked into a Golden Singularity within a Deep Zinc void.\n */\nexport const GravityWellLoader = React.forwardRef<HTMLDivElement, GravityWellLoaderProps>(\n  ({ size = 200, className, color = \"#fbbf24\", particleCount = 12 }, ref) => {\n    return (\n      <div\n        ref={ref}\n        style={{ width: size, height: size }}\n        className={cn(\"relative flex items-center justify-center perspective-[800px]\", className)}\n      >\n        {/* Background Depth Indentation (The Well) */}\n        <div className=\"absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_30%,rgba(24,24,27,0.8)_100%)] shadow-inner\" />\n        \n        {/* The Gravitational Core (Singularity) */}\n        <motion.div\n          animate={{\n            scale: [1, 1.2, 1],\n            boxShadow: [\n              `0 0 20px 2px ${color}44`,\n              `0 0 50px 10px ${color}88`,\n              `0 0 20px 2px ${color}44`,\n            ],\n          }}\n          transition={{\n            duration: 2,\n            repeat: Infinity,\n            ease: \"easeInOut\",\n          }}\n          className=\"relative w-8 h-8 rounded-full z-20\"\n          style={{ backgroundColor: color }}\n        >\n          {/* Internal Glow Flare */}\n          <div className=\"absolute inset-0 rounded-full bg-white blur-[2px] opacity-40\" />\n        </motion.div>\n\n        {/* Orbiting rings (Space Curvature) */}\n        {[1, 2, 3].map((ring) => (\n          <motion.div\n            key={ring}\n            animate={{ rotateX: 70, rotateZ: 360 }}\n            transition={{\n              rotateZ,\n            }}\n            style={{\n              width: 60 + ring * 40,\n              height: 60 + ring * 40,\n              borderColor: `${color}${ring === 1 ? '44' : '11'}`,\n            }}\n            className=\"absolute border rounded-full transform-style-3d pointer-events-none\"\n          />\n        ))}\n\n        {/* Particles being sucked in */}\n        {Array.from({ length: particleCount }).map((_, i) => (\n          <motion.div\n            key={i}\n            initial={{ \n              opacity: 0, \n              scale: 0,\n              x: Math.cos((i * 360) / particleCount) * (size / 2),\n              y: Math.sin((i * 360) / particleCount) * (size / 2),\n              z: 100\n            }}\n            animate={{ \n              opacity: [0, 1, 0],\n              scale: [0, 1, 0.2],\n              x: 0,\n              y: 0,\n              z: 0\n            }}\n            transition={{\n              duration: 2,\n              repeat: Infinity,\n              delay: (i * 2) / particleCount,\n              ease: \"circIn\",\n            }}\n            className=\"absolute w-1.5 h-1.5 rounded-full z-10\"\n            style={{ backgroundColor: color }}\n          />\n        ))}\n\n        {/* Light Lens Flare */}\n        <div className=\"absolute inset-0 pointer-events-none mix-blend-screen overflow-hidden rounded-full\">\n           <div className=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent rotate-[35deg]\" />\n           <div className=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[2px] bg-gradient-to-r from-transparent via-white/10 to-transparent -rotate-[35deg]\" />\n        </div>\n      </div>\n    );\n  }\n);\n\nGravityWellLoader.displayName = \"GravityWellLoader\";"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "neoncubeloader",
+      "title": "Neon Cube Loader",
+      "category": "loader",
+      "description": "The text to display. Each character will be rendered in a separate cube.",
+      "isPro": false,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "NeonCubeLoader.tsx",
+              "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nexport interface NeonCubeLoaderProps {\n  /**\n   * The text to display. Each character will be rendered in a separate cube.\n   * @default \"LOADING\"\n   */\n  text?: string;\n  /**\n   * The neon glow color.\n   * @default \"#21f3a3\"\n   */\n  color?: string;\n  className?: string;\n  cubeClassName?: string;\n}\n\nexport const NeonCubeLoader = ({\n  text = \"LOADING\",\n  color = \"#21f3a3\",\n  className,\n  cubeClassName,\n}: NeonCubeLoaderProps) => {\n  const letters = text.split(\"\");\n\n  const containerVariants = {\n    animate: {\n      transition: {\n        staggerChildren: 0.15,\n      },\n    },\n  };\n\n  const childVariants = {\n    animate: {\n      color: [\n        \"rgba(255, 255, 255, 0.1)\", // 0%\n        \"#ffffff\",                  // 30%\n        \"rgba(255, 255, 255, 0.1)\", // 40%\n        \"rgba(255, 255, 255, 0.1)\", // 100%\n      ],\n      textShadow: [\n        `0 0 0px transparent`,\n        `0 0 10px ${color}, 0 0 20px ${color}`,\n        `0 0 0px transparent`,\n        `0 0 0px transparent`,\n      ],\n      boxShadow: [\n        `inset 0 0 2px 1px rgba(255,255,255,0.05), inset 0 0 12px 1px rgba(255,255,255,0.02), 0 0 0px transparent`,\n        `inset 0 0 2px 1px rgba(255,255,255,0.5), inset 0 0 12px 1px ${color}, 0 0 25px ${color}`,\n        `inset 0 0 2px 1px rgba(255,255,255,0.05), inset 0 0 12px 1px rgba(255,255,255,0.02), 0 0 0px transparent`,\n        `inset 0 0 2px 1px rgba(255,255,255,0.05), inset 0 0 12px 1px rgba(255,255,255,0.02), 0 0 0px transparent`,\n      ],\n      transition: {\n        duration: 2,\n        repeat: Infinity,\n        repeatType: \"loop\",\n        ease: \"linear\",\n        times: [0, 0.25, 0.4, 1], \n      },\n    },\n  };\n\n  return (\n    <motion.div\n      className={cn(\"flex flex-wrap items-center justify-center gap-1 sm:gap-2\", className)}\n      variants={containerVariants}\n      initial=\"initial\"\n      animate=\"animate\"\n    >\n      {letters.map((char, index) => (\n        <motion.div\n          key={index}\n          variants={childVariants}\n          // Using style to enforce the hardware acceleration and keep it smooth\n          style={{ willChange: \"box-shadow, color, text-shadow\" }}\n          className={cn(\n            \"flex h-10 w-10 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-sm\",\n            \"text-lg sm:text-xl md:text-2xl font-black uppercase tracking-widest\",\n            \"bg-[#111] backdrop-blur-sm\",\n            cubeClassName\n          )}\n        >\n          {char === \" \" ? \"\\u00A0\" : char}\n        </motion.div>\n      ))}\n    </motion.div>\n  );\n};\n"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "NeonCubeLoader.jsx",
+              "content": "\"use client\";\n\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n  /**\n   * The neon glow color.\n   * @default \"#21f3a3\"\n   */\n  color?;\n  className?;\n  cubeClassName?;\n}\n\nexport const NeonCubeLoader = ({\n  text = \"LOADING\",\n  color = \"#21f3a3\",\n  className,\n  cubeClassName,\n}: NeonCubeLoaderProps) => {\n  const letters = text.split(\"\");\n\n  const containerVariants = {\n    animate,\n    },\n  };\n\n  const childVariants = {\n    animate, 0 0 20px ${color}`,\n        `0 0 0px transparent`,\n        `0 0 0px transparent`,\n      ],\n      boxShadow: [\n        `inset 0 0 2px 1px rgba(255,255,255,0.05), inset 0 0 12px 1px rgba(255,255,255,0.02), 0 0 0px transparent`,\n        `inset 0 0 2px 1px rgba(255,255,255,0.5), inset 0 0 12px 1px ${color}, 0 0 25px ${color}`,\n        `inset 0 0 2px 1px rgba(255,255,255,0.05), inset 0 0 12px 1px rgba(255,255,255,0.02), 0 0 0px transparent`,\n        `inset 0 0 2px 1px rgba(255,255,255,0.05), inset 0 0 12px 1px rgba(255,255,255,0.02), 0 0 0px transparent`,\n      ],\n      transition,\n    },\n  };\n\n  return (\n    <motion.div\n      className={cn(\"flex flex-wrap items-center justify-center gap-1 sm:gap-2\", className)}\n      variants={containerVariants}\n      initial=\"initial\"\n      animate=\"animate\"\n    >\n      {letters.map((char, index) => (\n        <motion.div\n          key={index}\n          variants={childVariants}\n          // Using style to enforce the hardware acceleration and keep it smooth\n          style={{ willChange: \"box-shadow, color, text-shadow\" }}\n          className={cn(\n            \"flex h-10 w-10 sm:h-14 sm:w-14 md:h-16 md:w-16 items-center justify-center rounded-sm\",\n            \"text-lg sm:text-xl md:text-2xl font-black uppercase tracking-widest\",\n            \"bg-[#111] backdrop-blur-sm\",\n            cubeClassName\n          )}\n        >\n          {char === \" \" ? \"\\u00A0\" : char}\n        </motion.div>\n      ))}\n    </motion.div>\n  );\n};"
             }
           ],
           "dependencies": [

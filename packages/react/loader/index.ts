@@ -1,4 +1,5 @@
 export * from './AccretionDiskLoader';
+export * from './NeonCubeLoader';
 export * from './BarsLoader';
 export * from './BioluminescentMycelium';
 export * from './DotsLoader';
