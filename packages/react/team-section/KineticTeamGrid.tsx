@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { Twitter, Linkedin, Github, Globe } from "lucide-react";
+import { MessageCircle, Briefcase, Code2, Globe } from "lucide-react";
 import { cn } from "../utils";
 
 export interface TeamMember {
@@ -67,17 +67,17 @@ export const KineticTeamGrid = React.forwardRef<HTMLDivElement, KineticTeamGridP
                 <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
                   {member.socials?.twitter && (
                     <a href={member.socials.twitter} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center backdrop-blur-md transition-colors">
-                      <Twitter size={14} />
+                      <MessageCircle size={14} />
                     </a>
                   )}
                   {member.socials?.linkedin && (
                     <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center backdrop-blur-md transition-colors">
-                      <Linkedin size={14} />
+                      <Briefcase size={14} />
                     </a>
                   )}
                   {member.socials?.github && (
                     <a href={member.socials.github} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center backdrop-blur-md transition-colors">
-                      <Github size={14} />
+                      <Code2 size={14} />
                     </a>
                   )}
                   {member.socials?.website && (

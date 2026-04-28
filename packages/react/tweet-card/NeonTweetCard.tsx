@@ -73,7 +73,7 @@ export const NeonTweetCard = React.forwardRef<HTMLDivElement, NeonTweetCardProps
               @{tweet.author.handle}
             </span>
           </div>
-          {/* X/Twitter logo placeholder */}
+          {/* X/MessageCircle logo placeholder */}
           <div className="text-zinc-600 text-lg font-black">𝕏</div>
         </div>
 

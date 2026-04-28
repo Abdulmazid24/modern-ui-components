@@ -3,14 +3,14 @@
   "title": "Nebula Marquee Testimonials",
   "category": "marquee-testimonials",
   "description": "A premium, animated Nebula Marquee Testimonials component built with React, Framer Motion, and Tailwind CSS.",
-  "isPro": false,
+  "isPro": true,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "NebulaMarqueeTestimonials.tsx",
-          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\nimport { KineticTestimonial, KineticTestimonialProps } from \"../testimonial\";\n\nexport interface NebulaMarqueeTestimonialsProps {\n  readonly testimonials: readonly KineticTestimonialProps[];\n  readonly speed?: number; // seconds per full rotation\n  readonly pauseOnHover?: boolean;\n  readonly className?: string;\n}\n\n/** NebulaMarqueeTestimonials — Infinite scrolling marquee of premium testimonial cards with edge masking. */\nexport const NebulaMarqueeTestimonials = React.forwardRef<HTMLDivElement, NebulaMarqueeTestimonialsProps>(\n  ({ className, testimonials, speed = 40, pauseOnHover = true, ...props }, ref) => {\n    // Duplicate for seamless loop\n    const duplicatedTestimonials = [...testimonials, ...testimonials];\n\n    return (\n      <div ref={ref} {...props} className={cn(\"relative overflow-hidden py-10\", className)}>\n        {/* Edge Fade Masks */}\n        <div className=\"absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none\" />\n        <div className=\"absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none\" />\n\n        <motion.div \n          animate={{ x: [\"0%\", \"-50%\"] }}\n          transition={{ duration: speed, ease: \"linear\", repeat: Infinity }}\n          className={cn(\"flex gap-6 w-max items-center\", pauseOnHover && \"hover:[animation-play-state:paused]\")}\n          style={{ \"--tw-translate-x\": \"0%\" } as any} // Ensure initial state for motion\n        >\n          {duplicatedTestimonials.map((testimonial, i) => (\n            <div key={`${testimonial.author.name}-${i}`} className=\"w-[400px] shrink-0\">\n              <KineticTestimonial {...testimonial} className=\"bg-zinc-900/50\" />\n            </div>\n          ))}\n        </motion.div>\n      </div>\n    );\n  }\n);\nNebulaMarqueeTestimonials.displayName = \"NebulaMarqueeTestimonials\";\n"
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add nebulamarqueetestimonials"
         }
       ],
       "dependencies": [
@@ -22,7 +22,7 @@
       "files": [
         {
           "name": "NebulaMarqueeTestimonials.jsx",
-          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\nimport { KineticTestimonial, KineticTestimonialProps } from \"../testimonial\";\n\n  readonly speed?; // seconds per full rotation\n  readonly pauseOnHover?;\n  readonly className?;\n}\n\n/** NebulaMarqueeTestimonials — Infinite scrolling marquee of premium testimonial cards with edge masking. */\nexport const NebulaMarqueeTestimonials = React.forwardRef<HTMLDivElement, NebulaMarqueeTestimonialsProps>(\n  ({ className, testimonials, speed = 40, pauseOnHover = true, ...props }, ref) => {\n    // Duplicate for seamless loop\n    const duplicatedTestimonials = [...testimonials, ...testimonials];\n\n    return (\n      <div ref={ref} {...props} className={cn(\"relative overflow-hidden py-10\", className)}>\n        {/* Edge Fade Masks */}\n        <div className=\"absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none\" />\n        <div className=\"absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none\" />\n\n        <motion.div \n          animate={{ x: [\"0%\", \"-50%\"] }}\n          transition={{ duration: speed, ease: \"linear\", repeat: Infinity }}\n          className={cn(\"flex gap-6 w-max items-center\", pauseOnHover && \"hover:[animation-play-state:paused]\")}\n          style={{ \"--tw-translate-x\": \"0%\" }} // Ensure initial state for motion\n        >\n          {duplicatedTestimonials.map((testimonial, i) => (\n            <div key={`${testimonial.author.name}-${i}`} className=\"w-[400px] shrink-0\">\n              <KineticTestimonial {...testimonial} className=\"bg-zinc-900/50\" />\n            </div>\n          ))}\n        </motion.div>\n      </div>\n    );\n  }\n);\nNebulaMarqueeTestimonials.displayName = \"NebulaMarqueeTestimonials\";"
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add nebulamarqueetestimonials"
         }
       ],
       "dependencies": [

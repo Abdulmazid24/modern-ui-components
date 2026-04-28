@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Share2, X, Code as Github, Share2 as Twitter, Globe as Facebook, 
-  Briefcase as Linkedin, Camera as Instagram, Video as Youtube, MessageCircle 
+  Share2, X, Code as Code2, Share2 as MessageCircle, Globe as Facebook, 
+  Briefcase as Briefcase, Camera as Instagram, Video as Youtube, MessageCircle 
 } from "lucide-react";
 import { cn } from "../utils";
 import { useSpatialAudio } from "../hooks";
@@ -18,11 +18,11 @@ interface SocialItem {
 }
 
 const DEFAULT_ITEMS: SocialItem[] = [
-  { id: "x", icon: Twitter, label: "X", color: "#000000", href: "#" },
+  { id: "x", icon: MessageCircle, label: "X", color: "#000000", href: "#" },
   { id: "facebook", icon: Facebook, label: "Facebook", color: "#1877f2", href: "#" },
-  { id: "linkedin", icon: Linkedin, label: "LinkedIn", color: "#0077b5", href: "#" },
+  { id: "linkedin", icon: Briefcase, label: "LinkedIn", color: "#0077b5", href: "#" },
   { id: "instagram", icon: Instagram, label: "Instagram", color: "#e4405f", href: "#" },
-  { id: "github", icon: Github, label: "GitHub", color: "#333333", href: "#" },
+  { id: "github", icon: Code2, label: "GitHub", color: "#333333", href: "#" },
   { id: "whatsapp", icon: MessageCircle, label: "WhatsApp", color: "#25d366", href: "#" },
   { id: "youtube", icon: Youtube, label: "YouTube", color: "#ff0000", href: "#" },
 ];

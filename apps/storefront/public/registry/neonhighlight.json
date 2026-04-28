@@ -3,14 +3,14 @@
   "title": "Neon Highlight",
   "category": "highlight",
   "description": "A premium, animated Neon Highlight component built with React, Framer Motion, and Tailwind CSS.",
-  "isPro": false,
+  "isPro": true,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "NeonHighlight.tsx",
-          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nexport interface NeonHighlightProps {\n  readonly children: React.ReactNode;\n  readonly color?: \"violet\" | \"emerald\" | \"cyan\" | \"amber\" | \"rose\";\n  readonly delay?: number;\n  readonly className?: string;\n}\n\nconst COLOR_MAP = {\n  violet: \"bg-violet-500/20 text-violet-300 border-violet-500/30\",\n  emerald: \"bg-emerald-500/20 text-emerald-300 border-emerald-500/30\",\n  cyan: \"bg-cyan-500/20 text-cyan-300 border-cyan-500/30\",\n  amber: \"bg-amber-500/20 text-amber-300 border-amber-500/30\",\n  rose: \"bg-rose-500/20 text-rose-300 border-rose-500/30\",\n};\n\n/** NeonHighlight — Animated inline text marker with neon glow and border. */\nexport const NeonHighlight = React.forwardRef<HTMLSpanElement, NeonHighlightProps>(\n  ({ className, children, color = \"violet\", delay = 0, ...props }, ref) => {\n    return (\n      <span ref={ref} {...props} className={cn(\"relative inline-block whitespace-nowrap mx-1\", className)}>\n        <motion.span \n          initial={{ scaleX: 0 }} \n          whileInView={{ scaleX: 1 }} \n          viewport={{ once: true }} \n          transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}\n          className={cn(\"absolute inset-0 border-b-2 origin-left rounded-sm -z-10\", COLOR_MAP[color])} \n        />\n        <span className=\"relative z-10 font-semibold px-1\">{children}</span>\n      </span>\n    );\n  }\n);\nNeonHighlight.displayName = \"NeonHighlight\";\n"
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add neonhighlight"
         }
       ],
       "dependencies": [
@@ -22,7 +22,7 @@
       "files": [
         {
           "name": "NeonHighlight.jsx",
-          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n  readonly color?: \"violet\" | \"emerald\" | \"cyan\" | \"amber\" | \"rose\";\n  readonly delay?;\n  readonly className?;\n}\n\nconst COLOR_MAP = {\n  violet: \"bg-violet-500/20 text-violet-300 border-violet-500/30\",\n  emerald: \"bg-emerald-500/20 text-emerald-300 border-emerald-500/30\",\n  cyan: \"bg-cyan-500/20 text-cyan-300 border-cyan-500/30\",\n  amber: \"bg-amber-500/20 text-amber-300 border-amber-500/30\",\n  rose: \"bg-rose-500/20 text-rose-300 border-rose-500/30\",\n};\n\n/** NeonHighlight — Animated inline text marker with neon glow and border. */\nexport const NeonHighlight = React.forwardRef<HTMLSpanElement, NeonHighlightProps>(\n  ({ className, children, color = \"violet\", delay = 0, ...props }, ref) => {\n    return (\n      <span ref={ref} {...props} className={cn(\"relative inline-block whitespace-nowrap mx-1\", className)}>\n        <motion.span \n          initial={{ scaleX: 0 }} \n          whileInView={{ scaleX: 1 }} \n          viewport={{ once: true }} \n          transition={{ delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}\n          className={cn(\"absolute inset-0 border-b-2 origin-left rounded-sm -z-10\", COLOR_MAP[color])} \n        />\n        <span className=\"relative z-10 font-semibold px-1\">{children}</span>\n      </span>\n    );\n  }\n);\nNeonHighlight.displayName = \"NeonHighlight\";"
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add neonhighlight"
         }
       ],
       "dependencies": [

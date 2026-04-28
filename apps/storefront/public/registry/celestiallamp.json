@@ -3,14 +3,14 @@
   "title": "Celestial Lamp",
   "category": "lamp-effect",
   "description": "A premium, animated Celestial Lamp component built with React, Framer Motion, and Tailwind CSS.",
-  "isPro": false,
+  "isPro": true,
   "dialects": {
     "tsx": {
       "language": "tsx",
       "files": [
         {
           "name": "CelestialLamp.tsx",
-          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\nexport interface CelestialLampProps { readonly children: React.ReactNode; readonly color?: string; readonly className?: string; }\n\n/** CelestialLamp — A dramatic desk-lamp lighting effect for hero sections. A cone of light expands from a narrow source, creating an ethereal, divine spotlight with volumetric glow. */\nexport const CelestialLamp = React.forwardRef<HTMLDivElement, CelestialLampProps>(\n  ({ className, children, color = \"#8b5cf6\", ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"relative flex flex-col items-center overflow-hidden\", className)}>\n      {/* Light source */}\n      <div className=\"relative w-full flex justify-center\">\n        <motion.div className=\"absolute top-0\"\n          initial={{ width: \"10rem\", opacity: 0.5 }}\n          whileInView={{ width: \"30rem\", opacity: 1 }}\n          transition={{ duration: 1.2, ease: \"easeOut\" }}\n          style={{\n            height: \"40rem\",\n            background: `conic-gradient(from 90deg at 50% 0%, transparent 30%, ${color}15 40%, ${color}30 50%, ${color}15 60%, transparent 70%)`,\n            maskImage: \"linear-gradient(to bottom, white 30%, transparent 100%)\",\n            WebkitMaskImage: \"linear-gradient(to bottom, white 30%, transparent 100%)\",\n          }}\n        />\n        {/* Source dot */}\n        <div className=\"relative z-10 w-32 h-1 rounded-full\" style={{ background: color, boxShadow: `0 0 40px ${color}, 0 0 80px ${color}60` }} />\n      </div>\n      {/* Content */}\n      <div className=\"relative z-10 mt-[-4rem]\">{children}</div>\n    </div>\n  )\n);\nCelestialLamp.displayName = \"CelestialLamp\";\n"
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add celestiallamp"
         }
       ],
       "dependencies": [
@@ -22,7 +22,7 @@
       "files": [
         {
           "name": "CelestialLamp.jsx",
-          "content": "\"use client\";\nimport React from \"react\";\nimport { motion } from \"framer-motion\";\nimport { cn } from \"../utils\";\n\n/** CelestialLamp — A dramatic desk-lamp lighting effect for hero sections. A cone of light expands from a narrow source, creating an ethereal, divine spotlight with volumetric glow. */\nexport const CelestialLamp = React.forwardRef<HTMLDivElement, CelestialLampProps>(\n  ({ className, children, color = \"#8b5cf6\", ...props }, ref) => (\n    <div ref={ref} {...props} className={cn(\"relative flex flex-col items-center overflow-hidden\", className)}>\n      {/* Light source */}\n      <div className=\"relative w-full flex justify-center\">\n        <motion.div className=\"absolute top-0\"\n          initial={{ width: \"10rem\", opacity: 0.5 }}\n          whileInView={{ width: \"30rem\", opacity: 1 }}\n          transition={{ duration: 1.2, ease: \"easeOut\" }}\n          style={{\n            height: \"40rem\",\n            background: `conic-gradient(from 90deg at 50% 0%, transparent 30%, ${color}15 40%, ${color}30 50%, ${color}15 60%, transparent 70%)`,\n            maskImage: \"linear-gradient(to bottom, white 30%, transparent 100%)\",\n            WebkitMaskImage: \"linear-gradient(to bottom, white 30%, transparent 100%)\",\n          }}\n        />\n        {/* Source dot */}\n        <div className=\"relative z-10 w-32 h-1 rounded-full\" style={{ background: color, boxShadow: `0 0 40px ${color}, 0 0 80px ${color}60` }} />\n      </div>\n      {/* Content */}\n      <div className=\"relative z-10 mt-[-4rem]\">{children}</div>\n    </div>\n  )\n);\nCelestialLamp.displayName = \"CelestialLamp\";"
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add celestiallamp"
         }
       ],
       "dependencies": [
