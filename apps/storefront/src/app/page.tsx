@@ -25,7 +25,7 @@ import { CATEGORY_GROUPS } from "@/lib/categories";
 import dynamic from 'next/dynamic';
 
 export default function LandingPage() {
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<Record<string, number> | null>(null);
   const [hoveredGroupId, setHoveredGroupId] = useState<string | null>(null);
 
   useEffect(() => {

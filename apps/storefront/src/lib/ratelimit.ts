@@ -6,7 +6,7 @@ const localCache = new Map<string, { count: number; lastReset: number }>();
 
 function checkLocalRateLimit(ip: string, limit: number, windowMs: number): boolean {
   const now = Date.now();
-  let record = localCache.get(ip);
+  const record = localCache.get(ip);
   if (!record || (now - record.lastReset > windowMs)) {
     localCache.set(ip, { count: 1, lastReset: now });
     return true;

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import crypto from 'crypto';
+import { Resend } from 'resend';
+import { LicenseDeliveryEmail } from '@/emails/LicenseDelivery';
 
 export const dynamic = 'force-dynamic';
 
@@ -150,15 +152,13 @@ export async function POST(request: Request) {
           // --- SEND LICENSE EMAIL VIA RESEND ---
           try {
             if (process.env.RESEND_API_KEY) {
-              const { Resend } = require('resend');
-              const { LicenseDeliveryEmail } = require('@/emails/LicenseDelivery');
               const resend = new Resend(process.env.RESEND_API_KEY);
               
               await resend.emails.send({
                 from: 'Modern UI Vault <bot@modern-ui-vault.dev>',
                 to: customerEmail,
                 subject: `Your ${tier} License Key - Modern UI Vault`,
-                react: LicenseDeliveryEmail({ licenseKey: newLicenseKey, tier }),
+                react: LicenseDeliveryEmail({ licenseKey, tier }),
               });
               console.log(`[Webhook] Email dispatched to ${customerEmail}`);
             } else {
@@ -220,7 +220,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ received: true }, { status: 200 });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error('[Webhook Error]:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

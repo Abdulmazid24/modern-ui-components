@@ -88,7 +88,7 @@ export async function GET(
     const components = registryInfo.components || registryInfo;
 
     const componentMeta = Array.isArray(components)
-      ? components.find((c: any) => c.name.toLowerCase() === name.toLowerCase())
+      ? components.find((c: { name: string; isPro?: boolean; category?: string; dialects?: { tsx?: { files?: { content: string }[], dependencies?: string[] } } }) => c.name.toLowerCase() === name.toLowerCase())
       : null;
 
     if (!componentMeta) {
@@ -124,7 +124,7 @@ export async function GET(
        isBase64: true
     });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error('[API Component Fetch Error]:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

@@ -28,14 +28,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (fs.existsSync(registryPath)) {
       const registry = JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
       const components = registry.components || [];
-      componentPages = components.map((c: any) => ({
+      componentPages = components.map((c: { name: string }) => ({
         url: `${SITE_URL}/components/${c.name}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.7,
       }));
     }
-  } catch (e) {
+  } catch {
     console.warn('Sitemap: Could not read registry for dynamic URLs');
   }
 

@@ -79,7 +79,7 @@ export async function GET(request: Request) {
         tier: 'Pro' 
     }, { status: 200 });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error('[API Verify Error]:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

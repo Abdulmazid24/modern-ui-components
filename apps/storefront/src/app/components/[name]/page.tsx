@@ -7,9 +7,17 @@ import dynamic from 'next/dynamic';
 import { CodeBlock } from "@/components/CodeBlock";
 
 // Registry is fetched from public/registry
+type RegistryData = {
+  name: string;
+  title: string;
+  category: string;
+  isPro?: boolean;
+  dialects?: Record<string, { files?: { content: string }[], dependencies?: string[] }>;
+};
+
 export default function ComponentPage({ params }: { params: Promise<{ name: string }> }) {
   const { name } = use(params);
-  const [registryData, setRegistryData] = useState<any>(null);
+  const [registryData, setRegistryData] = useState<RegistryData | null>(null);
   const [activeTab, setActiveTab] = useState<'preview' | 'code' | 'install'>('preview');
   const [activeDialect, setActiveDialect] = useState('tsx');
   const [responsiveView, setResponsiveView] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
@@ -137,7 +145,7 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
            {['preview', 'code', 'install'].map((tab) => (
               <button
                  key={tab}
-                 onClick={() => setActiveTab(tab as any)}
+                 onClick={() => setActiveTab(tab as 'preview' | 'code' | 'install')}
                  className={`px-4 py-2 rounded-full text-sm font-bold capitalize transition-colors ${activeTab === tab ? 'bg-white text-black shadow-[0_0_15px_rgba(255,255,255,0.4)]' : 'text-zinc-500 hover:text-white hover:bg-zinc-900'}`}
               >
                  {tab}

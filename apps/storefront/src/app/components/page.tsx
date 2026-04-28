@@ -5,10 +5,10 @@ import { useSearchParams } from "next/navigation";
 import { m, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { Search, Lock, MoveRight, ChevronLeft, Filter, X } from "lucide-react";
 import Link from "next/link";
-import { CATEGORY_GROUPS, getGroupByCategory } from "@/lib/categories";
+import { CATEGORY_GROUPS } from "@/lib/categories";
 
 interface RegistryData {
-  stats: any;
+  stats: Record<string, number>;
   categories: string[];
   components: ComponentEntry[];
 }
@@ -228,7 +228,7 @@ function ExplorerContent() {
                        <div className="text-center py-40 border border-dashed border-zinc-800 rounded-[3rem]">
                           <Search size={40} className="mx-auto text-zinc-700 mb-6" />
                           <h3 className="text-xl font-bold mb-2">No components found</h3>
-                          <p className="text-zinc-500 max-w-xs mx-auto text-sm">We couldn't find anything matching your search criteria. Try common keywords like 'button' or 'card'.</p>
+                          <p className="text-zinc-500 max-w-xs mx-auto text-sm">We couldn&apos;t find anything matching your search criteria. Try common keywords like &apos;button&apos; or &apos;card&apos;.</p>
                        </div>
                     )}
                  </>
