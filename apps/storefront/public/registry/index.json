@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T16:18:19.361Z",
+  "generatedAt": "2026-04-28T16:23:46.776Z",
   "stats": {
-    "totalComponents": 366,
+    "totalComponents": 367,
     "totalCategories": 230,
     "freeComponents": 284,
-    "proComponents": 82
+    "proComponents": 83
   },
   "categories": [
     "3d-pin",
@@ -588,6 +588,36 @@
           "dependencies": [
             "framer-motion"
           ]
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "neumorphicanalogclock",
+      "title": "Neumorphic Analog Clock",
+      "category": "analog-clock",
+      "description": "A premium, animated Neumorphic Analog Clock component built with React, Framer Motion, and Tailwind CSS.",
+      "isPro": true,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "NeumorphicAnalogClock.tsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add neumorphicanalogclock"
+            }
+          ],
+          "dependencies": []
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "NeumorphicAnalogClock.jsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add neumorphicanalogclock"
+            }
+          ],
+          "dependencies": []
         }
       },
       "preview": {}

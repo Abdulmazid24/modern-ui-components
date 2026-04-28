@@ -135,6 +135,7 @@ export const PRO_COMPONENTS: string[] = [
   // Specialized
   "holodropzone",
   "mechanicalclock",
+  "neumorphicanalogclock",
   "aicommsterminal",
   "physicalcreditcard",
   "vaultpasswordmeter",
