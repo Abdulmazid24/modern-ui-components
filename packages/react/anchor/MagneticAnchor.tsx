@@ -16,7 +16,11 @@ export interface MagneticAnchorProps {
 
 /** MagneticAnchor — Floating table of contents / anchor navigation with smooth scroll and intersection observer highlighting. */
 export const MagneticAnchor = React.forwardRef<HTMLDivElement, MagneticAnchorProps>(
-  ({ className, links, offset = 80, ...props }, ref) => {
+  ({ className, links = [
+    { href: "#intro", title: "Introduction" },
+    { href: "#features", title: "Features" },
+    { href: "#pricing", title: "Pricing" }
+  ], offset = 80, ...props }, ref) => {
     const [activeId, setActiveId] = useState<string>("");
 
     useEffect(() => {
