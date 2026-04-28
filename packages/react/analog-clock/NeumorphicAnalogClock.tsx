@@ -23,7 +23,7 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
     return () => clearInterval(interval);
   }, []);
 
-  // Default to 12:00:00 before mounting to avoid SSR hydration mismatch
+  // Default to 0 before mounting to avoid SSR hydration mismatch
   const seconds = time ? time.getSeconds() : 0;
   const minutes = time ? time.getMinutes() : 0;
   const hours = time ? time.getHours() % 12 : 0;
@@ -54,7 +54,7 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
         }}
       >
         {/* Numbers 1-12 */}
-        <div className="absolute w-full h-full pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none">
           {Array.from({ length: 12 }).map((_, i) => {
             const num = i === 0 ? 12 : i;
             const angle = i * 30;
@@ -77,7 +77,7 @@ export const NeumorphicAnalogClock = ({ className }: NeumorphicAnalogClockProps)
         </div>
 
         {/* Hands Container */}
-        <div className="absolute w-full h-full pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none">
           {/* Hour Hand */}
           {mounted && (
             <div
