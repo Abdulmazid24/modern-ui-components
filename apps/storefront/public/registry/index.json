@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-04-28T15:25:12.931Z",
+  "generatedAt": "2026-04-28T15:35:54.685Z",
   "stats": {
-    "totalComponents": 361,
+    "totalComponents": 362,
     "totalCategories": 230,
     "freeComponents": 284,
-    "proComponents": 77
+    "proComponents": 78
   },
   "categories": [
     "3d-pin",
@@ -1921,6 +1921,40 @@
           "dependencies": [
             "framer-motion",
             "lucide-react"
+          ]
+        }
+      },
+      "preview": {}
+    },
+    {
+      "name": "softneumorphiccalculator",
+      "title": "Soft Neumorphic Calculator",
+      "category": "calculator",
+      "description": "A premium, animated Soft Neumorphic Calculator component built with React, Framer Motion, and Tailwind CSS.",
+      "isPro": true,
+      "dialects": {
+        "tsx": {
+          "language": "tsx",
+          "files": [
+            {
+              "name": "SoftNeumorphicCalculator.tsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add softneumorphiccalculator"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
+          ]
+        },
+        "jsx": {
+          "language": "jsx",
+          "files": [
+            {
+              "name": "SoftNeumorphicCalculator.jsx",
+              "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add softneumorphiccalculator"
+            }
+          ],
+          "dependencies": [
+            "framer-motion"
           ]
         }
       },

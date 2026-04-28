@@ -1,0 +1,34 @@
+{
+  "name": "softneumorphiccalculator",
+  "title": "Soft Neumorphic Calculator",
+  "category": "calculator",
+  "description": "A premium, animated Soft Neumorphic Calculator component built with React, Framer Motion, and Tailwind CSS.",
+  "isPro": true,
+  "dialects": {
+    "tsx": {
+      "language": "tsx",
+      "files": [
+        {
+          "name": "SoftNeumorphicCalculator.tsx",
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add softneumorphiccalculator"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    },
+    "jsx": {
+      "language": "jsx",
+      "files": [
+        {
+          "name": "SoftNeumorphicCalculator.jsx",
+          "content": "// [PRO COMPONENT LOCKED]\n// This is a premium component. Please purchase a license at modern-ui-vault.dev to access the full source code.\n// Run: npx modern-ui-vault add softneumorphiccalculator"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ]
+    }
+  },
+  "preview": {}
+}

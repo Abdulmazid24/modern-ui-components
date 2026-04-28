@@ -142,6 +142,7 @@ export const PRO_COMPONENTS: string[] = [
   "magnetickanban",
   "hackerterminal",
   "hapticdial",
+  "softneumorphiccalculator",
   // ─── New God-Tier Components (April 2026) ──────────────────
   // High Priority — Complex Enterprise
   "quantumlabel",
