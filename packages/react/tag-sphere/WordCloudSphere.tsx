@@ -9,13 +9,12 @@ export interface WordCloudSphereProps {
     className?: string;
 }
 
-export const WordCloudSphere = React.forwardRef<any, WordCloudSphereProps>(({ className, words = [
+export const WordCloudSphere = React.forwardRef<HTMLDivElement, WordCloudSphereProps>(({ className, words = [
             "React", "Framer", "Motion", "Tailwind", "Next.js", "TypeScript",
             "Node", "Quantum", "Gravity", "Cyber", "Neon", "Design",
             "System", "Vault", "Component", "SVG", "Physics", "Spring",
             "CSS", "HTML5", "Vite", "Webpack", "V8", "Architecture"
           ], radius = 150, ...props }, ref) => {
-        const containerRef = useRef<HTMLDivElement>(null);
         const [items, setItems] = useState<any[]>([]);
 
         // We map words to initial spherical coordinates (phi and theta)
@@ -34,6 +33,11 @@ export const WordCloudSphere = React.forwardRef<any, WordCloudSphereProps>(({ cl
         const [rotation, setRotation] = useState(0);
 
         useEffect(() => {
+        // Skip animation in test environment to save memory in CI
+        if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test') {
+          return;
+        }
+
         let animationFrame: number;
         const animate = () => {
           setRotation(r => r + 0.005);
@@ -44,9 +48,7 @@ export const WordCloudSphere = React.forwardRef<any, WordCloudSphereProps>(({ cl
         }, []);
 
         return (
-        <div ref={ref} {...props} className={cn("relative w-full max-w-sm aspect-square bg-zinc-950 border border-zinc-900 shadow-2xl rounded-full flex items-center justify-center overflow-hidden", className)}
-          ref={containerRef}
-        >
+        <div ref={ref} {...props} className={cn("relative w-full max-w-sm aspect-square bg-zinc-950 border border-zinc-900 shadow-2xl rounded-full flex items-center justify-center overflow-hidden", className)}>
           {/* Background illumination */}
           <div className="absolute inset-0 bg-radial-gradient from-cyan-900/20 to-transparent pointer-events-none" />
 
