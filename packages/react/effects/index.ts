@@ -8,3 +8,4 @@ export * from './AnimatedConnectingBeam';
 export * from './RefractiveFluidSurface';
 export * from './LiquidImageMagnifier';
 export * from './NeuralPathTracer';
+export * from './FluidDynamicsBackground';
