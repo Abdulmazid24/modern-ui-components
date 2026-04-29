@@ -9,12 +9,14 @@ export interface WordCloudSphereProps {
     className?: string;
 }
 
-export const WordCloudSphere = React.forwardRef<HTMLDivElement, WordCloudSphereProps>(({ className, words = [
-            "React", "Framer", "Motion", "Tailwind", "Next.js", "TypeScript",
-            "Node", "Quantum", "Gravity", "Cyber", "Neon", "Design",
-            "System", "Vault", "Component", "SVG", "Physics", "Spring",
-            "CSS", "HTML5", "Vite", "Webpack", "V8", "Architecture"
-          ], radius = 150, ...props }, ref) => {
+const DEFAULT_WORDS = [
+  "React", "Framer", "Motion", "Tailwind", "Next.js", "TypeScript",
+  "Node", "Quantum", "Gravity", "Cyber", "Neon", "Design",
+  "System", "Vault", "Component", "SVG", "Physics", "Spring",
+  "CSS", "HTML5", "Vite", "Webpack", "V8", "Architecture"
+];
+
+export const WordCloudSphere = React.forwardRef<HTMLDivElement, WordCloudSphereProps>(({ className, words = DEFAULT_WORDS, radius = 150, ...props }, ref) => {
         const [items, setItems] = useState<any[]>([]);
 
         // We map words to initial spherical coordinates (phi and theta)
