@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap, BookOpen, DollarSign, Code } from "lucide-react";
 
@@ -14,6 +15,7 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -44,16 +46,23 @@ export function Navbar() {
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
-              >
-                {link.icon}
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href || (pathname?.startsWith(link.href) && link.href !== '/');
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? "text-white bg-zinc-800/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                      : "text-zinc-400 hover:text-white hover:bg-zinc-800/50"
+                  }`}
+                >
+                  {link.icon}
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right Side */}
@@ -97,17 +106,24 @@ export function Navbar() {
             className="fixed inset-x-0 top-16 z-40 bg-black/95 backdrop-blur-xl border-b border-zinc-800 md:hidden"
           >
             <div className="p-6 space-y-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMobileOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all"
-                >
-                  {link.icon}
-                  <span className="font-medium">{link.label}</span>
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href || (pathname?.startsWith(link.href) && link.href !== '/');
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMobileOpen(false)}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                      isActive
+                        ? "text-white bg-zinc-800/80"
+                        : "text-zinc-300 hover:text-white hover:bg-zinc-800/50"
+                    }`}
+                  >
+                    {link.icon}
+                    <span className="font-medium">{link.label}</span>
+                  </Link>
+                );
+              })}
               <Link
                 href="/pricing"
                 onClick={() => setIsMobileOpen(false)}

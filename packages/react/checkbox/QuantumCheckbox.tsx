@@ -44,7 +44,7 @@ export const QuantumCheckbox = React.forwardRef<any, QuantumCheckboxProps>(({ cl
                 scale: isChecked ? 1 : 1,
                 rotate: isChecked ? 180 : 0,
                 borderRadius: isChecked ? "50%" : "25%",
-                backgroundColor: isChecked ? "#10b981" : "transparent",
+                backgroundColor: isChecked ? "#10b981" : "rgba(0, 0, 0, 0)",
                 borderColor: isChecked ? "#10b981" : "#3f3f46",
               }}
               transition={{ duration: 0.3, type: "spring" }}

@@ -18,9 +18,9 @@ export interface FractalTreeViewProps {
     className?: string;
 }
 
-export const FractalTreeView = React.forwardRef<any, FractalTreeViewProps>(({ className, data, ...props }, ref) => {
+export const FractalTreeView = React.forwardRef<any, FractalTreeViewProps>(({ className, data }, ref) => {
         return (
-        <div ref={ref} {...props} className={cn("p-4 bg-zinc-950 border border-zinc-900 rounded-3xl min-w-[300px]", className)}>
+        <div ref={ref} className={cn("p-4 bg-zinc-950 border border-zinc-900 rounded-3xl min-w-[300px]", className)}>
           <ul className="flex flex-col gap-1 relative">
             {data.map((node) => (
               <TreeViewNode key={node.id} node={node} level={0} />

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -24,15 +24,14 @@ export const HapticDial = React.forwardRef<any, HapticDialProps>(({ className, o
         const [activeValue, setActiveValue] = useState(50);
         const [isDragging, setIsDragging] = useState(false);
 
-        // Sync value out to parent
-        rotation.onChange((v) => {
-        // Clamp the drag visually in transform hook? No, dragConstraints handles that.
-        // Sync active value
-        const rawVal = value.get();
-        const clamped = Math.max(0, Math.min(100, Math.round(rawVal)));
-        setActiveValue(clamped);
-        if (onValueChange) onValueChange(clamped);
-        });
+        useEffect(() => {
+          return rotation.on("change", () => {
+            const rawVal = value.get();
+            const clamped = Math.max(0, Math.min(100, Math.round(rawVal)));
+            setActiveValue(clamped);
+            if (onValueChange) onValueChange(clamped);
+          });
+        }, [rotation, value, onValueChange]);
 
         return (
         <div ref={ref} {...props} className={cn("relative w-full max-w-sm p-10 bg-zinc-950 border border-zinc-900 rounded-3xl shadow-2xl flex flex-col items-center", className)}>

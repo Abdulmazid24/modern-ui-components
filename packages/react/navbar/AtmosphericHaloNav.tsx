@@ -42,7 +42,7 @@ export const AtmosphericHaloNav = React.forwardRef<any, AtmosphericHaloNavProps>
 
               return (
                 <div 
-                  key={item} 
+                  key={typeof item === 'string' ? item : (item as any).id || index} 
                   className="relative px-6 py-2 cursor-pointer outline-none select-none group z-20"
                   onClick={() => setActiveIndex(index)}
                 >
@@ -83,7 +83,7 @@ export const AtmosphericHaloNav = React.forwardRef<any, AtmosphericHaloNavProps>
                       transformOrigin: "center bottom"
                     }}
                   >
-                    {item}
+                    {typeof item === 'string' ? item : (item as any).label || (item as any).title}
                   </motion.span>
                   
                   {/* Event horizon hover line */}

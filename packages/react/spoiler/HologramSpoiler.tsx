@@ -16,7 +16,7 @@ export const HologramSpoiler = React.forwardRef<HTMLDivElement, HologramSpoilerP
 
     return (
       <div ref={ref} {...props} className={cn("relative", className)}>
-        <motion.div className="overflow-hidden" animate={{ maxHeight: expanded ? 2000 : maxHeight }} transition={SPOILER_SPRING}>
+        <motion.div className="overflow-hidden" initial={{ maxHeight }} animate={{ maxHeight: expanded ? 2000 : maxHeight }} transition={SPOILER_SPRING}>
           {children}
         </motion.div>
 

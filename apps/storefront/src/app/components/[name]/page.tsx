@@ -63,6 +63,13 @@ export default function ComponentPage({ params }: { params: Promise<{ name: stri
       if (cat === 'breadcrumbs') return { paths: [{ id: '1', label: 'Home' }, { id: '2', label: 'Features' }], activeId: '2' };
       if (cat === 'gallery') return { images: [{ id: '1', url: 'https://images.unsplash.com/photo-1707343843437-caacff5cfa74', alt: 'A' }, { id: '2', url: 'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba', alt: 'B' }] };
       if (cat === 'table') return { columns: [{ key: 'id', header: 'ID' }, { key: 'name', header: 'Name' }], data: [{ id: '1', name: 'John Doe' }] };
+      if (cat === 'comparison-table') return {
+        features: [{ name: 'Item 1' }, { name: 'Item 2' }],
+        tiers: [
+          { id: 't1', name: 'Basic', price: '$0', description: 'Free forever', buttonText: 'Start Free', features: { 'Item 1': true, 'Item 2': false } },
+          { id: 't2', name: 'Pro', price: '$29', description: 'Everything in Basic', isPopular: true, buttonText: 'Upgrade', features: { 'Item 1': true, 'Item 2': true } }
+        ]
+      };
       if (cat === 'badge') return { text: "Hologram Badge" };
       if (cat === 'alert') return { title: "System Ready", message: "All systems operational." };
       if (cat === 'multi-select' || cat === 'command-palette') return { tags: [{ id: '1', label: 'Next.js' }, { id: '2', label: 'React' }], groups: [{ heading: 'Demo', items: [{ id: '1', label: 'Item' }] }] };

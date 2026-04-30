@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ClientLayoutWrapper } from "@/components/ClientLayoutWrapper";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -122,9 +123,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <div className="pt-16">{children}</div>
-          <Footer />
+          <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
         </ThemeProvider>
       </body>
     </html>

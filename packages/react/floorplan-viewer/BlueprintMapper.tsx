@@ -91,6 +91,7 @@ export const BlueprintMapper = React.forwardRef<any, BlueprintMapperProps>(({ cl
                            fill={isActive ? 'url(#hatch)' : 'rgba(10, 25, 47, 0.5)'}
                            stroke="#64ffda" 
                            strokeWidth="2"
+                           initial={{ fillOpacity: 0.5 }}
                            animate={{ 
                              fillOpacity: isActive ? 1 : 0.5,
                            }}

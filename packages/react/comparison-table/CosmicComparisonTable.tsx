@@ -27,7 +27,7 @@ export interface CosmicComparisonTableProps {
 
 /** CosmicComparisonTable — Premium feature comparison matrix with highlighted popular tier, sticky headers, and hover row highlighting. */
 export const CosmicComparisonTable = React.forwardRef<HTMLDivElement, CosmicComparisonTableProps>(
-  ({ className, features, tiers, ...props }, ref) => {
+  ({ className, features = [], tiers = [], ...props }, ref) => {
     return (
       <div ref={ref} {...props} className={cn("w-full overflow-x-auto pb-8", className)}>
         <div className="min-w-[800px] border border-zinc-800 rounded-3xl overflow-hidden bg-zinc-950/50 backdrop-blur-xl relative">

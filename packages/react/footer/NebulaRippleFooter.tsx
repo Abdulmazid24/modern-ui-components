@@ -154,14 +154,6 @@ export function NebulaRippleFooter({
 // A micro-component for each link that exhibits magnetic tracking on hover
 function InteractiveLink({ name, href }: { name: string; href: string }) {
   const localRef = useRef<HTMLAnchorElement>(null);
-        const handleRef = (node: any) => {
-          localRef.current = node;
-          if (typeof ref === "function") {
-            ref(node);
-          } else if (ref) {
-            (ref as any).current = node;
-          }
-        };
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -186,7 +178,7 @@ function InteractiveLink({ name, href }: { name: string; href: string }) {
 
   return (
     <motion.a
-      ref={handleRef}
+      ref={localRef}
       href={href}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

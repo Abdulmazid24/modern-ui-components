@@ -23,8 +23,8 @@ export const GravityDock = React.forwardRef<any, GravityDockProps>(({ className 
         ];
 
         return (
-        <div ref={handleRef} {...props} className={cn(className)}  
-          className={`fixed bottom-8 left-1/2 -translate-x-1/2 flex items-end gap-2 px-4 pb-3 pt-6 rounded-3xl bg-zinc-950/80 backdrop-blur-xl border border-zinc-900 shadow-2xl ${className}`}
+        <div ref={ref} {...props} 
+          className={cn(`fixed bottom-8 left-1/2 -translate-x-1/2 flex items-end gap-2 px-4 pb-3 pt-6 rounded-3xl bg-zinc-950/80 backdrop-blur-xl border border-zinc-900 shadow-2xl`, className)}
           onMouseMove={(e) => mouseX.set(e.pageX)}
           onMouseLeave={() => mouseX.set(Infinity)}
         >
@@ -42,14 +42,6 @@ export const GravityDock = React.forwardRef<any, GravityDockProps>(({ className 
 
 const DockItem = ({ mouseX, children }: { mouseX: any; children: React.ReactNode }) => {
   const localRef = useRef<HTMLButtonElement>(null);
-        const handleRef = (node: any) => {
-          localRef.current = node;
-          if (typeof ref === "function") {
-            ref(node);
-          } else if (ref) {
-            (ref as any).current = node;
-          }
-        };
 
 
   // Measure distance from mouse to the center of this item
@@ -68,7 +60,7 @@ const DockItem = ({ mouseX, children }: { mouseX: any; children: React.ReactNode
   const y = useSpring(yTransform, { mass: 0.1, stiffness: 150, damping: 12 });
 
   return (
-    <motion.button ref={handleRef} {...props} className={cn(className)}
+    <motion.button ref={localRef} 
       style={{ width, height: width, y }}
       className="relative z-10 flex items-center justify-center bg-zinc-800 rounded-2xl border border-zinc-700/50 text-zinc-300 hover:text-white hover:bg-zinc-700 shadow-lg"
     >

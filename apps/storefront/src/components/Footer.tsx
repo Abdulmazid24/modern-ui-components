@@ -2,11 +2,11 @@
 
 import React from "react";
 import Link from "next/link";
-import { Zap, Code, Globe, Heart } from "lucide-react";
+import { Zap, Code, Globe, Heart, Send } from "lucide-react";
 
 const footerLinks = {
   Product: [
-    { label: "Components", href: "/" },
+    { label: "Components", href: "/components" },
     { label: "Pricing", href: "/pricing" },
     { label: "Documentation", href: "/docs" },
     { label: "Changelog", href: "/changelog" },
@@ -44,6 +44,24 @@ export function Footer() {
               Enterprise-grade animated React components. Built with Framer Motion,
               Tailwind CSS v4, and TypeScript. Ship stunning interfaces in minutes.
             </p>
+
+            {/* Newsletter */}
+            <form className="mb-8 max-w-sm flex gap-2" onSubmit={(e) => e.preventDefault()}>
+              <input 
+                type="email" 
+                placeholder="Subscribe to newsletter" 
+                className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
+                required
+              />
+              <button 
+                type="submit" 
+                className="bg-purple-600 hover:bg-purple-500 text-white rounded-xl px-4 py-2.5 flex items-center justify-center transition-colors"
+                aria-label="Subscribe"
+              >
+                <Send size={16} />
+              </button>
+            </form>
+
             <div className="flex gap-3">
               <a
                 href="https://github.com/Abdulmazid24/modern-ui-components"
@@ -55,7 +73,7 @@ export function Footer() {
                 <Code size={18} />
               </a>
               <a
-                href="#"
+                href="https://x.com/modern_ui_vault"
                 className="p-2.5 rounded-xl bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all"
                 aria-label="Twitter"
               >

@@ -20,16 +20,8 @@ export interface DockItemProps {
    Dock Item (Handles individual scaling based on mouse distance)
    ────────────────────────────────────────────── */
 
-const DockItem: React.FC<DockItemProps> = ({ icon, label, onClick, mouseX }) => {
+const DockItem: React.FC<DockItemProps> = ({ icon, label, onClick, mouseX, className }) => {
   const localRef = useRef<HTMLButtonElement>(null);
-        const handleRef = (node: any) => {
-          localRef.current = node;
-          if (typeof ref === "function") {
-            ref(node);
-          } else if (ref) {
-            (ref as any).current = node;
-          }
-        };
 
 
   // Calculate distance from center of item to mouse X
@@ -51,7 +43,7 @@ const DockItem: React.FC<DockItemProps> = ({ icon, label, onClick, mouseX }) => 
   }
 
   return (
-    <div ref={handleRef} {...props} className={cn("dock-item-container", className)}>
+    <div className={cn("dock-item-container", className)}>
       {/* Tooltip */}
       <div 
         className="dock-tooltip"
@@ -65,7 +57,7 @@ const DockItem: React.FC<DockItemProps> = ({ icon, label, onClick, mouseX }) => 
       
       {/* The actual dock icon */}
       <button
-        ref={handleRef}
+        ref={localRef}
         onClick={onClick}
         className="dock-icon-btn"
         style={{
@@ -107,7 +99,7 @@ export const MacDock = React.forwardRef<any, DockItemProps>(({ className, ...pro
         ];
 
         return (
-        <div ref={handleRef} {...props} className={cn("dock-wrapper", className)}>
+        <div ref={ref} {...props} className={cn("dock-wrapper", className)}>
           <div 
             className="dock-panel"
             onMouseMove={handleMouseMove}

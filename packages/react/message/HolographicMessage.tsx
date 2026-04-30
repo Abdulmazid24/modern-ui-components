@@ -28,7 +28,7 @@ export const HolographicMessage = React.forwardRef<HTMLDivElement, HolographicMe
 
     useEffect(() => {
       if (duration <= 0) return;
-      const timer = setTimeout(() => onClose(id), duration);
+      const timer = setTimeout(() => onClose?.(id), duration);
       return () => clearTimeout(timer);
     }, [id, duration, onClose]);
 
@@ -45,7 +45,7 @@ export const HolographicMessage = React.forwardRef<HTMLDivElement, HolographicMe
         )}>
         <Icon size={18} className={cn("shrink-0", config.color)} />
         <div className="flex-1 text-sm text-zinc-200">{content}</div>
-        <button onClick={() => onClose(id)} className="shrink-0 p-1 rounded-md hover:bg-white/10 text-zinc-500 hover:text-zinc-300 transition-colors">
+        <button onClick={() => onClose?.(id)} className="shrink-0 p-1 rounded-md hover:bg-white/10 text-zinc-500 hover:text-zinc-300 transition-colors">
           <X size={14} />
         </button>
       </motion.div>

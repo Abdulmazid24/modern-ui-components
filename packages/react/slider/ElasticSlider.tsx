@@ -86,7 +86,7 @@ export const ElasticSlider = React.forwardRef<any, ElasticSliderProps>(({ classN
               }}
               className="bg-pink-500 text-white font-bold text-sm px-3 py-1 rounded-full shadow-lg relative"
             >
-              {value}
+              <ValueDisplay value={value} />
               {/* Tooltip triangle */}
               <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-pink-500" />
             </motion.div>
@@ -139,3 +139,14 @@ export const ElasticSlider = React.forwardRef<any, ElasticSliderProps>(({ classN
         </div>
         );
         });
+        
+function ValueDisplay({ value }: { value: any }) {
+  const [display, setDisplay] = useState(value.get());
+  useEffect(() => {
+    const unsub = value.on("change", (v: number) => {
+      queueMicrotask(() => setDisplay(v));
+    });
+    return unsub;
+  }, [value]);
+  return <>{display}</>;
+}

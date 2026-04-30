@@ -17,14 +17,6 @@ function BentoCard({
   tilt?: boolean;
 }) {
   const localRef = useRef<HTMLDivElement>(null);
-        const handleRef = (node: any) => {
-          localRef.current = node;
-          if (typeof ref === "function") {
-            ref(node);
-          } else if (ref) {
-            (ref as any).current = node;
-          }
-        };
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -57,7 +49,7 @@ function BentoCard({
 
   return (
     <motion.div
-      ref={handleRef}
+      ref={localRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{

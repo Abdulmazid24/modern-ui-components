@@ -102,6 +102,7 @@ export const TrayMorphDownloadButton = ({
              )}
            >
               <motion.path
+                initial={{ strokeWidth: 2.5 }}
                 animate={{ 
                    d: state === "idle" ? arrowPath : state === "loading" ? trayPath : checkPath,
                    strokeWidth: state === "success" ? 3.5 : 2.5

@@ -26,7 +26,7 @@ export const MagneticLiquidDock = React.forwardRef<any, MagneticLiquidDockProps>
         const springConfig = { damping: 15, stiffness: 200 };
 
         return (
-        <div ref={handleRef} {...props} className={cn("flex items-center justify-center p-20 bg-zinc-950 min-h-[300px]", className)}>
+        <div ref={ref} {...props} className={cn("flex items-center justify-center p-20 bg-zinc-950 min-h-[300px]", className)}>
           
           {/* SVG filter needed for the Liquid/Gooey effect */}
           <svg width="0" height="0" className="absolute hidden">
@@ -77,14 +77,6 @@ export const MagneticLiquidDock = React.forwardRef<any, MagneticLiquidDockProps>
 // Extracted Dock Item for individual physics calculations
 function DockItem({ item, mouseX, index, isHovered, setHovered }: any) {
   const localRef = useRef<HTMLDivElement>(null);
-        const handleRef = (node: any) => {
-          localRef.current = node;
-          if (typeof ref === "function") {
-            ref(node);
-          } else if (ref) {
-            (ref as any).current = node;
-          }
-        };
 
 
   // Measure distance from mouse to center of this icon
@@ -106,7 +98,7 @@ function DockItem({ item, mouseX, index, isHovered, setHovered }: any) {
 
   return (
     <motion.div
-      ref={handleRef}
+      ref={localRef}
       style={{ width }}
       className="relative flex flex-col items-center justify-end h-full cursor-pointer z-10"
       onMouseEnter={setHovered}

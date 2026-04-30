@@ -100,3 +100,15 @@ export const QuantumCode = React.forwardRef<HTMLElement, React.HTMLAttributes<HT
   )
 );
 QuantumCode.displayName = "QuantumCode";
+
+/** Default showcase for preview */
+export default function QuantumTypography() {
+  return (
+    <div className="space-y-8 max-w-2xl">
+      <QuantumHeading as="h1" gradient="ocean" glow>Quantum Heading 1</QuantumHeading>
+      <QuantumHeading as="h2">Quantum Heading 2</QuantumHeading>
+      <QuantumText lead muted>This is lead text demonstrating the QuantumText component.</QuantumText>
+      <QuantumText>Standard body text with <QuantumCode>inline code</QuantumCode> and a <QuantumLink href="#">glowing link</QuantumLink>.</QuantumText>
+    </div>
+  );
+}

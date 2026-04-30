@@ -71,7 +71,10 @@ export const PrismColorPicker = React.forwardRef<any, PrismColorPickerProps>(({ 
               <motion.div 
                 className="absolute top-1/2 left-1/2 w-16 h-16 rounded-full -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
                 animate={{ backgroundColor: currentColor, scale: [1, 1.1, 1] }}
-                transition={{ type: "spring", stiffness: 100, damping: 10, mass: 1 }}
+                transition={{ 
+                  backgroundColor: { type: "spring", stiffness: 100, damping: 10, mass: 1 },
+                  scale: { duration: 0.3 }
+                }}
               />
               
               {/* Draggable Thumb (Mapped via CSS transform for performance) */}

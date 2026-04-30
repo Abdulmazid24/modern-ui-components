@@ -131,10 +131,10 @@ export function StrokeDrawLoader({ className }: { className?: string }) {
             stroke="#ff005a"
             strokeWidth="6"
             strokeLinecap="round"
-            initial={{ strokeDasharray: "1 150", strokeDashoffset: "0" }}
+            initial={{ strokeDasharray: "1 150", strokeDashoffset: 0 }}
             animate={{
               strokeDasharray: ["1 150", "90 150", "90 150"],
-              strokeDashoffset: ["0", "-35", "-124"],
+              strokeDashoffset: [0, -35, -124],
             }}
             transition={{
               duration: 1.5,

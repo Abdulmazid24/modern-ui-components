@@ -42,6 +42,29 @@
   }
 }
 
+/* Hero Aurora Animation */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(60px, -40px) scale(1.1); }
+  50% { transform: translate(-30px, 30px) scale(0.95); }
+  75% { transform: translate(40px, 20px) scale(1.05); }
+}
+
+@keyframes aurora-drift-reverse {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  25% { transform: translate(-50px, 30px) scale(0.95); }
+  50% { transform: translate(40px, -20px) scale(1.1); }
+  75% { transform: translate(-20px, -40px) scale(1); }
+}
+
+.aurora-blob-1 {
+  animation: aurora-drift 12s ease-in-out infinite;
+}
+
+.aurora-blob-2 {
+  animation: aurora-drift-reverse 15s ease-in-out infinite;
+}
+
 html, body {
   height: 100%;
   width: 100%;

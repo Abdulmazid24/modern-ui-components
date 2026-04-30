@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { Copy, Plus, MoreHorizontal } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Maximize2, Minimize2, Copy, Plus, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface TreeMapNode {
@@ -14,7 +14,7 @@ export interface TreeMapNode {
     className?: string;
 }
 
-export const GeometricTreeMap = React.forwardRef<any, TreeMapNode>(({ className, ...props }, ref) => {
+export const GeometricTreeMap = React.forwardRef<any, any>(({ className }, ref) => {
         // A mock representation of nested json structural size distributions.
         const rootNode: TreeMapNode = {
         id: "root", name: "System Storage", value: 100, color: "",
@@ -33,7 +33,7 @@ export const GeometricTreeMap = React.forwardRef<any, TreeMapNode>(({ className,
         };
 
         return (
-        <div ref={ref} {...props} className={cn("w-full max-w-3xl h-[400px] bg-zinc-950 border border-zinc-900 shadow-2xl rounded-[2rem] p-6 flex flex-col gap-4", className)}>
+        <div ref={ref} className={cn("w-full max-w-3xl h-[400px] bg-zinc-950 border border-zinc-900 shadow-2xl rounded-[2rem] p-6 flex flex-col gap-4", className)}>
           
           <div className="flex justify-between items-center px-2">
             <h3 className="text-zinc-300 font-bold uppercase tracking-widest text-sm flex items-center gap-2">

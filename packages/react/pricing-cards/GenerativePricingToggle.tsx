@@ -41,9 +41,8 @@ export const GenerativePricingToggle = ({
              scaleX: [1, 1.3, 1], // Stretch effect
            }}
            transition={{ 
-             type: "spring", 
-             stiffness: 220, 
-             damping: 25 
+             x: { type: "spring", stiffness: 220, damping: 25 },
+             scaleX: { duration: 0.3 }
            }}
            className="relative w-9 h-9 bg-purple-500 rounded-full shadow-[0_0_20px_rgba(168,85,247,0.4)]"
         >
